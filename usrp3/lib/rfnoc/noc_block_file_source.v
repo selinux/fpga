@@ -2,7 +2,7 @@
 // Copyright 2014 Ettus Research LLC
 //
 
-module noc_block_null_source_sink #(
+module noc_block_file_source #(
   parameter NOC_ID = 64'h0000_0000_0000_0000,
   parameter STR_SINK_FIFOSIZE = 11,
   parameter FILENAME = "")
