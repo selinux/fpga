@@ -1,0 +1,14 @@
+# Output products list for <complex_multiplier_full>
+complex_multiplier_full/doc/cmpy_v5_0_readme.txt
+complex_multiplier_full/doc/cmpy_v5_0_vinfo.html
+complex_multiplier_full/doc/ds793_cmpy.pdf
+complex_multiplier_full.asy
+complex_multiplier_full.gise
+complex_multiplier_full.ngc
+complex_multiplier_full.v
+complex_multiplier_full.veo
+complex_multiplier_full.xco
+complex_multiplier_full.xise
+complex_multiplier_full_flist.txt
+complex_multiplier_full_xmdf.tcl
+demo_tb/tb_complex_multiplier_full.vhd

@@ -75,6 +75,7 @@ axi_deserializer.v \
 complex_to_mag_approx.v \
 noc_block_file_source.v \
 file_source.v \
+plateau_detector_3000.v \
 fosphor/delay.v \
 fosphor/fifo_srl.v \
 fosphor/rng.v \

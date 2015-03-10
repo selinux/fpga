@@ -14,10 +14,16 @@ streaming_fft.v \
 streaming_fft.xco \
 complex_multiplier.v \
 complex_multiplier.xco \
+complex_multiplier_full.v \
+complex_multiplier_full.xco \
 complex_to_magphase.v \
 complex_to_magphase.xco \
 cordic_rotator.v \
 cordic_rotator.xco \
+div_gen_v4_0.v \
+div_gen_v4_0.xco \
+cordic_v5_0.v \
+cordic_v5_0.xco \
 ))
 
 
