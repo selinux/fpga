@@ -4,7 +4,8 @@
 
 module split_stream_fifo
   #(parameter WIDTH=16,
-    parameter ACTIVE_MASK=4'b1111)
+    parameter ACTIVE_MASK=4'b1111,
+    parameter FIFOSIZE=6)
    (input clk, input reset, input clear,
     input [WIDTH-1:0] i_tdata, input i_tlast, input i_tvalid, output i_tready,
     output [WIDTH-1:0] o0_tdata, output o0_tlast, output o0_tvalid, input o0_tready,
@@ -27,22 +28,22 @@ module split_stream_fifo
 
    generate
       if(ACTIVE_MASK[0])
-	axi_fifo_short #(.WIDTH(WIDTH+1)) short_fifo0
+	axi_fifo #(.SIZE(FIFOSIZE), .WIDTH(WIDTH+1)) short_fifo0
 	  (.clk(clk), .reset(reset), .clear(clear),
 	   .i_tdata({o0_tlast_int, o0_tdata_int}), .i_tvalid(o0_tvalid_int), .i_tready(o0_tready_int),
 	   .o_tdata({o0_tlast, o0_tdata}), .o_tvalid(o0_tvalid), .o_tready(o0_tready));
       if(ACTIVE_MASK[1])
-	axi_fifo_short #(.WIDTH(WIDTH+1)) short_fifo1
+	axi_fifo #(.SIZE(FIFOSIZE), .WIDTH(WIDTH+1)) short_fifo1
 	  (.clk(clk), .reset(reset), .clear(clear),
 	   .i_tdata({o1_tlast_int, o1_tdata_int}), .i_tvalid(o1_tvalid_int), .i_tready(o1_tready_int),
 	   .o_tdata({o1_tlast, o1_tdata}), .o_tvalid(o1_tvalid), .o_tready(o1_tready));
       if(ACTIVE_MASK[2])
-	axi_fifo_short #(.WIDTH(WIDTH+1)) short_fifo2
+	axi_fifo #(.SIZE(FIFOSIZE), .WIDTH(WIDTH+1)) short_fifo2
 	  (.clk(clk), .reset(reset), .clear(clear),
 	   .i_tdata({o2_tlast_int, o2_tdata_int}), .i_tvalid(o2_tvalid_int), .i_tready(o2_tready_int),
 	   .o_tdata({o2_tlast, o2_tdata}), .o_tvalid(o2_tvalid), .o_tready(o2_tready));
       if(ACTIVE_MASK[3])
-	axi_fifo_short #(.WIDTH(WIDTH+1)) short_fifo3
+	axi_fifo #(.SIZE(FIFOSIZE), .WIDTH(WIDTH+1)) short_fifo3
 	  (.clk(clk), .reset(reset), .clear(clear),
 	   .i_tdata({o3_tlast_int, o3_tdata_int}), .i_tvalid(o3_tvalid_int), .i_tready(o3_tready_int),
 	      .o_tdata({o3_tlast, o3_tdata}), .o_tvalid(o3_tvalid), .o_tready(o3_tready));

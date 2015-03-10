@@ -54,14 +54,14 @@ module schmidl_cox
    wire [15:0] 	  n7phase = n7_tdata[31:16];
    wire [15:0] 	  n7mag = n7_tdata[15:0];
    
-   split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0011)) split_head
+   split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0011), .FIFOSIZE(10)) split_head
      (.clk(clk), .reset(reset), .clear(clear),
       .i_tdata(i_tdata), .i_tlast(i_tlast), .i_tvalid(i_tvalid), .i_tready(i_tready),
       .o0_tdata(n0_tdata), .o0_tlast(n0_tlast), .o0_tvalid(n0_tvalid), .o0_tready(n0_tready),
       .o1_tdata(n1_tdata), .o1_tlast(n1_tlast), .o1_tvalid(n1_tvalid), .o1_tready(n1_tready),
       .o2_tready(1'b0), .o3_tready(1'b0));
    
-   split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0111)) split_delayed
+   split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0111), .FIFOSIZE(10)) split_delayed
      (.clk(clk), .reset(reset), .clear(clear),
       .i_tdata(n3_tdata), .i_tlast(n3_tlast), .i_tvalid(n3_tvalid), .i_tready(n3_tready),
       .o0_tdata(n2_tdata), .o0_tlast(n2_tlast), .o0_tvalid(n2_tvalid), .o0_tready(n2_tready),
@@ -158,7 +158,7 @@ module schmidl_cox
       .i0_tdata(D_metric[127:64]), .i0_tlast(D_metric_tlast), .i0_tvalid(D_metric_tvalide), .i0_tready(D_metric_tready),
       .o_tdata(n10_tdata), .o_tlast(n10_tlast), .o_tvalid(n10_tvalid), .o_tready(n10_tready));
    
-   split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0011)) split_trig
+   split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0011), .FIFOSIZE(10)) split_trig
      (.clk(clk), .reset(reset), .clear(clear),
       .i_tdata(n10_tdata[63:32]), .i_tlast(n10_tlast), .i_tvalid(n10_tvalid), .i_tready(n10_tready),
       .o0_tdata(n16_tdata), .o0_tlast(n16_tlast), .o0_tvalid(n16_tvalid), .o0_tready(n16_tready),
