@@ -20,7 +20,7 @@ module noc_block_schmidl_cox_tb();
     .o_tdata(ce_i_tdata[0]), .o_tlast(ce_i_tlast[0]), .o_tvalid(ce_i_tvalid[0]), .o_tready(ce_i_tready[0]),
     .debug());
     
-  noc_block_file_source #(.FILENAME("test_data_w_padding.bin")) inst_noc_block_file_source (
+  noc_block_file_source #(.FILENAME("test_data_w_padding_and_lp.bin")) inst_noc_block_file_source (
     .bus_clk(bus_clk), .bus_rst(bus_rst),
     .ce_clk(ce_clk), .ce_rst(ce_rst),
     .i_tdata(ce_o_tdata[1]), .i_tlast(ce_o_tlast[1]), .i_tvalid(ce_o_tvalid[1]), .i_tready(ce_o_tready[1]),
@@ -61,7 +61,7 @@ module noc_block_schmidl_cox_tb();
     // periodic framer settings
     SendCtrlPacket(SCHMIDL_COX_SID, {32'h10, 32'd64});  // frame_len  (FFTsize)
     SendCtrlPacket(SCHMIDL_COX_SID, {32'h11, 32'd16});  // gap_len  (CP)
-    SendCtrlPacket(SCHMIDL_COX_SID, {32'h12, 32'd20}); // time offset to first frame
+    SendCtrlPacket(SCHMIDL_COX_SID, {32'h12, 32'd69}); // time offset to first frame
     SendCtrlPacket(SCHMIDL_COX_SID, {32'h13, 32'd12});  // default max number of frames
     
   end

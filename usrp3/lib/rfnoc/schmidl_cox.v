@@ -17,9 +17,10 @@ module schmidl_cox
     input [31:0] i_tdata, input i_tlast, input i_tvalid, output i_tready,
     output [31:0] o_tdata, output o_tlast, output o_tvalid, input o_tready);
    
-   wire [31:0] 	  n0_tdata, n1_tdata, n2_tdata, n3_tdata, n4_tdata, n8_tdata;
+   
+   wire [31:0] 	  n10_tdata, n0_tdata, n1_tdata, n2_tdata, n3_tdata, n4_tdata, n8_tdata;
    wire [31:0] 	  n12_tdata, n13_tdata, n14_tdata, n15_tdata, n16_tdata, n17_tdata, n18_tdata;
-   wire [63:0]    n10_tdata, n5_tdata;
+   wire [63:0]    n5_tdata;
    wire [79:0]    n6_tdata, n7_tdata, n11_tdata;
    wire [39:0]    n9_tdata;
    wire 	  n0_tlast, n1_tlast, n2_tlast, n3_tlast, n4_tlast, n5_tlast, n6_tlast, n7_tlast, n8_tlast, n9_tlast;
@@ -54,24 +55,24 @@ module schmidl_cox
    wire [15:0] 	  n7phase = n7_tdata[31:16];
    wire [15:0] 	  n7mag = n7_tdata[15:0];
    
-   split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0011), .FIFOSIZE(10)) split_head
+   split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0111), .FIFOSIZE(10)) split_head
      (.clk(clk), .reset(reset), .clear(clear),
       .i_tdata(i_tdata), .i_tlast(i_tlast), .i_tvalid(i_tvalid), .i_tready(i_tready),
       .o0_tdata(n0_tdata), .o0_tlast(n0_tlast), .o0_tvalid(n0_tvalid), .o0_tready(n0_tready),
       .o1_tdata(n1_tdata), .o1_tlast(n1_tlast), .o1_tvalid(n1_tvalid), .o1_tready(n1_tready),
-      .o2_tready(1'b0), .o3_tready(1'b0));
+      .o2_tdata(n12_tdata), .o2_tlast(n12_tlast), .o2_tvalid(n12_tvalid), .o2_tready(n12_tready),
+      .o3_tready(1'b0));
    
-   split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0111), .FIFOSIZE(10)) split_delayed
+   split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b011), .FIFOSIZE(10)) split_delayed
      (.clk(clk), .reset(reset), .clear(clear),
       .i_tdata(n3_tdata), .i_tlast(n3_tlast), .i_tvalid(n3_tvalid), .i_tready(n3_tready),
       .o0_tdata(n2_tdata), .o0_tlast(n2_tlast), .o0_tvalid(n2_tvalid), .o0_tready(n2_tready),
-      .o1_tdata(n12_tdata), .o1_tlast(n12_tlast), .o1_tvalid(n12_tvalid), .o1_tready(n12_tready),
-      .o2_tdata(n14_tdata), .o2_tlast(n14_tlast), .o2_tvalid(n14_tvalid), .o2_tready(n14_tready),
-      .o3_tready(1'b0));
+      .o1_tdata(n14_tdata), .o1_tlast(n14_tlast), .o1_tvalid(n14_tvalid), .o1_tready(n14_tready),
+      .o2_tready(1'b0), .o3_tready(1'b0));
    
    delay #(.MAX_LEN_LOG2(8), .WIDTH(32)) delay_input
      (.clk(clk), .reset(reset), .clear(clear),
-      .len(16'd16),
+      .len(16'd32),
       .i_tdata(n0_tdata), .i_tlast(n0_tlast), .i_tvalid(n0_tvalid), .i_tready(n0_tready),
       .o_tdata(n3_tdata), .o_tlast(n3_tlast), .o_tvalid(n3_tvalid), .o_tready(n3_tready));
 
@@ -111,14 +112,29 @@ module schmidl_cox
    
   
    // extract magnitude from cordic
-   wire [39:0] 	  n7_tdata_mag;
-   wire [39:0] 	  n7_tdata_phase;
-   assign n7_tdata_mag = {n7_tdata[39:0]};
-   assign n7_tdata_phase = {n7_tdata[79:40]};
+   wire [79:0] 	  n7_mag_tdata;
+   wire [79:0] 	  n7_phase_tdata;
+   wire [39:0] 	  n7_mag_strip_tdata;
+   wire [39:0] 	  n7_phase_strip_tdata;
+   wire n7_mag_tlast;
+   wire n7_mag_tvalid;
+   wire n7_mag_tready;
+   wire n7_phase_tlast;
+   wire n7_phase_tvalid;
+   wire n7_phase_tready;
+  
+   split_stream_fifo #(.WIDTH(80), .ACTIVE_MASK(4'b0011), .FIFOSIZE(10)) n7_split_mag_phsae_fifo
+     (.clk(clk), .reset(reset), .clear(clear),
+      .i_tdata(n7_tdata), .i_tlast(n7_tlast), .i_tvalid(n7_tvalid), .i_tready(n7_tready),
+      .o0_tdata(n7_mag_tdata), .o0_tlast(n7_mag_tlast), .o0_tvalid(n7_mag_tvalid), .o0_tready(n7_mag_tready),
+      .o1_tdata(n7_phase_tdata), .o1_tlast(n7_phase_tlast), .o1_tvalid(n7_phase_tvalid), .o1_tready(n7_phase_tready),
+      .o2_tready(1'b0), .o3_tready(1'b0));
+  
+   wire [79:0] n7_mag_square_tdata;
    
-   wire [79:0] n7_tdata_mag_square;
-   assign n7_tdata_mag_square = n7_tdata_mag * n7_tdata_mag;
-
+   assign n7_mag_strip_tdata = n7_mag_tdata[39:0];
+   assign n7_phase_strip_tdata = n7_phase_tdata[79:40];
+   assign n7_mag_square_tdata = n7_mag_strip_tdata * n7_mag_strip_tdata;
    
    // magnitude of input signal conjugate multiply
    complex_to_magsq #(.WIDTH(16)) cmag2
@@ -149,18 +165,19 @@ module schmidl_cox
    wire D_metric_tready;
    div_gen_v4_0 div_corr_2_pow_2(
       .aclk(clk), .aresetn(~reset),
-      .s_axis_divisor_tdata(n7_tdata_mag_square[79:16]), .s_axis_divisor_tlast(n7_tlast), .s_axis_divisor_tvalid(n7_tvalid), .s_axis_divisor_tready(n7_tready),
-      .s_axis_dividend_tdata(n11_tdata[79:16]), .s_axis_dividend_tlast(n11_tlast), .s_axis_dividend_tvalid(n11_tvalid), .s_axis_dividend_tready(n11_tready),
+      .s_axis_divisor_tdata(n11_tdata[79:16]), .s_axis_divisor_tlast(n11_tlast), .s_axis_divisor_tvalid(n11_tvalid), .s_axis_divisor_tready(n11_tready),
+      .s_axis_dividend_tdata(n7_mag_square_tdata[79:16]), .s_axis_dividend_tlast(n7_mag_tlast), .s_axis_dividend_tvalid(n7_mag_tvalid), .s_axis_dividend_tready(n7_mag_tready),
       .m_axis_dout_tdata(D_metric), .m_axis_dout_tlast(D_metric_tlast), .m_axis_dout_tvalid(D_metric_tvalide), .m_axis_dout_tready(D_metric_tready));
    
-   plateau_detector_3000 plateau_detector_3000_inst
+   plateau_detector_3000 #(.THRESHHOLD(15563)) plateau_detector_3000_inst
      (.clk(clk), .reset(reset), .clear(clear),
-      .i0_tdata(D_metric[127:64]), .i0_tlast(D_metric_tlast), .i0_tvalid(D_metric_tvalide), .i0_tready(D_metric_tready),
-      .o_tdata(n10_tdata), .o_tlast(n10_tlast), .o_tvalid(n10_tvalid), .o_tready(n10_tready));
+      .i0_tdata(D_metric[64:49]), .i0_tlast(D_metric_tlast), .i0_tvalid(D_metric_tvalide), .i0_tready(D_metric_tready),
+      .i1_tdata(n7_phase_strip_tdata[39:24]), .i1_tlast(n7_phase_tlast), .i1_tvalid(n7_phase_tvalid), .i1_tready(n7_phase_tready),
+      .o_tdata(n10_tdata[15:0]), .o_tlast(n10_tlast), .o_tvalid(n10_tvalid), .o_tready(n10_tready));
    
    split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0011), .FIFOSIZE(10)) split_trig
      (.clk(clk), .reset(reset), .clear(clear),
-      .i_tdata(n10_tdata[63:32]), .i_tlast(n10_tlast), .i_tvalid(n10_tvalid), .i_tready(n10_tready),
+      .i_tdata(n10_tdata), .i_tlast(n10_tlast), .i_tvalid(n10_tvalid), .i_tready(n10_tready),
       .o0_tdata(n16_tdata), .o0_tlast(n16_tlast), .o0_tvalid(n16_tvalid), .o0_tready(n16_tready),
       .o1_tdata(n17_tdata), .o1_tlast(n17_tlast), .o1_tvalid(n17_tvalid), .o1_tready(n17_tready),
       .o2_tready(1'b0), .o3_tready(1'b0));
