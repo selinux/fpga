@@ -52,6 +52,9 @@ add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_sch
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n18_tvalid
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n18_tready
 add wave -noupdate -format Analog-Step -height 84 -max 65535.0 -radix unsigned /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/i0_tdata
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/thresh_met
+add wave -noupdate -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/edge_counter
+add wave -noupdate -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/plateau_counter
 add wave -noupdate -format Analog-Step -height 84 -max 8162.0 -min -8144.0 -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/i1_tdata
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/i0_tready
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/i0_tvalid
@@ -61,15 +64,9 @@ add wave -noupdate -format Analog-Step -height 84 -max 2496.9999999999995 -min -
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/o_tlast
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/o_tvalid
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/o_tready
-add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/thresh_met
 add wave -noupdate -format Analog-Step -height 84 -max 65535.0 -radix unsigned /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/max_val
 add wave -noupdate -format Analog-Step -height 84 -max 2497.0 -min -3215.0 -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/max_phase
-add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/plateau_counter
-add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/edge_counter
-add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/edge_found
-add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/found_burst
-add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/burst_offset
-add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/burst_phase
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/trigger
 add wave -noupdate -format Analog-Step -height 84 -max 1.5099799999999999e+23 -min -1.4883e+23 -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n7_phase_tdata
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n7_phase_tvalid
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n7_phase_tready
@@ -82,9 +79,27 @@ add wave -noupdate -radix decimal -childformat {{{/noc_block_schmidl_cox_tb/inst
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n14_tvalid
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n14_tready
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n13_tvalid
+add wave -noupdate -format Analog-Step -height 84 -max 390463000.0 -min -393806000.0 -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/stream_i_tdata
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/stream_i_tlast
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/stream_i_tvalid
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/stream_i_tready
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/cfo_corrector/s_axis_phase_tvalid
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/cfo_corrector/s_axis_cartesian_tvalid
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/cfo_corrector/s_axis_phase_tready
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/cfo_corrector/s_axis_cartesian_tready
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/cfo_corrector/s_axis_phase_tlast
+add wave -noupdate -format Analog-Step -height 84 -max 80.0 -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/cfo_corrector/s_axis_phase_tdata
+add wave -noupdate -format Analog-Step -height 84 -max 335348000.0 -min -338166000.0 -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/cfo_corrector/s_axis_cartesian_tdata
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/trigger_tlast
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/trigger_tvalid
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/trigger_tready
+add wave -noupdate -format Analog-Step -height 84 -max 390463415.0 -min -391577552.0 -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/stream_o_tdata
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/stream_o_tlast
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/stream_o_tvalid
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/stream_o_tready
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/clk
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {220565000 ps} 0}
+WaveRestoreCursors {{Cursor 1} {223314448 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 764
 configure wave -valuecolwidth 201
@@ -100,4 +115,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {215798273 ps} {226976617 ps}
+WaveRestoreZoom {221778619 ps} {224308710 ps}
