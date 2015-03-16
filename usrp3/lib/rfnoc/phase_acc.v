@@ -9,18 +9,28 @@ module phase_acc
     output [WIDTH-1:0] o_tdata, output o_tlast, output o_tvalid, input o_tready);
 
    reg [WIDTH-1:0]     acc, phase_inc;
+   localparam ST_WAIT_FOR_TRIG = 1'd0;
+   localparam ST_TRIG = 1'd1;
+   reg state;
 
    always @(posedge clk)
-     if(reset | clear)
-       acc <= 0;
-     else if(i_tvalid & o_tready)
-       if(i_tlast)
-	 begin
-	    acc <= i_tdata;
-	    phase_inc <= i_tdata;
-	 end
-       else
-	 acc <= acc + phase_inc;
+   begin
+   	if(reset | clear)
+	begin
+		acc <= 0;
+		phase_inc <= 0;
+	end
+	else if(i_tvalid & o_tready)
+	begin
+	if(i_tlast)
+	begin
+		acc <= {WIDTH{1'b0}};
+		phase_inc <= i_tdata;
+	end
+	else
+		acc <= acc + phase_inc;
+	end
+   end
    
    assign i_tready = o_tready;
    assign o_tvalid = i_tvalid;

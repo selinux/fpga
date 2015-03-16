@@ -50,6 +50,7 @@ module plateau_detector_3000
             		case(state)
         			ST_WAIT_FOR_THRESH :
         			begin
+        				trigger <= 0;
             			if(thresh_met)
             				state <= ST_WAIT_FOR_EDGE;
             		end

@@ -15,10 +15,26 @@ add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_sch
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/trigger_tvalid
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/trigger_tready
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/clk
+add wave -noupdate -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/eob
+add wave -noupdate -radix unsigned /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/state
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/stream_i_tdata
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/stream_i_tlast
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/stream_i_tvalid
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/periodic_framer/stream_i_tready
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n14_tdata
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n18_tdata
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n17_tdata
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n17_tlast
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n17_tvalid
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/n17_tready
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/o_tdata
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/o_tlast
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/o_tvalid
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/o_tready
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {223315000 ps} 0}
+WaveRestoreCursors {{Cursor 1} {222149837 ps} 0}
 quietly wave cursor active 1
-configure wave -namecolwidth 709
+configure wave -namecolwidth 728
 configure wave -valuecolwidth 201
 configure wave -justifyvalue left
 configure wave -signalnamewidth 0
@@ -32,4 +48,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {222217424 ps} {224838059 ps}
+WaveRestoreZoom {222116670 ps} {222188561 ps}

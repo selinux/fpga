@@ -185,7 +185,7 @@ module schmidl_cox
    // n18_tdata[31:16] is unused
    phase_acc #(.WIDTH(16)) phase_acc
      (.clk(clk), .reset(reset), .clear(clear),
-      .i_tdata(n17_tdata[31:16]), .i_tlast(n17_tlast), .i_tvalid(n17_tvalid), .i_tready(n17_tready),
+      .i_tdata(n17_tdata[15:0]), .i_tlast(n17_tlast), .i_tvalid(n17_tvalid), .i_tready(n17_tready),
       .o_tdata(n18_tdata[15:0]), .o_tlast(n18_tlast), .o_tvalid(n18_tvalid), .o_tready(n18_tready));
    
    // phase acc on n18
