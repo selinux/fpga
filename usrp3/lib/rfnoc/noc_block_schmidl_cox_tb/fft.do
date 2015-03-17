@@ -21,10 +21,12 @@ add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_fft/s_axis_data_tlas
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_fft/s_axis_data_tvalid
 add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_fft/s_axis_data_tready
 add wave -noupdate -format Analog-Step -height 84 -max 604.0 -min -604.0 -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_fft/fft_out_msbs
-add wave -noupdate -format Analog-Step -height 84 -max 8.0000000000000018 -min -11.0 -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_fft/fft_out_lsbs
-add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/clk
+add wave -noupdate -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_fft/fft_out_lsbs
+add wave -noupdate -format Literal -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/clk
+add wave -noupdate -format Analog-Step -height 84 -max 32752.0 -min -32768.0 -radix decimal /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/phase_acc/acc
+add wave -noupdate /noc_block_schmidl_cox_tb/inst_noc_block_schmidl_cox/inst_schmidl_cox/plateau_detector_3000_inst/max_phase
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {227771563 ps} 0}
+WaveRestoreCursors {{Cursor 1} {227275000 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 185
 configure wave -valuecolwidth 201
@@ -40,4 +42,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {225599975 ps} {230296152 ps}
+WaveRestoreZoom {226326311 ps} {228130684 ps}
