@@ -83,7 +83,7 @@ module plateau_detector_3000
 		            		if(edge_counter == 3) //avoid local plateaus
 		                    begin
 		                     	state <= ST_WAIT_FOR_PLATEAU_END;
-		                      	max_phase <= i1_tdata;
+		                      	max_phase <= (i1_tdata>>5); //devide by 32 to get phase per sample
 		                    end	
 		                    else
 		                   	begin
