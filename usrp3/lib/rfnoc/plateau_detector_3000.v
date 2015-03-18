@@ -96,7 +96,7 @@ module plateau_detector_3000
 		                        else
 		                        begin
 		                        	edge_counter <= edge_counter + 1;				
-		                        end   		
+		                        end
 		                    end
 						end
 					end

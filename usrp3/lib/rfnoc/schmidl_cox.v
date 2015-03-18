@@ -19,7 +19,8 @@ module schmidl_cox
    
    
    wire [31:0] 	  n10_tdata, n0_tdata, n1_tdata, n2_tdata, n3_tdata, n4_tdata, n8_tdata;
-   wire [31:0] 	  n12_tdata, n13_tdata, n14_tdata, n15_tdata, n16_tdata, n17_tdata, n18_tdata;
+   wire [31:0] 	  n12_tdata, n13_tdata, n14_tdata, n15_tdata, n16_tdata, n17_tdata;
+   wire [15:0]	  n18_tdata;
    wire [63:0]    n5_tdata;
    wire [79:0]    n6_tdata, n7_tdata, n11_tdata;
    wire [39:0]    n9_tdata;
@@ -186,12 +187,12 @@ module schmidl_cox
    phase_acc #(.WIDTH(16)) phase_acc
      (.clk(clk), .reset(reset), .clear(clear),
       .i_tdata(n17_tdata[15:0]), .i_tlast(n17_tlast), .i_tvalid(n17_tvalid), .i_tready(n17_tready),
-      .o_tdata(n18_tdata[15:0]), .o_tlast(n18_tlast), .o_tvalid(n18_tvalid), .o_tready(n18_tready));
+      .o_tdata(n18_tdata), .o_tlast(n18_tlast), .o_tvalid(n18_tvalid), .o_tready(n18_tready));
    
    // phase acc on n18
    cordic_rotator cfo_corrector
      (.aclk(clk), .aresetn(~reset),
-      .s_axis_phase_tdata(n18_tdata[15:0]),
+      .s_axis_phase_tdata(n18_tdata),
       .s_axis_phase_tlast(n18_tlast),
       .s_axis_phase_tvalid(n18_tvalid),
       .s_axis_phase_tready(n18_tready),
