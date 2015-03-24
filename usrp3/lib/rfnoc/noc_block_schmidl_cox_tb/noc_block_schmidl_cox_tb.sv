@@ -83,8 +83,9 @@ module noc_block_schmidl_cox_tb();
     // periodic framer settings
     SendCtrlPacket(SCHMIDL_COX_SID, {32'h10, 32'd64});  // frame_len  (FFTsize)
     SendCtrlPacket(SCHMIDL_COX_SID, {32'h11, 32'd16});  // gap_len  (CP)
-    SendCtrlPacket(SCHMIDL_COX_SID, {32'h12, 32'd29}); // time offset to first frame = 30
+    SendCtrlPacket(SCHMIDL_COX_SID, {32'h12, 32'd28});  // time offset to first frame
     SendCtrlPacket(SCHMIDL_COX_SID, {32'h13, 32'd12});  // default max number of frames
+    SendCtrlPacket(SCHMIDL_COX_SID, {32'h14, 32'd0});   // not used. set to 0
     
     // Setup FFT
     SendCtrlPacket(FFT_SID, {24'd0, SR_FLOW_CTRL_PKTS_PER_ACK_BASE, 32'h8000_0001});              // Command packet to set up flow control

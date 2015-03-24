@@ -24,6 +24,8 @@ div_gen_v4_0.v \
 div_gen_v4_0.xco \
 cordic_v5_0.v \
 cordic_v5_0.xco \
+mult_u40.v \
+mult_u40.xco \
 ))
 
 
