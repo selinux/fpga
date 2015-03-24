@@ -136,7 +136,7 @@ module schmidl_cox
    assign n7_mag_strip_tdata = n7_mag_tdata[39:0];
    assign n7_phase_strip_tdata = n7_phase_tdata[79:40];
    
-   mult_u40 #() ints_mult_u40 (.clk(clk), .a(n7_mag_strip_tdata), .b(n7_mag_strip_tdata), .p(n7_mag_square_tdata));
+   mult_u40 ints_mult_u40 (.clk(clk), .a(n7_mag_strip_tdata), .b(n7_mag_strip_tdata), .p(n7_mag_square_tdata));
    
    // magnitude of input signal conjugate multiply
    complex_to_magsq #(.WIDTH(16)) cmag2
@@ -147,7 +147,7 @@ module schmidl_cox
    wire [31:0] n8_shift_tdata;
    assign n8_shift_tdata = n8_tdata >> 1; //Somehow the complex multiplier shifts the result by 1, so we need to do that here, too
    wire [79:0] signal_energy_square;
-   mult_u40 #() ints_mult_u40_2 (.clk(clk), .a(n9_tdata), .b(n9_tdata), .p(signal_energy_square));
+   mult_u40 ints_mult_u40_2 (.clk(clk), .a(n9_tdata), .b(n9_tdata), .p(signal_energy_square));
    
    // moving average of input signal power
    moving_sum #(.MAX_LEN_LOG2(8), .WIDTH(32)) ma_pow
