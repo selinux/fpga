@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Tue Mar 24 19:11:17 2015
+# Date: Tue Mar 24 23:42:28 2015
 #
 ##############################################################
 #
@@ -49,7 +49,7 @@ CSET multtype=Parallel_Multiplier
 CSET optgoal=Speed
 CSET outputwidthhigh=79
 CSET outputwidthlow=0
-CSET pipestages=1
+CSET pipestages=7
 CSET portatype=Unsigned
 CSET portawidth=40
 CSET portbtype=Unsigned
@@ -65,4 +65,4 @@ CSET zerodetect=false
 MISC pkg_timestamp=2013-07-22T11:36:26Z
 # END Extra information
 GENERATE
-# CRC: 824c826f
+# CRC: ecd80a33
