@@ -207,7 +207,7 @@ module schmidl_cox
       .m_axis_dout_tvalid(n15_tvalid),
       .m_axis_dout_tready(n15_tready));
    
-   periodic_framer #(.BASE(16), .WIDTH(32)) periodic_framer
+   periodic_framer #(.BASE(BASE), .WIDTH(32)) periodic_framer
      (.clk(clk), .reset(reset), .clear(clear),
       .set_stb(set_stb), .set_addr(set_addr), .set_data(set_data),
       .stream_i_tdata(n15_tdata), .stream_i_tlast(n15_tlast), .stream_i_tvalid(n15_tvalid), .stream_i_tready(n15_tready),

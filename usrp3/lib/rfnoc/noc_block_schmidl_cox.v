@@ -118,7 +118,7 @@ module noc_block_schmidl_cox #(
   ////////////////////////////////////////////////////////////
   
 
-  schmidl_cox inst_schmidl_cox (
+  schmidl_cox #(.BASE(130)) inst_schmidl_cox (
     .clk(ce_clk), .reset(ce_rst), .clear(1'b0),
     .set_stb(set_stb), .set_addr(set_addr), .set_data(set_data),
     .i_tdata(m_axis_data_tdata), .i_tlast(m_axis_data_tlast), .i_tvalid(m_axis_data_tvalid), .i_tready(m_axis_data_tready),
