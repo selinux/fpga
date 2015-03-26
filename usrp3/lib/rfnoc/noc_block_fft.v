@@ -3,9 +3,9 @@
 //
 
 module noc_block_fft #(
-  parameter EN_MAGNITUDE_OUT = 1,        // CORDIC based magnitude calculation
+  parameter EN_MAGNITUDE_OUT = 0,        // CORDIC based magnitude calculation
   parameter EN_MAGNITUDE_APPROX_OUT = 0, // Multiplier-less, lower resource usage
-  parameter EN_MAGNITUDE_SQ_OUT = 1,     // Magnitude squared
+  parameter EN_MAGNITUDE_SQ_OUT = 0,     // Magnitude squared
   parameter EN_FFT_SHIFT = 1,            // Center zero frequency bin
   parameter NOC_ID = 64'hFF70_0000_0000_0000,
   parameter STR_SINK_FIFOSIZE = 11)

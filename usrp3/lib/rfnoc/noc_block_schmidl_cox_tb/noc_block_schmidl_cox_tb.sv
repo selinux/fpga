@@ -94,7 +94,7 @@ module noc_block_schmidl_cox_tb();
     SendCtrlPacket(FFT_SID, {24'd0, SR_NEXT_DST_BASE, {16'd0, TESTBENCH_SID}});                      // Set next destination
     SendCtrlPacket(FFT_SID, {24'd0, SR_AXI_CONFIG_BASE, {11'd0, fft_ctrl_word}});                     // Configure FFT core
     SendCtrlPacket(FFT_SID, {24'd0, inst_noc_block_fft.SR_FFT_SIZE_LOG2, {24'd0, fft_size_log2}});    // Set FFT size register
-    SendCtrlPacket(FFT_SID, {24'd0, inst_noc_block_fft.SR_MAGNITUDE_OUT, {30'd0, inst_noc_block_fft.MAG_SQ_OUT}});  // Enable magnitude out
+    SendCtrlPacket(FFT_SID, {24'd0, inst_noc_block_fft.SR_MAGNITUDE_OUT, {30'd0, inst_noc_block_fft.COMPLEX_OUT}});  // Enable magnitude out
     #1000;
 
   end
