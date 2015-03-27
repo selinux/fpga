@@ -15,7 +15,7 @@ module noc_block_schmidl_cox_tb();
   *********************************************/
   noc_block_schmidl_cox inst_noc_block_schmidl_cox (
     .bus_clk(bus_clk), .bus_rst(bus_rst),
-    .ce_clk(ce_clk), .ce_rst(ce_rst),
+    .ce_clk(bus_clk), .ce_rst(bus_rst),
     .i_tdata(ce_o_tdata[0]), .i_tlast(ce_o_tlast[0]), .i_tvalid(ce_o_tvalid[0]), .i_tready(ce_o_tready[0]),
     .o_tdata(ce_i_tdata[0]), .o_tlast(ce_i_tlast[0]), .o_tvalid(ce_i_tvalid[0]), .o_tready(ce_i_tready[0]),
     .debug());

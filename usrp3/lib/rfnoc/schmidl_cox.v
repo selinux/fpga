@@ -164,17 +164,17 @@ module schmidl_cox
    
    wire[127:0] D_metric;
    wire D_metric_tlast;
-   wire D_metric_tvalide;
+   wire D_metric_tvalid;
    wire D_metric_tready;
    div_gen_v4_0 div_corr_2_pow_2(
       .aclk(clk), .aresetn(~reset),
       .s_axis_divisor_tdata(n11_tdata[79:16]), .s_axis_divisor_tlast(n11_tlast), .s_axis_divisor_tvalid(n11_tvalid), .s_axis_divisor_tready(n11_tready),
       .s_axis_dividend_tdata(n7_mag_square_tdata[79:16]), .s_axis_dividend_tlast(n7_mag_tlast), .s_axis_dividend_tvalid(n7_mag_tvalid), .s_axis_dividend_tready(n7_mag_tready),
-      .m_axis_dout_tdata(D_metric), .m_axis_dout_tlast(D_metric_tlast), .m_axis_dout_tvalid(D_metric_tvalide), .m_axis_dout_tready(D_metric_tready));
+      .m_axis_dout_tdata(D_metric), .m_axis_dout_tlast(D_metric_tlast), .m_axis_dout_tvalid(D_metric_tvalid), .m_axis_dout_tready(D_metric_tready));
    
    plateau_detector_3000 #(.THRESHHOLD(15563)) plateau_detector_3000_inst
      (.clk(clk), .reset(reset), .clear(clear),
-      .i0_tdata(D_metric[64:49]), .i0_tlast(D_metric_tlast), .i0_tvalid(D_metric_tvalide), .i0_tready(D_metric_tready),
+      .i0_tdata(D_metric[64:49]), .i0_tlast(D_metric_tlast), .i0_tvalid(D_metric_tvalid), .i0_tready(D_metric_tready),
       .i1_tdata(n7_phase_strip_tdata[39:24]), .i1_tlast(n7_phase_tlast), .i1_tvalid(n7_phase_tvalid), .i1_tready(n7_phase_tready),
       .o_tdata(n10_tdata[15:0]), .o_tlast(n10_tlast), .o_tvalid(n10_tvalid), .o_tready(n10_tready));
    
