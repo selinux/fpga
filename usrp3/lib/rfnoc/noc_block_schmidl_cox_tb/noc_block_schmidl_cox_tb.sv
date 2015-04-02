@@ -15,7 +15,7 @@ module noc_block_schmidl_cox_tb();
   *********************************************/
   noc_block_schmidl_cox inst_noc_block_schmidl_cox (
     .bus_clk(bus_clk), .bus_rst(bus_rst),
-    .ce_clk(bus_clk), .ce_rst(bus_rst),
+    .ce_clk(ce_clk), .ce_rst(ce_rst),
     .i_tdata(ce_o_tdata[0]), .i_tlast(ce_o_tlast[0]), .i_tvalid(ce_o_tvalid[0]), .i_tready(ce_o_tready[0]),
     .o_tdata(ce_i_tdata[0]), .o_tlast(ce_i_tlast[0]), .o_tvalid(ce_i_tvalid[0]), .o_tready(ce_i_tready[0]),
     .debug());
@@ -43,7 +43,7 @@ module noc_block_schmidl_cox_tb();
   localparam [15:0] SCHMIDL_COX_SID       = {XBAR_ADDR, SCHMIDL_COX_XBAR_PORT, 4'd0};
   localparam [ 3:0] FILE_SOURCE_XBAR_PORT = 4'd1;
   localparam [15:0] FILE_SOURCE_SID       = {XBAR_ADDR, FILE_SOURCE_XBAR_PORT, 4'd0};
-  localparam [3:0] FFT_XBAR_PORT          = 4'd2;
+  localparam [ 3:0] FFT_XBAR_PORT         = 4'd2;
   localparam [15:0] FFT_SID               = {XBAR_ADDR, FFT_XBAR_PORT, 4'd0};
 
   localparam [15:0] FFT_SIZE = 64;
@@ -68,17 +68,17 @@ module noc_block_schmidl_cox_tb();
     SendCtrlPacket(FILE_SOURCE_SID, {24'd0, SR_FLOW_CTRL_PKTS_PER_ACK_BASE, 32'h8000_0001});                  // Command packet to set up flow control
     SendCtrlPacket(FILE_SOURCE_SID, {24'd0, SR_FLOW_CTRL_WINDOW_SIZE_BASE, 32'h0000_0FFF});                   // Command packet to set up source control window size
     SendCtrlPacket(FILE_SOURCE_SID, {24'd0, SR_FLOW_CTRL_WINDOW_EN_BASE, 32'h0000_0001});                     // Command packet to set up source control window enable
-    SendCtrlPacket(FILE_SOURCE_SID, {24'd0, SR_NEXT_DST_BASE, {16'd0, SCHMIDL_COX_SID}});                       // Set next destination
+    SendCtrlPacket(FILE_SOURCE_SID, {24'd0, 8'd128, {FILE_SOURCE_SID, SCHMIDL_COX_SID}});                        // Set next destination
     
-    SendCtrlPacket(FILE_SOURCE_SID, {24'd0, SR_NEXT_DST_BASE+1, 32'd1024}); //len
-    SendCtrlPacket(FILE_SOURCE_SID, {24'd0, SR_NEXT_DST_BASE+2, 32'd20}); //line rate. Output only every x'th cycle
-    SendCtrlPacket(FILE_SOURCE_SID, {24'd0, SR_NEXT_DST_BASE+3, 32'd0}); //send out time
+    SendCtrlPacket(FILE_SOURCE_SID, {24'd0, 8'd129, 32'd180});      // len, 180 is about the size of a typical Ethernet packet with MTU 1500
+    SendCtrlPacket(FILE_SOURCE_SID, {24'd0, 8'd130, 32'd20});       // line rate. Output only every x'th cycle
+    SendCtrlPacket(FILE_SOURCE_SID, {24'd0, 8'd131, 32'd0});        // send out time
     
     // Setup SCHMIDL_COX
     SendCtrlPacket(SCHMIDL_COX_SID, {24'd0, SR_FLOW_CTRL_PKTS_PER_ACK_BASE, 32'h8000_0001});                  // Command packet to set up flow control
     SendCtrlPacket(SCHMIDL_COX_SID, {24'd0, SR_FLOW_CTRL_WINDOW_SIZE_BASE, 32'h0000_0FFF});                   // Command packet to set up source control window size
     SendCtrlPacket(SCHMIDL_COX_SID, {24'd0, SR_FLOW_CTRL_WINDOW_EN_BASE, 32'h0000_0001});                     // Command packet to set up source control window enable
-    SendCtrlPacket(SCHMIDL_COX_SID, {24'd0, SR_NEXT_DST_BASE, {16'd0, FFT_SID}});                       // Set next destination
+    SendCtrlPacket(SCHMIDL_COX_SID, {24'd0, SR_NEXT_DST_BASE, {16'd0, FFT_SID}});                             // Set next destination
     
     // periodic framer settings
     SendCtrlPacket(SCHMIDL_COX_SID, {32'd130, 32'd64});  // frame_len  (FFTsize)
@@ -88,12 +88,12 @@ module noc_block_schmidl_cox_tb();
     SendCtrlPacket(SCHMIDL_COX_SID, {32'd134, 32'd0});   // not used. set to 0
     
     // Setup FFT
-    SendCtrlPacket(FFT_SID, {24'd0, SR_FLOW_CTRL_PKTS_PER_ACK_BASE, 32'h8000_0001});              // Command packet to set up flow control
-    SendCtrlPacket(FFT_SID, {24'd0, SR_FLOW_CTRL_WINDOW_SIZE_BASE, 32'h0000_0FFF});               // Command packet to set up source control window size
-    SendCtrlPacket(FFT_SID, {24'd0, SR_FLOW_CTRL_WINDOW_EN_BASE, 32'h0000_0001});                 // Command packet to set up source control window enable
-    SendCtrlPacket(FFT_SID, {24'd0, SR_NEXT_DST_BASE, {16'd0, TESTBENCH_SID}});                      // Set next destination
-    SendCtrlPacket(FFT_SID, {24'd0, SR_AXI_CONFIG_BASE, {11'd0, fft_ctrl_word}});                     // Configure FFT core
-    SendCtrlPacket(FFT_SID, {24'd0, inst_noc_block_fft.SR_FFT_SIZE_LOG2, {24'd0, fft_size_log2}});    // Set FFT size register
+    SendCtrlPacket(FFT_SID, {24'd0, SR_FLOW_CTRL_PKTS_PER_ACK_BASE, 32'h8000_0001});                          // Command packet to set up flow control
+    SendCtrlPacket(FFT_SID, {24'd0, SR_FLOW_CTRL_WINDOW_SIZE_BASE, 32'h0000_0FFF});                           // Command packet to set up source control window size
+    SendCtrlPacket(FFT_SID, {24'd0, SR_FLOW_CTRL_WINDOW_EN_BASE, 32'h0000_0001});                             // Command packet to set up source control window enable
+    SendCtrlPacket(FFT_SID, {24'd0, SR_NEXT_DST_BASE, {16'd0, TESTBENCH_SID}});                               // Set next destination
+    SendCtrlPacket(FFT_SID, {24'd0, SR_AXI_CONFIG_BASE, {11'd0, fft_ctrl_word}});                             // Configure FFT core
+    SendCtrlPacket(FFT_SID, {24'd0, inst_noc_block_fft.SR_FFT_SIZE_LOG2, {24'd0, fft_size_log2}});            // Set FFT size register
     SendCtrlPacket(FFT_SID, {24'd0, inst_noc_block_fft.SR_MAGNITUDE_OUT, {30'd0, inst_noc_block_fft.COMPLEX_OUT}});  // Enable magnitude out
     #1000;
 
