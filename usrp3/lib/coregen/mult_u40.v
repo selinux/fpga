@@ -7,17 +7,17 @@
 // \   \   \/     Version: P.20131013
 //  \   \         Application: netgen
 //  /   /         Filename: mult_u40.v
-// /___/   /\     Timestamp: Tue Mar 24 16:42:55 2015
+// /___/   /\     Timestamp: Thu Apr  2 10:55:21 2015
 // \   \  /  \ 
 //  \___\/\___\
 //             
-// Command	: -w -sim -ofmt verilog /home/julian/git/fpgadev-rfnoc/usrp3/lib/coregen/tmp/_cg/mult_u40.ngc /home/julian/git/fpgadev-rfnoc/usrp3/lib/coregen/tmp/_cg/mult_u40.v 
+// Command	: -w -sim -ofmt verilog /home/jpendlum/work/fpgadev-rfnoc-ofdm/usrp3/lib/coregen/tmp/_cg/mult_u40.ngc /home/jpendlum/work/fpgadev-rfnoc-ofdm/usrp3/lib/coregen/tmp/_cg/mult_u40.v 
 // Device	: 7k410tffg900-2
-// Input file	: /home/julian/git/fpgadev-rfnoc/usrp3/lib/coregen/tmp/_cg/mult_u40.ngc
-// Output file	: /home/julian/git/fpgadev-rfnoc/usrp3/lib/coregen/tmp/_cg/mult_u40.v
+// Input file	: /home/jpendlum/work/fpgadev-rfnoc-ofdm/usrp3/lib/coregen/tmp/_cg/mult_u40.ngc
+// Output file	: /home/jpendlum/work/fpgadev-rfnoc-ofdm/usrp3/lib/coregen/tmp/_cg/mult_u40.v
 // # of Modules	: 1
 // Design Name	: mult_u40
-// Xilinx        : /home/julian/opt/Xilinx/14.7/ISE_DS/ISE/
+// Xilinx        : /opt/Xilinx/14.7/ISE_DS/ISE/
 //             
 // Purpose:    
 //     This verilog netlist is a verification model and uses simulation 
@@ -34,15 +34,60 @@
 `timescale 1 ns/1 ps
 
 module mult_u40 (
-  clk, a, b, p
+  clk, ce, sclr, a, b, p
 )/* synthesis syn_black_box syn_noprune=1 */;
   input clk;
+  input ce;
+  input sclr;
   input [39 : 0] a;
   input [39 : 0] b;
   output [79 : 0] p;
   
   // synthesis translate_off
   
+  wire \blk00000001/sig0000029b ;
+  wire \blk00000001/sig0000029a ;
+  wire \blk00000001/sig00000299 ;
+  wire \blk00000001/sig00000298 ;
+  wire \blk00000001/sig00000297 ;
+  wire \blk00000001/sig00000296 ;
+  wire \blk00000001/sig00000295 ;
+  wire \blk00000001/sig00000294 ;
+  wire \blk00000001/sig00000293 ;
+  wire \blk00000001/sig00000292 ;
+  wire \blk00000001/sig00000291 ;
+  wire \blk00000001/sig00000290 ;
+  wire \blk00000001/sig0000028f ;
+  wire \blk00000001/sig0000028e ;
+  wire \blk00000001/sig0000028d ;
+  wire \blk00000001/sig0000028c ;
+  wire \blk00000001/sig0000028b ;
+  wire \blk00000001/sig0000028a ;
+  wire \blk00000001/sig00000289 ;
+  wire \blk00000001/sig00000288 ;
+  wire \blk00000001/sig00000287 ;
+  wire \blk00000001/sig00000286 ;
+  wire \blk00000001/sig00000285 ;
+  wire \blk00000001/sig00000284 ;
+  wire \blk00000001/sig00000283 ;
+  wire \blk00000001/sig00000282 ;
+  wire \blk00000001/sig00000281 ;
+  wire \blk00000001/sig00000280 ;
+  wire \blk00000001/sig0000027f ;
+  wire \blk00000001/sig0000027e ;
+  wire \blk00000001/sig0000027d ;
+  wire \blk00000001/sig0000027c ;
+  wire \blk00000001/sig0000027b ;
+  wire \blk00000001/sig0000027a ;
+  wire \blk00000001/sig00000279 ;
+  wire \blk00000001/sig00000278 ;
+  wire \blk00000001/sig00000277 ;
+  wire \blk00000001/sig00000276 ;
+  wire \blk00000001/sig00000275 ;
+  wire \blk00000001/sig00000274 ;
+  wire \blk00000001/sig00000273 ;
+  wire \blk00000001/sig00000272 ;
+  wire \blk00000001/sig00000271 ;
   wire \blk00000001/sig00000270 ;
   wire \blk00000001/sig0000026f ;
   wire \blk00000001/sig0000026e ;
@@ -504,8 +549,23 @@ module mult_u40 (
   wire \blk00000001/sig000000a6 ;
   wire \blk00000001/sig000000a5 ;
   wire \blk00000001/sig000000a4 ;
-  wire \blk00000001/sig000000a3 ;
-  wire \blk00000001/sig000000a2 ;
+  wire \NLW_blk00000001/blk000000b8_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk000000b6_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk000000b4_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk000000b2_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk000000b0_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk000000ae_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk000000ac_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk000000aa_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk000000a8_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk000000a6_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk000000a4_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk000000a2_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk000000a0_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk0000009e_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk0000009c_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk0000009a_Q15_UNCONNECTED ;
+  wire \NLW_blk00000001/blk00000098_Q15_UNCONNECTED ;
   wire \NLW_blk00000001/blk00000008_PATTERNBDETECT_UNCONNECTED ;
   wire \NLW_blk00000001/blk00000008_MULTSIGNOUT_UNCONNECTED ;
   wire \NLW_blk00000001/blk00000008_CARRYCASCOUT_UNCONNECTED ;
@@ -910,1620 +970,1940 @@ module mult_u40 (
   wire \NLW_blk00000001/blk00000004_P<29>_UNCONNECTED ;
   FDRE #(
     .INIT ( 1'b0 ))
-  \blk00000001/blk000000b5  (
+  \blk00000001/blk000000de  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000270 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig000000d3 )
+    .CE(ce),
+    .D(\blk00000001/sig0000029b ),
+    .R(sclr),
+    .Q(p[9])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000dd  (
+    .I0(\blk00000001/sig00000275 ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig0000029b )
   );
   FDRE #(
     .INIT ( 1'b0 ))
-  \blk00000001/blk000000b4  (
+  \blk00000001/blk000000dc  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000026f ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig000000d4 )
+    .CE(ce),
+    .D(\blk00000001/sig0000029a ),
+    .R(sclr),
+    .Q(p[8])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000db  (
+    .I0(\blk00000001/sig00000277 ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig0000029a )
   );
   FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000da  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000299 ),
+    .R(sclr),
+    .Q(p[7])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000d9  (
+    .I0(\blk00000001/sig00000279 ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig00000299 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000d8  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000298 ),
+    .R(sclr),
+    .Q(p[6])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000d7  (
+    .I0(\blk00000001/sig0000027b ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig00000298 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000d6  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000297 ),
+    .R(sclr),
+    .Q(p[5])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000d5  (
+    .I0(\blk00000001/sig0000027d ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig00000297 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000d4  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000296 ),
+    .R(sclr),
+    .Q(p[4])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000d3  (
+    .I0(\blk00000001/sig0000027f ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig00000296 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000d2  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000295 ),
+    .R(sclr),
+    .Q(p[3])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000d1  (
+    .I0(\blk00000001/sig00000281 ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig00000295 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000d0  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000294 ),
+    .R(sclr),
+    .Q(p[2])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000cf  (
+    .I0(\blk00000001/sig00000283 ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig00000294 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000ce  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000293 ),
+    .R(sclr),
+    .Q(p[1])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000cd  (
+    .I0(\blk00000001/sig00000285 ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig00000293 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000cc  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000292 ),
+    .R(sclr),
+    .Q(p[16])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000cb  (
+    .I0(\blk00000001/sig00000269 ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig00000292 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000ca  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000291 ),
+    .R(sclr),
+    .Q(p[15])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000c9  (
+    .I0(\blk00000001/sig0000026b ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig00000291 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000c8  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000290 ),
+    .R(sclr),
+    .Q(p[14])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000c7  (
+    .I0(\blk00000001/sig00000267 ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig00000290 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000c6  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000028f ),
+    .R(sclr),
+    .Q(p[13])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000c5  (
+    .I0(\blk00000001/sig0000026d ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig0000028f )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000c4  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000028e ),
+    .R(sclr),
+    .Q(p[12])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000c3  (
+    .I0(\blk00000001/sig0000026f ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig0000028e )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000c2  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000028d ),
+    .R(sclr),
+    .Q(p[11])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000c1  (
+    .I0(\blk00000001/sig00000271 ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig0000028d )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000c0  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000028c ),
+    .R(sclr),
+    .Q(p[10])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000bf  (
+    .I0(\blk00000001/sig00000273 ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig0000028c )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000be  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000028b ),
+    .R(sclr),
+    .Q(p[0])
+  );
+  LUT2 #(
+    .INIT ( 4'h8 ))
+  \blk00000001/blk000000bd  (
+    .I0(\blk00000001/sig00000287 ),
+    .I1(\blk00000001/sig0000028a ),
+    .O(\blk00000001/sig0000028b )
+  );
+  FDRE   \blk00000001/blk000000bc  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000289 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000028a )
+  );
+  FDRE   \blk00000001/blk000000bb  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000288 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000289 )
+  );
+  FDRE   \blk00000001/blk000000ba  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig000000d4 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000288 )
+  );
+  FDE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000b9  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000286 ),
+    .Q(\blk00000001/sig00000287 )
+  );
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
+  \blk00000001/blk000000b8  (
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001dc ),
+    .Q(\blk00000001/sig00000286 ),
+    .Q15(\NLW_blk00000001/blk000000b8_Q15_UNCONNECTED )
+  );
+  FDE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000b7  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000284 ),
+    .Q(\blk00000001/sig00000285 )
+  );
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
+  \blk00000001/blk000000b6  (
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001dd ),
+    .Q(\blk00000001/sig00000284 ),
+    .Q15(\NLW_blk00000001/blk000000b6_Q15_UNCONNECTED )
+  );
+  FDE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk000000b5  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000282 ),
+    .Q(\blk00000001/sig00000283 )
+  );
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
+  \blk00000001/blk000000b4  (
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001de ),
+    .Q(\blk00000001/sig00000282 ),
+    .Q15(\NLW_blk00000001/blk000000b4_Q15_UNCONNECTED )
+  );
+  FDE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk000000b3  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000026e ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig000000d5 )
+    .CE(ce),
+    .D(\blk00000001/sig00000280 ),
+    .Q(\blk00000001/sig00000281 )
   );
-  FDRE #(
-    .INIT ( 1'b0 ))
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
   \blk00000001/blk000000b2  (
-    .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000026d ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig000000d6 )
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001df ),
+    .Q(\blk00000001/sig00000280 ),
+    .Q15(\NLW_blk00000001/blk000000b2_Q15_UNCONNECTED )
   );
-  FDRE #(
+  FDE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk000000b1  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000026c ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig000000d7 )
+    .CE(ce),
+    .D(\blk00000001/sig0000027e ),
+    .Q(\blk00000001/sig0000027f )
   );
-  FDRE #(
-    .INIT ( 1'b0 ))
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
   \blk00000001/blk000000b0  (
-    .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000026b ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig000000d8 )
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001e0 ),
+    .Q(\blk00000001/sig0000027e ),
+    .Q15(\NLW_blk00000001/blk000000b0_Q15_UNCONNECTED )
   );
-  FDRE #(
+  FDE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk000000af  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000026a ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig000000d9 )
+    .CE(ce),
+    .D(\blk00000001/sig0000027c ),
+    .Q(\blk00000001/sig0000027d )
   );
-  SRL16E #(
+  SRLC16E #(
     .INIT ( 16'h0000 ))
   \blk00000001/blk000000ae  (
-    .A0(\blk00000001/sig000000d2 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
     .CLK(clk),
-    .D(b[34]),
-    .Q(\blk00000001/sig00000270 )
+    .D(\blk00000001/sig000001e1 ),
+    .Q(\blk00000001/sig0000027c ),
+    .Q15(\NLW_blk00000001/blk000000ae_Q15_UNCONNECTED )
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk000000ad  (
-    .A0(\blk00000001/sig000000d2 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[35]),
-    .Q(\blk00000001/sig0000026f )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000027a ),
+    .Q(\blk00000001/sig0000027b )
   );
-  SRL16E #(
+  SRLC16E #(
     .INIT ( 16'h0000 ))
   \blk00000001/blk000000ac  (
-    .A0(\blk00000001/sig000000d2 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
     .CLK(clk),
-    .D(b[36]),
-    .Q(\blk00000001/sig0000026e )
+    .D(\blk00000001/sig000001e2 ),
+    .Q(\blk00000001/sig0000027a ),
+    .Q15(\NLW_blk00000001/blk000000ac_Q15_UNCONNECTED )
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk000000ab  (
-    .A0(\blk00000001/sig000000d2 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[37]),
-    .Q(\blk00000001/sig0000026d )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000278 ),
+    .Q(\blk00000001/sig00000279 )
   );
-  SRL16E #(
+  SRLC16E #(
     .INIT ( 16'h0000 ))
   \blk00000001/blk000000aa  (
-    .A0(\blk00000001/sig000000d2 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
     .CLK(clk),
-    .D(b[38]),
-    .Q(\blk00000001/sig0000026c )
+    .D(\blk00000001/sig000001e3 ),
+    .Q(\blk00000001/sig00000278 ),
+    .Q15(\NLW_blk00000001/blk000000aa_Q15_UNCONNECTED )
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk000000a9  (
-    .A0(\blk00000001/sig000000d2 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[39]),
-    .Q(\blk00000001/sig0000026b )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000276 ),
+    .Q(\blk00000001/sig00000277 )
   );
-  SRL16E #(
+  SRLC16E #(
     .INIT ( 16'h0000 ))
   \blk00000001/blk000000a8  (
-    .A0(\blk00000001/sig000000d2 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
     .CLK(clk),
-    .D(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig0000026a )
+    .D(\blk00000001/sig000001e4 ),
+    .Q(\blk00000001/sig00000276 ),
+    .Q15(\NLW_blk00000001/blk000000a8_Q15_UNCONNECTED )
   );
-  FD #(
+  FDE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk000000a7  (
     .C(clk),
-    .D(\blk00000001/sig0000010a ),
-    .Q(p[34])
+    .CE(ce),
+    .D(\blk00000001/sig00000274 ),
+    .Q(\blk00000001/sig00000275 )
   );
-  FD #(
-    .INIT ( 1'b0 ))
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
   \blk00000001/blk000000a6  (
-    .C(clk),
-    .D(\blk00000001/sig0000010b ),
-    .Q(p[35])
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001e5 ),
+    .Q(\blk00000001/sig00000274 ),
+    .Q15(\NLW_blk00000001/blk000000a6_Q15_UNCONNECTED )
   );
-  FD #(
+  FDE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk000000a5  (
     .C(clk),
-    .D(\blk00000001/sig0000010c ),
-    .Q(p[36])
+    .CE(ce),
+    .D(\blk00000001/sig00000272 ),
+    .Q(\blk00000001/sig00000273 )
   );
-  FD #(
-    .INIT ( 1'b0 ))
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
   \blk00000001/blk000000a4  (
-    .C(clk),
-    .D(\blk00000001/sig0000010d ),
-    .Q(p[37])
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001e6 ),
+    .Q(\blk00000001/sig00000272 ),
+    .Q15(\NLW_blk00000001/blk000000a4_Q15_UNCONNECTED )
   );
-  FD #(
+  FDE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk000000a3  (
     .C(clk),
-    .D(\blk00000001/sig0000010e ),
-    .Q(p[38])
+    .CE(ce),
+    .D(\blk00000001/sig00000270 ),
+    .Q(\blk00000001/sig00000271 )
   );
-  FD #(
-    .INIT ( 1'b0 ))
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
   \blk00000001/blk000000a2  (
-    .C(clk),
-    .D(\blk00000001/sig0000010f ),
-    .Q(p[39])
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001e7 ),
+    .Q(\blk00000001/sig00000270 ),
+    .Q15(\NLW_blk00000001/blk000000a2_Q15_UNCONNECTED )
   );
-  FD #(
+  FDE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk000000a1  (
     .C(clk),
-    .D(\blk00000001/sig00000110 ),
-    .Q(p[40])
+    .CE(ce),
+    .D(\blk00000001/sig0000026e ),
+    .Q(\blk00000001/sig0000026f )
   );
-  FD #(
-    .INIT ( 1'b0 ))
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
   \blk00000001/blk000000a0  (
-    .C(clk),
-    .D(\blk00000001/sig00000111 ),
-    .Q(p[41])
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001e8 ),
+    .Q(\blk00000001/sig0000026e ),
+    .Q15(\NLW_blk00000001/blk000000a0_Q15_UNCONNECTED )
   );
-  FD #(
+  FDE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000009f  (
     .C(clk),
-    .D(\blk00000001/sig00000112 ),
-    .Q(p[42])
+    .CE(ce),
+    .D(\blk00000001/sig0000026c ),
+    .Q(\blk00000001/sig0000026d )
   );
-  FD #(
-    .INIT ( 1'b0 ))
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
   \blk00000001/blk0000009e  (
-    .C(clk),
-    .D(\blk00000001/sig00000113 ),
-    .Q(p[43])
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001e9 ),
+    .Q(\blk00000001/sig0000026c ),
+    .Q15(\NLW_blk00000001/blk0000009e_Q15_UNCONNECTED )
   );
-  FD #(
+  FDE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000009d  (
     .C(clk),
-    .D(\blk00000001/sig00000114 ),
-    .Q(p[44])
+    .CE(ce),
+    .D(\blk00000001/sig0000026a ),
+    .Q(\blk00000001/sig0000026b )
   );
-  FD #(
-    .INIT ( 1'b0 ))
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
   \blk00000001/blk0000009c  (
-    .C(clk),
-    .D(\blk00000001/sig00000115 ),
-    .Q(p[45])
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001eb ),
+    .Q(\blk00000001/sig0000026a ),
+    .Q15(\NLW_blk00000001/blk0000009c_Q15_UNCONNECTED )
   );
-  FD #(
+  FDE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000009b  (
     .C(clk),
-    .D(\blk00000001/sig00000116 ),
-    .Q(p[46])
+    .CE(ce),
+    .D(\blk00000001/sig00000268 ),
+    .Q(\blk00000001/sig00000269 )
   );
-  FD #(
-    .INIT ( 1'b0 ))
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
   \blk00000001/blk0000009a  (
-    .C(clk),
-    .D(\blk00000001/sig00000117 ),
-    .Q(p[47])
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001ec ),
+    .Q(\blk00000001/sig00000268 ),
+    .Q15(\NLW_blk00000001/blk0000009a_Q15_UNCONNECTED )
   );
-  FD #(
+  FDE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000099  (
     .C(clk),
-    .D(\blk00000001/sig00000118 ),
-    .Q(p[48])
+    .CE(ce),
+    .D(\blk00000001/sig00000266 ),
+    .Q(\blk00000001/sig00000267 )
   );
-  FD #(
-    .INIT ( 1'b0 ))
+  SRLC16E #(
+    .INIT ( 16'h0000 ))
   \blk00000001/blk00000098  (
-    .C(clk),
-    .D(\blk00000001/sig00000119 ),
-    .Q(p[49])
+    .A0(\blk00000001/sig000000d4 ),
+    .A1(\blk00000001/sig0000013a ),
+    .A2(\blk00000001/sig0000013a ),
+    .A3(\blk00000001/sig0000013a ),
+    .CE(ce),
+    .CLK(clk),
+    .D(\blk00000001/sig000001ea ),
+    .Q(\blk00000001/sig00000266 ),
+    .Q15(\NLW_blk00000001/blk00000098_Q15_UNCONNECTED )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000097  (
     .C(clk),
-    .D(\blk00000001/sig0000011a ),
-    .Q(p[50])
+    .CE(ce),
+    .D(b[34]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000260 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000096  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000269 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[0])
+    .CE(ce),
+    .D(b[35]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000261 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000095  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000268 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[1])
+    .CE(ce),
+    .D(b[36]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000262 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000094  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000267 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[2])
+    .CE(ce),
+    .D(b[37]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000263 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000093  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000266 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[3])
+    .CE(ce),
+    .D(b[38]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000264 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000092  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000265 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[4])
+    .CE(ce),
+    .D(b[39]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000265 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000091  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000264 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[5])
+    .CE(ce),
+    .D(\blk00000001/sig00000260 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000025a )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000090  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000263 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[6])
+    .CE(ce),
+    .D(\blk00000001/sig00000261 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000025b )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000008f  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
+    .CE(ce),
     .D(\blk00000001/sig00000262 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[7])
+    .R(sclr),
+    .Q(\blk00000001/sig0000025c )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000008e  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000261 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[8])
+    .CE(ce),
+    .D(\blk00000001/sig00000263 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000025d )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000008d  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000260 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[9])
+    .CE(ce),
+    .D(\blk00000001/sig00000264 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000025e )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000008c  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000025f ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[10])
+    .CE(ce),
+    .D(\blk00000001/sig00000265 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000025f )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000008b  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000025e ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[11])
+    .CE(ce),
+    .D(\blk00000001/sig0000025a ),
+    .R(sclr),
+    .Q(\blk00000001/sig000000d5 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000008a  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000025d ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[12])
+    .CE(ce),
+    .D(\blk00000001/sig0000025b ),
+    .R(sclr),
+    .Q(\blk00000001/sig000000d6 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000089  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
+    .CE(ce),
     .D(\blk00000001/sig0000025c ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[13])
+    .R(sclr),
+    .Q(\blk00000001/sig000000d7 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000088  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000025b ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[14])
+    .CE(ce),
+    .D(\blk00000001/sig0000025d ),
+    .R(sclr),
+    .Q(\blk00000001/sig000000d8 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000087  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000025a ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[15])
+    .CE(ce),
+    .D(\blk00000001/sig0000025e ),
+    .R(sclr),
+    .Q(\blk00000001/sig000000d9 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000086  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000259 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[16])
+    .CE(ce),
+    .D(\blk00000001/sig0000025f ),
+    .R(sclr),
+    .Q(\blk00000001/sig000000da )
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk00000085  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001db ),
-    .Q(\blk00000001/sig00000269 )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000010b ),
+    .R(sclr),
+    .Q(p[34])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk00000084  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001dc ),
-    .Q(\blk00000001/sig00000268 )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000010c ),
+    .R(sclr),
+    .Q(p[35])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk00000083  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001dd ),
-    .Q(\blk00000001/sig00000267 )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000010d ),
+    .R(sclr),
+    .Q(p[36])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk00000082  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001de ),
-    .Q(\blk00000001/sig00000266 )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000010e ),
+    .R(sclr),
+    .Q(p[37])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk00000081  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001df ),
-    .Q(\blk00000001/sig00000265 )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000010f ),
+    .R(sclr),
+    .Q(p[38])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk00000080  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001e0 ),
-    .Q(\blk00000001/sig00000264 )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000110 ),
+    .R(sclr),
+    .Q(p[39])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk0000007f  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001e1 ),
-    .Q(\blk00000001/sig00000263 )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000111 ),
+    .R(sclr),
+    .Q(p[40])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk0000007e  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001e2 ),
-    .Q(\blk00000001/sig00000262 )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000112 ),
+    .R(sclr),
+    .Q(p[41])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk0000007d  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001e3 ),
-    .Q(\blk00000001/sig00000261 )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000113 ),
+    .R(sclr),
+    .Q(p[42])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk0000007c  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001e4 ),
-    .Q(\blk00000001/sig00000260 )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000114 ),
+    .R(sclr),
+    .Q(p[43])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk0000007b  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001e5 ),
-    .Q(\blk00000001/sig0000025f )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000115 ),
+    .R(sclr),
+    .Q(p[44])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk0000007a  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001e6 ),
-    .Q(\blk00000001/sig0000025e )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000116 ),
+    .R(sclr),
+    .Q(p[45])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk00000079  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001e7 ),
-    .Q(\blk00000001/sig0000025d )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000117 ),
+    .R(sclr),
+    .Q(p[46])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk00000078  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001e8 ),
-    .Q(\blk00000001/sig0000025c )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000118 ),
+    .R(sclr),
+    .Q(p[47])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk00000077  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001e9 ),
-    .Q(\blk00000001/sig0000025b )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000119 ),
+    .R(sclr),
+    .Q(p[48])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk00000076  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001ea ),
-    .Q(\blk00000001/sig0000025a )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000011a ),
+    .R(sclr),
+    .Q(p[49])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk00000075  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig000000d2 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001eb ),
-    .Q(\blk00000001/sig00000259 )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000011b ),
+    .R(sclr),
+    .Q(p[50])
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000074  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000258 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig000001fe )
+    .CE(ce),
+    .D(b[17]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000249 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000073  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000257 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig000001ff )
+    .CE(ce),
+    .D(b[18]),
+    .R(sclr),
+    .Q(\blk00000001/sig0000024a )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000072  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000256 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig00000200 )
+    .CE(ce),
+    .D(b[19]),
+    .R(sclr),
+    .Q(\blk00000001/sig0000024b )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000071  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000255 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig00000201 )
+    .CE(ce),
+    .D(b[20]),
+    .R(sclr),
+    .Q(\blk00000001/sig0000024c )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000070  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000254 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig00000202 )
+    .CE(ce),
+    .D(b[21]),
+    .R(sclr),
+    .Q(\blk00000001/sig0000024d )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000006f  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000253 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig00000203 )
+    .CE(ce),
+    .D(b[22]),
+    .R(sclr),
+    .Q(\blk00000001/sig0000024e )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000006e  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000252 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig00000204 )
+    .CE(ce),
+    .D(b[23]),
+    .R(sclr),
+    .Q(\blk00000001/sig0000024f )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000006d  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000251 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig00000205 )
+    .CE(ce),
+    .D(b[24]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000250 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000006c  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000250 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig00000206 )
+    .CE(ce),
+    .D(b[25]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000251 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000006b  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000024f ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig00000207 )
+    .CE(ce),
+    .D(b[26]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000252 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000006a  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000024e ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig00000208 )
+    .CE(ce),
+    .D(b[27]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000253 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000069  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000024d ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig00000209 )
+    .CE(ce),
+    .D(b[28]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000254 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000068  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000024c ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig0000020a )
+    .CE(ce),
+    .D(b[29]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000255 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000067  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000024b ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig0000020b )
+    .CE(ce),
+    .D(b[30]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000256 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000066  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000024a ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig0000020c )
+    .CE(ce),
+    .D(b[31]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000257 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000065  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000249 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(\blk00000001/sig0000020d )
+    .CE(ce),
+    .D(b[32]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000258 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000064  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000248 ),
-    .R(\blk00000001/sig00000139 ),
+    .CE(ce),
+    .D(b[33]),
+    .R(sclr),
+    .Q(\blk00000001/sig00000259 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000063  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000249 ),
+    .R(sclr),
+    .Q(\blk00000001/sig000001ff )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000062  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000024a ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000200 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000061  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000024b ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000201 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000060  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000024c ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000202 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk0000005f  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000024d ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000203 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk0000005e  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000024e ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000204 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk0000005d  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000024f ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000205 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk0000005c  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000250 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000206 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk0000005b  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000251 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000207 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk0000005a  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000252 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000208 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000059  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000253 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000209 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000058  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000254 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000020a )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000057  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000255 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000020b )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000056  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000256 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000020c )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000055  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000257 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000020d )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000054  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000258 ),
+    .R(sclr),
     .Q(\blk00000001/sig0000020e )
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000063  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[17]),
-    .Q(\blk00000001/sig00000258 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000062  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[18]),
-    .Q(\blk00000001/sig00000257 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000061  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[19]),
-    .Q(\blk00000001/sig00000256 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000060  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[20]),
-    .Q(\blk00000001/sig00000255 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk0000005f  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[21]),
-    .Q(\blk00000001/sig00000254 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk0000005e  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[22]),
-    .Q(\blk00000001/sig00000253 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk0000005d  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[23]),
-    .Q(\blk00000001/sig00000252 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk0000005c  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[24]),
-    .Q(\blk00000001/sig00000251 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk0000005b  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[25]),
-    .Q(\blk00000001/sig00000250 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk0000005a  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[26]),
-    .Q(\blk00000001/sig0000024f )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000059  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[27]),
-    .Q(\blk00000001/sig0000024e )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000058  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[28]),
-    .Q(\blk00000001/sig0000024d )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000057  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[29]),
-    .Q(\blk00000001/sig0000024c )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000056  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[30]),
-    .Q(\blk00000001/sig0000024b )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000055  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[31]),
-    .Q(\blk00000001/sig0000024a )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000054  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[32]),
-    .Q(\blk00000001/sig00000249 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
+  FDRE #(
+    .INIT ( 1'b0 ))
   \blk00000001/blk00000053  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(b[33]),
-    .Q(\blk00000001/sig00000248 )
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000259 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000020f )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000052  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000247 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[17])
+    .CE(ce),
+    .D(\blk00000001/sig0000019b ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000238 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000051  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000246 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[18])
+    .CE(ce),
+    .D(\blk00000001/sig0000019c ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000239 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000050  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000245 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[19])
+    .CE(ce),
+    .D(\blk00000001/sig0000019d ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000023a )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000004f  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000244 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[20])
+    .CE(ce),
+    .D(\blk00000001/sig0000019e ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000023b )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000004e  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000243 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[21])
+    .CE(ce),
+    .D(\blk00000001/sig0000019f ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000023c )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000004d  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000242 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[22])
+    .CE(ce),
+    .D(\blk00000001/sig000001a0 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000023d )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000004c  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000241 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[23])
+    .CE(ce),
+    .D(\blk00000001/sig000001a1 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000023e )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000004b  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000240 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[24])
+    .CE(ce),
+    .D(\blk00000001/sig000001a2 ),
+    .R(sclr),
+    .Q(\blk00000001/sig0000023f )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000004a  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000023f ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[25])
+    .CE(ce),
+    .D(\blk00000001/sig000001a3 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000240 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000049  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000023e ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[26])
+    .CE(ce),
+    .D(\blk00000001/sig000001a4 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000241 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000048  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000023d ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[27])
+    .CE(ce),
+    .D(\blk00000001/sig000001a5 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000242 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000047  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000023c ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[28])
+    .CE(ce),
+    .D(\blk00000001/sig000001a6 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000243 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000046  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000023b ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[29])
+    .CE(ce),
+    .D(\blk00000001/sig000001a7 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000244 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000045  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig0000023a ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[30])
+    .CE(ce),
+    .D(\blk00000001/sig000001a8 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000245 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000044  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000239 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[31])
+    .CE(ce),
+    .D(\blk00000001/sig000001a9 ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000246 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000043  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000238 ),
-    .R(\blk00000001/sig00000139 ),
-    .Q(p[32])
+    .CE(ce),
+    .D(\blk00000001/sig000001aa ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000247 )
   );
   FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000042  (
     .C(clk),
-    .CE(\blk00000001/sig000000d2 ),
-    .D(\blk00000001/sig00000237 ),
-    .R(\blk00000001/sig00000139 ),
+    .CE(ce),
+    .D(\blk00000001/sig000001ab ),
+    .R(sclr),
+    .Q(\blk00000001/sig00000248 )
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000041  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000238 ),
+    .R(sclr),
+    .Q(p[17])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000040  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000239 ),
+    .R(sclr),
+    .Q(p[18])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk0000003f  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000023a ),
+    .R(sclr),
+    .Q(p[19])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk0000003e  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000023b ),
+    .R(sclr),
+    .Q(p[20])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk0000003d  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000023c ),
+    .R(sclr),
+    .Q(p[21])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk0000003c  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000023d ),
+    .R(sclr),
+    .Q(p[22])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk0000003b  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000023e ),
+    .R(sclr),
+    .Q(p[23])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk0000003a  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig0000023f ),
+    .R(sclr),
+    .Q(p[24])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000039  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000240 ),
+    .R(sclr),
+    .Q(p[25])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000038  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000241 ),
+    .R(sclr),
+    .Q(p[26])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000037  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000242 ),
+    .R(sclr),
+    .Q(p[27])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000036  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000243 ),
+    .R(sclr),
+    .Q(p[28])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000035  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000244 ),
+    .R(sclr),
+    .Q(p[29])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000034  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000245 ),
+    .R(sclr),
+    .Q(p[30])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000033  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000246 ),
+    .R(sclr),
+    .Q(p[31])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000032  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000247 ),
+    .R(sclr),
+    .Q(p[32])
+  );
+  FDRE #(
+    .INIT ( 1'b0 ))
+  \blk00000001/blk00000031  (
+    .C(clk),
+    .CE(ce),
+    .D(\blk00000001/sig00000248 ),
+    .R(sclr),
     .Q(p[33])
   );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000041  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig0000019a ),
-    .Q(\blk00000001/sig00000247 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000040  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig0000019b ),
-    .Q(\blk00000001/sig00000246 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk0000003f  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig0000019c ),
-    .Q(\blk00000001/sig00000245 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk0000003e  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig0000019d ),
-    .Q(\blk00000001/sig00000244 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk0000003d  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig0000019e ),
-    .Q(\blk00000001/sig00000243 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk0000003c  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig0000019f ),
-    .Q(\blk00000001/sig00000242 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk0000003b  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001a0 ),
-    .Q(\blk00000001/sig00000241 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk0000003a  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001a1 ),
-    .Q(\blk00000001/sig00000240 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000039  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001a2 ),
-    .Q(\blk00000001/sig0000023f )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000038  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001a3 ),
-    .Q(\blk00000001/sig0000023e )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000037  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001a4 ),
-    .Q(\blk00000001/sig0000023d )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000036  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001a5 ),
-    .Q(\blk00000001/sig0000023c )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000035  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001a6 ),
-    .Q(\blk00000001/sig0000023b )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000034  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001a7 ),
-    .Q(\blk00000001/sig0000023a )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000033  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001a8 ),
-    .Q(\blk00000001/sig00000239 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000032  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001a9 ),
-    .Q(\blk00000001/sig00000238 )
-  );
-  SRL16E #(
-    .INIT ( 16'h0000 ))
-  \blk00000001/blk00000031  (
-    .A0(\blk00000001/sig00000139 ),
-    .A1(\blk00000001/sig00000139 ),
-    .A2(\blk00000001/sig00000139 ),
-    .A3(\blk00000001/sig00000139 ),
-    .CE(\blk00000001/sig000000d2 ),
-    .CLK(clk),
-    .D(\blk00000001/sig000001aa ),
-    .Q(\blk00000001/sig00000237 )
-  );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000030  (
     .C(clk),
+    .CE(ce),
     .D(a[0]),
-    .Q(\blk00000001/sig0000020f )
+    .R(sclr),
+    .Q(\blk00000001/sig00000210 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000002f  (
     .C(clk),
+    .CE(ce),
     .D(a[1]),
-    .Q(\blk00000001/sig00000210 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000211 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000002e  (
     .C(clk),
+    .CE(ce),
     .D(a[2]),
-    .Q(\blk00000001/sig00000211 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000212 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000002d  (
     .C(clk),
+    .CE(ce),
     .D(a[3]),
-    .Q(\blk00000001/sig00000212 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000213 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000002c  (
     .C(clk),
+    .CE(ce),
     .D(a[4]),
-    .Q(\blk00000001/sig00000213 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000214 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000002b  (
     .C(clk),
+    .CE(ce),
     .D(a[5]),
-    .Q(\blk00000001/sig00000214 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000215 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000002a  (
     .C(clk),
+    .CE(ce),
     .D(a[6]),
-    .Q(\blk00000001/sig00000215 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000216 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000029  (
     .C(clk),
+    .CE(ce),
     .D(a[7]),
-    .Q(\blk00000001/sig00000216 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000217 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000028  (
     .C(clk),
+    .CE(ce),
     .D(a[8]),
-    .Q(\blk00000001/sig00000217 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000218 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000027  (
     .C(clk),
+    .CE(ce),
     .D(a[9]),
-    .Q(\blk00000001/sig00000218 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000219 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000026  (
     .C(clk),
+    .CE(ce),
     .D(a[10]),
-    .Q(\blk00000001/sig00000219 )
+    .R(sclr),
+    .Q(\blk00000001/sig0000021a )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000025  (
     .C(clk),
+    .CE(ce),
     .D(a[11]),
-    .Q(\blk00000001/sig0000021a )
+    .R(sclr),
+    .Q(\blk00000001/sig0000021b )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000024  (
     .C(clk),
+    .CE(ce),
     .D(a[12]),
-    .Q(\blk00000001/sig0000021b )
+    .R(sclr),
+    .Q(\blk00000001/sig0000021c )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000023  (
     .C(clk),
+    .CE(ce),
     .D(a[13]),
-    .Q(\blk00000001/sig0000021c )
+    .R(sclr),
+    .Q(\blk00000001/sig0000021d )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000022  (
     .C(clk),
+    .CE(ce),
     .D(a[14]),
-    .Q(\blk00000001/sig0000021d )
+    .R(sclr),
+    .Q(\blk00000001/sig0000021e )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000021  (
     .C(clk),
+    .CE(ce),
     .D(a[15]),
-    .Q(\blk00000001/sig0000021e )
+    .R(sclr),
+    .Q(\blk00000001/sig0000021f )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000020  (
     .C(clk),
+    .CE(ce),
     .D(a[16]),
-    .Q(\blk00000001/sig0000021f )
+    .R(sclr),
+    .Q(\blk00000001/sig00000220 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000001f  (
     .C(clk),
+    .CE(ce),
     .D(a[17]),
-    .Q(\blk00000001/sig00000220 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000221 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000001e  (
     .C(clk),
+    .CE(ce),
     .D(a[18]),
-    .Q(\blk00000001/sig00000221 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000222 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000001d  (
     .C(clk),
+    .CE(ce),
     .D(a[19]),
-    .Q(\blk00000001/sig00000222 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000223 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000001c  (
     .C(clk),
+    .CE(ce),
     .D(a[20]),
-    .Q(\blk00000001/sig00000223 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000224 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000001b  (
     .C(clk),
+    .CE(ce),
     .D(a[21]),
-    .Q(\blk00000001/sig00000224 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000225 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000001a  (
     .C(clk),
+    .CE(ce),
     .D(a[22]),
-    .Q(\blk00000001/sig00000225 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000226 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000019  (
     .C(clk),
+    .CE(ce),
     .D(a[23]),
-    .Q(\blk00000001/sig00000226 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000227 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000018  (
     .C(clk),
+    .CE(ce),
     .D(a[24]),
-    .Q(\blk00000001/sig00000227 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000228 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000017  (
     .C(clk),
+    .CE(ce),
     .D(a[25]),
-    .Q(\blk00000001/sig00000228 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000229 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000016  (
     .C(clk),
+    .CE(ce),
     .D(a[26]),
-    .Q(\blk00000001/sig00000229 )
+    .R(sclr),
+    .Q(\blk00000001/sig0000022a )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000015  (
     .C(clk),
+    .CE(ce),
     .D(a[27]),
-    .Q(\blk00000001/sig0000022a )
+    .R(sclr),
+    .Q(\blk00000001/sig0000022b )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000014  (
     .C(clk),
+    .CE(ce),
     .D(a[28]),
-    .Q(\blk00000001/sig0000022b )
+    .R(sclr),
+    .Q(\blk00000001/sig0000022c )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000013  (
     .C(clk),
+    .CE(ce),
     .D(a[29]),
-    .Q(\blk00000001/sig0000022c )
+    .R(sclr),
+    .Q(\blk00000001/sig0000022d )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000012  (
     .C(clk),
+    .CE(ce),
     .D(a[30]),
-    .Q(\blk00000001/sig0000022d )
+    .R(sclr),
+    .Q(\blk00000001/sig0000022e )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000011  (
     .C(clk),
+    .CE(ce),
     .D(a[31]),
-    .Q(\blk00000001/sig0000022e )
+    .R(sclr),
+    .Q(\blk00000001/sig0000022f )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000010  (
     .C(clk),
+    .CE(ce),
     .D(a[32]),
-    .Q(\blk00000001/sig0000022f )
+    .R(sclr),
+    .Q(\blk00000001/sig00000230 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000000f  (
     .C(clk),
+    .CE(ce),
     .D(a[33]),
-    .Q(\blk00000001/sig00000230 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000231 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000000e  (
     .C(clk),
+    .CE(ce),
     .D(a[34]),
-    .Q(\blk00000001/sig00000231 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000232 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000000d  (
     .C(clk),
+    .CE(ce),
     .D(a[35]),
-    .Q(\blk00000001/sig00000232 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000233 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000000c  (
     .C(clk),
+    .CE(ce),
     .D(a[36]),
-    .Q(\blk00000001/sig00000233 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000234 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000000b  (
     .C(clk),
+    .CE(ce),
     .D(a[37]),
-    .Q(\blk00000001/sig00000234 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000235 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk0000000a  (
     .C(clk),
+    .CE(ce),
     .D(a[38]),
-    .Q(\blk00000001/sig00000235 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000236 )
   );
-  FD #(
+  FDRE #(
     .INIT ( 1'b0 ))
   \blk00000001/blk00000009  (
     .C(clk),
+    .CE(ce),
     .D(a[39]),
-    .Q(\blk00000001/sig00000236 )
+    .R(sclr),
+    .Q(\blk00000001/sig00000237 )
   );
   DSP48E1 #(
     .ACASCREG ( 1 ),
@@ -2553,38 +2933,38 @@ module mult_u40 (
     .USE_SIMD ( "ONE48" ))
   \blk00000001/blk00000008  (
     .PATTERNBDETECT(\NLW_blk00000001/blk00000008_PATTERNBDETECT_UNCONNECTED ),
-    .RSTC(\blk00000001/sig00000139 ),
-    .CEB1(\blk00000001/sig00000139 ),
-    .CEAD(\blk00000001/sig00000139 ),
+    .RSTC(\blk00000001/sig0000013a ),
+    .CEB1(\blk00000001/sig0000013a ),
+    .CEAD(\blk00000001/sig0000013a ),
     .MULTSIGNOUT(\NLW_blk00000001/blk00000008_MULTSIGNOUT_UNCONNECTED ),
-    .CEC(\blk00000001/sig00000139 ),
-    .RSTM(\blk00000001/sig00000139 ),
-    .MULTSIGNIN(\blk00000001/sig00000139 ),
-    .CEB2(\blk00000001/sig000000d2 ),
-    .RSTCTRL(\blk00000001/sig00000139 ),
-    .CEP(\blk00000001/sig000000d2 ),
+    .CEC(\blk00000001/sig0000013a ),
+    .RSTM(sclr),
+    .MULTSIGNIN(\blk00000001/sig0000013a ),
+    .CEB2(ce),
+    .RSTCTRL(\blk00000001/sig0000013a ),
+    .CEP(ce),
     .CARRYCASCOUT(\NLW_blk00000001/blk00000008_CARRYCASCOUT_UNCONNECTED ),
-    .RSTA(\blk00000001/sig00000139 ),
-    .CECARRYIN(\blk00000001/sig00000139 ),
+    .RSTA(sclr),
+    .CECARRYIN(\blk00000001/sig0000013a ),
     .UNDERFLOW(\NLW_blk00000001/blk00000008_UNDERFLOW_UNCONNECTED ),
     .PATTERNDETECT(\NLW_blk00000001/blk00000008_PATTERNDETECT_UNCONNECTED ),
-    .RSTALUMODE(\blk00000001/sig00000139 ),
-    .RSTALLCARRYIN(\blk00000001/sig00000139 ),
-    .CED(\blk00000001/sig00000139 ),
-    .RSTD(\blk00000001/sig00000139 ),
-    .CEALUMODE(\blk00000001/sig00000139 ),
-    .CEA2(\blk00000001/sig000000d2 ),
+    .RSTALUMODE(\blk00000001/sig0000013a ),
+    .RSTALLCARRYIN(\blk00000001/sig0000013a ),
+    .CED(\blk00000001/sig0000013a ),
+    .RSTD(\blk00000001/sig0000013a ),
+    .CEALUMODE(\blk00000001/sig0000013a ),
+    .CEA2(ce),
     .CLK(clk),
-    .CEA1(\blk00000001/sig00000139 ),
-    .RSTB(\blk00000001/sig00000139 ),
+    .CEA1(\blk00000001/sig0000013a ),
+    .RSTB(sclr),
     .OVERFLOW(\NLW_blk00000001/blk00000008_OVERFLOW_UNCONNECTED ),
-    .CECTRL(\blk00000001/sig00000139 ),
-    .CEM(\blk00000001/sig000000d2 ),
-    .CARRYIN(\blk00000001/sig00000139 ),
-    .CARRYCASCIN(\blk00000001/sig00000139 ),
-    .RSTINMODE(\blk00000001/sig00000139 ),
-    .CEINMODE(\blk00000001/sig00000139 ),
-    .RSTP(\blk00000001/sig00000139 ),
+    .CECTRL(\blk00000001/sig0000013a ),
+    .CEM(ce),
+    .CARRYIN(\blk00000001/sig0000013a ),
+    .CARRYCASCIN(\blk00000001/sig0000013a ),
+    .RSTINMODE(\blk00000001/sig0000013a ),
+    .CEINMODE(\blk00000001/sig0000013a ),
+    .RSTP(sclr),
     .ACOUT({\NLW_blk00000001/blk00000008_ACOUT<29>_UNCONNECTED , \NLW_blk00000001/blk00000008_ACOUT<28>_UNCONNECTED , 
 \NLW_blk00000001/blk00000008_ACOUT<27>_UNCONNECTED , \NLW_blk00000001/blk00000008_ACOUT<26>_UNCONNECTED , 
 \NLW_blk00000001/blk00000008_ACOUT<25>_UNCONNECTED , \NLW_blk00000001/blk00000008_ACOUT<24>_UNCONNECTED , 
@@ -2600,46 +2980,46 @@ module mult_u40 (
 \NLW_blk00000001/blk00000008_ACOUT<5>_UNCONNECTED , \NLW_blk00000001/blk00000008_ACOUT<4>_UNCONNECTED , 
 \NLW_blk00000001/blk00000008_ACOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000008_ACOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000008_ACOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000008_ACOUT<0>_UNCONNECTED }),
-    .OPMODE({\blk00000001/sig00000139 , \blk00000001/sig000000d2 , \blk00000001/sig000000d2 , \blk00000001/sig00000139 , \blk00000001/sig000000d2 , 
-\blk00000001/sig00000139 , \blk00000001/sig000000d2 }),
-    .PCIN({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .ALUMODE({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .C({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
+    .OPMODE({\blk00000001/sig0000013a , \blk00000001/sig000000d4 , \blk00000001/sig000000d4 , \blk00000001/sig0000013a , \blk00000001/sig000000d4 , 
+\blk00000001/sig0000013a , \blk00000001/sig000000d4 }),
+    .PCIN({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .ALUMODE({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .C({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
     .CARRYOUT({\NLW_blk00000001/blk00000008_CARRYOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000008_CARRYOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000008_CARRYOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000008_CARRYOUT<0>_UNCONNECTED }),
-    .INMODE({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .BCIN({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .B({\blk00000001/sig00000139 , b[16], b[15], b[14], b[13], b[12], b[11], b[10], b[9], b[8], b[7], b[6], b[5], b[4], b[3], b[2], b[1], b[0]}),
-    .BCOUT({\blk00000001/sig000001fd , \blk00000001/sig000001fc , \blk00000001/sig000001fb , \blk00000001/sig000001fa , \blk00000001/sig000001f9 , 
-\blk00000001/sig000001f8 , \blk00000001/sig000001f7 , \blk00000001/sig000001f6 , \blk00000001/sig000001f5 , \blk00000001/sig000001f4 , 
-\blk00000001/sig000001f3 , \blk00000001/sig000001f2 , \blk00000001/sig000001f1 , \blk00000001/sig000001f0 , \blk00000001/sig000001ef , 
-\blk00000001/sig000001ee , \blk00000001/sig000001ed , \blk00000001/sig000001ec }),
-    .D({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
+    .INMODE({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .BCIN({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .B({\blk00000001/sig0000013a , b[16], b[15], b[14], b[13], b[12], b[11], b[10], b[9], b[8], b[7], b[6], b[5], b[4], b[3], b[2], b[1], b[0]}),
+    .BCOUT({\blk00000001/sig000001fe , \blk00000001/sig000001fd , \blk00000001/sig000001fc , \blk00000001/sig000001fb , \blk00000001/sig000001fa , 
+\blk00000001/sig000001f9 , \blk00000001/sig000001f8 , \blk00000001/sig000001f7 , \blk00000001/sig000001f6 , \blk00000001/sig000001f5 , 
+\blk00000001/sig000001f4 , \blk00000001/sig000001f3 , \blk00000001/sig000001f2 , \blk00000001/sig000001f1 , \blk00000001/sig000001f0 , 
+\blk00000001/sig000001ef , \blk00000001/sig000001ee , \blk00000001/sig000001ed }),
+    .D({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
     .P({\NLW_blk00000001/blk00000008_P<47>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<46>_UNCONNECTED , 
 \NLW_blk00000001/blk00000008_P<45>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<44>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<43>_UNCONNECTED , 
 \NLW_blk00000001/blk00000008_P<42>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<41>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<40>_UNCONNECTED , 
@@ -2650,31 +3030,31 @@ module mult_u40 (
 \NLW_blk00000001/blk00000008_P<27>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<26>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<25>_UNCONNECTED , 
 \NLW_blk00000001/blk00000008_P<24>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<23>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<22>_UNCONNECTED , 
 \NLW_blk00000001/blk00000008_P<21>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<20>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<19>_UNCONNECTED , 
-\NLW_blk00000001/blk00000008_P<18>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<17>_UNCONNECTED , \blk00000001/sig000001eb , \blk00000001/sig000001ea 
-, \blk00000001/sig000001e9 , \blk00000001/sig000001e8 , \blk00000001/sig000001e7 , \blk00000001/sig000001e6 , \blk00000001/sig000001e5 , 
-\blk00000001/sig000001e4 , \blk00000001/sig000001e3 , \blk00000001/sig000001e2 , \blk00000001/sig000001e1 , \blk00000001/sig000001e0 , 
-\blk00000001/sig000001df , \blk00000001/sig000001de , \blk00000001/sig000001dd , \blk00000001/sig000001dc , \blk00000001/sig000001db }),
-    .A({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , a[16], a[15], a[14], a[13], a[12], a[11], a[10], a[9], a[8], a[7], 
+\NLW_blk00000001/blk00000008_P<18>_UNCONNECTED , \NLW_blk00000001/blk00000008_P<17>_UNCONNECTED , \blk00000001/sig000001ec , \blk00000001/sig000001eb 
+, \blk00000001/sig000001ea , \blk00000001/sig000001e9 , \blk00000001/sig000001e8 , \blk00000001/sig000001e7 , \blk00000001/sig000001e6 , 
+\blk00000001/sig000001e5 , \blk00000001/sig000001e4 , \blk00000001/sig000001e3 , \blk00000001/sig000001e2 , \blk00000001/sig000001e1 , 
+\blk00000001/sig000001e0 , \blk00000001/sig000001df , \blk00000001/sig000001de , \blk00000001/sig000001dd , \blk00000001/sig000001dc }),
+    .A({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , a[16], a[15], a[14], a[13], a[12], a[11], a[10], a[9], a[8], a[7], 
 a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
-    .PCOUT({\blk00000001/sig000001da , \blk00000001/sig000001d9 , \blk00000001/sig000001d8 , \blk00000001/sig000001d7 , \blk00000001/sig000001d6 , 
-\blk00000001/sig000001d5 , \blk00000001/sig000001d4 , \blk00000001/sig000001d3 , \blk00000001/sig000001d2 , \blk00000001/sig000001d1 , 
-\blk00000001/sig000001d0 , \blk00000001/sig000001cf , \blk00000001/sig000001ce , \blk00000001/sig000001cd , \blk00000001/sig000001cc , 
-\blk00000001/sig000001cb , \blk00000001/sig000001ca , \blk00000001/sig000001c9 , \blk00000001/sig000001c8 , \blk00000001/sig000001c7 , 
-\blk00000001/sig000001c6 , \blk00000001/sig000001c5 , \blk00000001/sig000001c4 , \blk00000001/sig000001c3 , \blk00000001/sig000001c2 , 
-\blk00000001/sig000001c1 , \blk00000001/sig000001c0 , \blk00000001/sig000001bf , \blk00000001/sig000001be , \blk00000001/sig000001bd , 
-\blk00000001/sig000001bc , \blk00000001/sig000001bb , \blk00000001/sig000001ba , \blk00000001/sig000001b9 , \blk00000001/sig000001b8 , 
-\blk00000001/sig000001b7 , \blk00000001/sig000001b6 , \blk00000001/sig000001b5 , \blk00000001/sig000001b4 , \blk00000001/sig000001b3 , 
-\blk00000001/sig000001b2 , \blk00000001/sig000001b1 , \blk00000001/sig000001b0 , \blk00000001/sig000001af , \blk00000001/sig000001ae , 
-\blk00000001/sig000001ad , \blk00000001/sig000001ac , \blk00000001/sig000001ab }),
-    .ACIN({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .CARRYINSEL({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 })
+    .PCOUT({\blk00000001/sig000001db , \blk00000001/sig000001da , \blk00000001/sig000001d9 , \blk00000001/sig000001d8 , \blk00000001/sig000001d7 , 
+\blk00000001/sig000001d6 , \blk00000001/sig000001d5 , \blk00000001/sig000001d4 , \blk00000001/sig000001d3 , \blk00000001/sig000001d2 , 
+\blk00000001/sig000001d1 , \blk00000001/sig000001d0 , \blk00000001/sig000001cf , \blk00000001/sig000001ce , \blk00000001/sig000001cd , 
+\blk00000001/sig000001cc , \blk00000001/sig000001cb , \blk00000001/sig000001ca , \blk00000001/sig000001c9 , \blk00000001/sig000001c8 , 
+\blk00000001/sig000001c7 , \blk00000001/sig000001c6 , \blk00000001/sig000001c5 , \blk00000001/sig000001c4 , \blk00000001/sig000001c3 , 
+\blk00000001/sig000001c2 , \blk00000001/sig000001c1 , \blk00000001/sig000001c0 , \blk00000001/sig000001bf , \blk00000001/sig000001be , 
+\blk00000001/sig000001bd , \blk00000001/sig000001bc , \blk00000001/sig000001bb , \blk00000001/sig000001ba , \blk00000001/sig000001b9 , 
+\blk00000001/sig000001b8 , \blk00000001/sig000001b7 , \blk00000001/sig000001b6 , \blk00000001/sig000001b5 , \blk00000001/sig000001b4 , 
+\blk00000001/sig000001b3 , \blk00000001/sig000001b2 , \blk00000001/sig000001b1 , \blk00000001/sig000001b0 , \blk00000001/sig000001af , 
+\blk00000001/sig000001ae , \blk00000001/sig000001ad , \blk00000001/sig000001ac }),
+    .ACIN({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .CARRYINSEL({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a })
   );
   DSP48E1 #(
     .ACASCREG ( 2 ),
@@ -2704,38 +3084,38 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
     .USE_SIMD ( "ONE48" ))
   \blk00000001/blk00000007  (
     .PATTERNBDETECT(\NLW_blk00000001/blk00000007_PATTERNBDETECT_UNCONNECTED ),
-    .RSTC(\blk00000001/sig00000139 ),
-    .CEB1(\blk00000001/sig000000d2 ),
-    .CEAD(\blk00000001/sig000000d2 ),
+    .RSTC(\blk00000001/sig0000013a ),
+    .CEB1(ce),
+    .CEAD(ce),
     .MULTSIGNOUT(\NLW_blk00000001/blk00000007_MULTSIGNOUT_UNCONNECTED ),
-    .CEC(\blk00000001/sig00000139 ),
-    .RSTM(\blk00000001/sig00000139 ),
-    .MULTSIGNIN(\blk00000001/sig00000139 ),
-    .CEB2(\blk00000001/sig000000d2 ),
-    .RSTCTRL(\blk00000001/sig00000139 ),
-    .CEP(\blk00000001/sig000000d2 ),
+    .CEC(\blk00000001/sig0000013a ),
+    .RSTM(sclr),
+    .MULTSIGNIN(\blk00000001/sig0000013a ),
+    .CEB2(ce),
+    .RSTCTRL(\blk00000001/sig0000013a ),
+    .CEP(ce),
     .CARRYCASCOUT(\NLW_blk00000001/blk00000007_CARRYCASCOUT_UNCONNECTED ),
-    .RSTA(\blk00000001/sig00000139 ),
-    .CECARRYIN(\blk00000001/sig00000139 ),
+    .RSTA(sclr),
+    .CECARRYIN(\blk00000001/sig0000013a ),
     .UNDERFLOW(\NLW_blk00000001/blk00000007_UNDERFLOW_UNCONNECTED ),
     .PATTERNDETECT(\NLW_blk00000001/blk00000007_PATTERNDETECT_UNCONNECTED ),
-    .RSTALUMODE(\blk00000001/sig00000139 ),
-    .RSTALLCARRYIN(\blk00000001/sig00000139 ),
-    .CED(\blk00000001/sig00000139 ),
-    .RSTD(\blk00000001/sig00000139 ),
-    .CEALUMODE(\blk00000001/sig000000d2 ),
-    .CEA2(\blk00000001/sig000000d2 ),
+    .RSTALUMODE(sclr),
+    .RSTALLCARRYIN(\blk00000001/sig0000013a ),
+    .CED(\blk00000001/sig0000013a ),
+    .RSTD(sclr),
+    .CEALUMODE(ce),
+    .CEA2(ce),
     .CLK(clk),
-    .CEA1(\blk00000001/sig000000d2 ),
-    .RSTB(\blk00000001/sig00000139 ),
+    .CEA1(ce),
+    .RSTB(sclr),
     .OVERFLOW(\NLW_blk00000001/blk00000007_OVERFLOW_UNCONNECTED ),
-    .CECTRL(\blk00000001/sig00000139 ),
-    .CEM(\blk00000001/sig000000d2 ),
-    .CARRYIN(\blk00000001/sig00000139 ),
-    .CARRYCASCIN(\blk00000001/sig00000139 ),
-    .RSTINMODE(\blk00000001/sig00000139 ),
-    .CEINMODE(\blk00000001/sig00000139 ),
-    .RSTP(\blk00000001/sig00000139 ),
+    .CECTRL(\blk00000001/sig0000013a ),
+    .CEM(ce),
+    .CARRYIN(\blk00000001/sig0000013a ),
+    .CARRYCASCIN(\blk00000001/sig0000013a ),
+    .RSTINMODE(\blk00000001/sig0000013a ),
+    .CEINMODE(\blk00000001/sig0000013a ),
+    .RSTP(sclr),
     .ACOUT({\NLW_blk00000001/blk00000007_ACOUT<29>_UNCONNECTED , \NLW_blk00000001/blk00000007_ACOUT<28>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_ACOUT<27>_UNCONNECTED , \NLW_blk00000001/blk00000007_ACOUT<26>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_ACOUT<25>_UNCONNECTED , \NLW_blk00000001/blk00000007_ACOUT<24>_UNCONNECTED , 
@@ -2751,40 +3131,40 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
 \NLW_blk00000001/blk00000007_ACOUT<5>_UNCONNECTED , \NLW_blk00000001/blk00000007_ACOUT<4>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_ACOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000007_ACOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_ACOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000007_ACOUT<0>_UNCONNECTED }),
-    .OPMODE({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig000000d2 , \blk00000001/sig00000139 , \blk00000001/sig000000d2 , 
-\blk00000001/sig00000139 , \blk00000001/sig000000d2 }),
-    .PCIN({\blk00000001/sig00000169 , \blk00000001/sig00000168 , \blk00000001/sig00000167 , \blk00000001/sig00000166 , \blk00000001/sig00000165 , 
-\blk00000001/sig00000164 , \blk00000001/sig00000163 , \blk00000001/sig00000162 , \blk00000001/sig00000161 , \blk00000001/sig00000160 , 
-\blk00000001/sig0000015f , \blk00000001/sig0000015e , \blk00000001/sig0000015d , \blk00000001/sig0000015c , \blk00000001/sig0000015b , 
-\blk00000001/sig0000015a , \blk00000001/sig00000159 , \blk00000001/sig00000158 , \blk00000001/sig00000157 , \blk00000001/sig00000156 , 
-\blk00000001/sig00000155 , \blk00000001/sig00000154 , \blk00000001/sig00000153 , \blk00000001/sig00000152 , \blk00000001/sig00000151 , 
-\blk00000001/sig00000150 , \blk00000001/sig0000014f , \blk00000001/sig0000014e , \blk00000001/sig0000014d , \blk00000001/sig0000014c , 
-\blk00000001/sig0000014b , \blk00000001/sig0000014a , \blk00000001/sig00000149 , \blk00000001/sig00000148 , \blk00000001/sig00000147 , 
-\blk00000001/sig00000146 , \blk00000001/sig00000145 , \blk00000001/sig00000144 , \blk00000001/sig00000143 , \blk00000001/sig00000142 , 
-\blk00000001/sig00000141 , \blk00000001/sig00000140 , \blk00000001/sig0000013f , \blk00000001/sig0000013e , \blk00000001/sig0000013d , 
-\blk00000001/sig0000013c , \blk00000001/sig0000013b , \blk00000001/sig0000013a }),
-    .ALUMODE({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .C({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
+    .OPMODE({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig000000d4 , \blk00000001/sig0000013a , \blk00000001/sig000000d4 , 
+\blk00000001/sig0000013a , \blk00000001/sig000000d4 }),
+    .PCIN({\blk00000001/sig0000016a , \blk00000001/sig00000169 , \blk00000001/sig00000168 , \blk00000001/sig00000167 , \blk00000001/sig00000166 , 
+\blk00000001/sig00000165 , \blk00000001/sig00000164 , \blk00000001/sig00000163 , \blk00000001/sig00000162 , \blk00000001/sig00000161 , 
+\blk00000001/sig00000160 , \blk00000001/sig0000015f , \blk00000001/sig0000015e , \blk00000001/sig0000015d , \blk00000001/sig0000015c , 
+\blk00000001/sig0000015b , \blk00000001/sig0000015a , \blk00000001/sig00000159 , \blk00000001/sig00000158 , \blk00000001/sig00000157 , 
+\blk00000001/sig00000156 , \blk00000001/sig00000155 , \blk00000001/sig00000154 , \blk00000001/sig00000153 , \blk00000001/sig00000152 , 
+\blk00000001/sig00000151 , \blk00000001/sig00000150 , \blk00000001/sig0000014f , \blk00000001/sig0000014e , \blk00000001/sig0000014d , 
+\blk00000001/sig0000014c , \blk00000001/sig0000014b , \blk00000001/sig0000014a , \blk00000001/sig00000149 , \blk00000001/sig00000148 , 
+\blk00000001/sig00000147 , \blk00000001/sig00000146 , \blk00000001/sig00000145 , \blk00000001/sig00000144 , \blk00000001/sig00000143 , 
+\blk00000001/sig00000142 , \blk00000001/sig00000141 , \blk00000001/sig00000140 , \blk00000001/sig0000013f , \blk00000001/sig0000013e , 
+\blk00000001/sig0000013d , \blk00000001/sig0000013c , \blk00000001/sig0000013b }),
+    .ALUMODE({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .C({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
     .CARRYOUT({\NLW_blk00000001/blk00000007_CARRYOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000007_CARRYOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_CARRYOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000007_CARRYOUT<0>_UNCONNECTED }),
-    .INMODE({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .BCIN({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .B({\blk00000001/sig00000139 , \blk00000001/sig0000021f , \blk00000001/sig0000021e , \blk00000001/sig0000021d , \blk00000001/sig0000021c , 
-\blk00000001/sig0000021b , \blk00000001/sig0000021a , \blk00000001/sig00000219 , \blk00000001/sig00000218 , \blk00000001/sig00000217 , 
-\blk00000001/sig00000216 , \blk00000001/sig00000215 , \blk00000001/sig00000214 , \blk00000001/sig00000213 , \blk00000001/sig00000212 , 
-\blk00000001/sig00000211 , \blk00000001/sig00000210 , \blk00000001/sig0000020f }),
+    .INMODE({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .BCIN({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .B({\blk00000001/sig0000013a , \blk00000001/sig00000220 , \blk00000001/sig0000021f , \blk00000001/sig0000021e , \blk00000001/sig0000021d , 
+\blk00000001/sig0000021c , \blk00000001/sig0000021b , \blk00000001/sig0000021a , \blk00000001/sig00000219 , \blk00000001/sig00000218 , 
+\blk00000001/sig00000217 , \blk00000001/sig00000216 , \blk00000001/sig00000215 , \blk00000001/sig00000214 , \blk00000001/sig00000213 , 
+\blk00000001/sig00000212 , \blk00000001/sig00000211 , \blk00000001/sig00000210 }),
     .BCOUT({\NLW_blk00000001/blk00000007_BCOUT<17>_UNCONNECTED , \NLW_blk00000001/blk00000007_BCOUT<16>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_BCOUT<15>_UNCONNECTED , \NLW_blk00000001/blk00000007_BCOUT<14>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_BCOUT<13>_UNCONNECTED , \NLW_blk00000001/blk00000007_BCOUT<12>_UNCONNECTED , 
@@ -2794,11 +3174,11 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
 \NLW_blk00000001/blk00000007_BCOUT<5>_UNCONNECTED , \NLW_blk00000001/blk00000007_BCOUT<4>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_BCOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000007_BCOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_BCOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000007_BCOUT<0>_UNCONNECTED }),
-    .D({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
+    .D({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
     .P({\NLW_blk00000001/blk00000007_P<47>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<46>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_P<45>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<44>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<43>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_P<42>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<41>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<40>_UNCONNECTED , 
@@ -2809,30 +3189,30 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
 \NLW_blk00000001/blk00000007_P<27>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<26>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<25>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_P<24>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<23>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<22>_UNCONNECTED , 
 \NLW_blk00000001/blk00000007_P<21>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<20>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<19>_UNCONNECTED , 
-\NLW_blk00000001/blk00000007_P<18>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<17>_UNCONNECTED , \blk00000001/sig000001aa , \blk00000001/sig000001a9 
-, \blk00000001/sig000001a8 , \blk00000001/sig000001a7 , \blk00000001/sig000001a6 , \blk00000001/sig000001a5 , \blk00000001/sig000001a4 , 
-\blk00000001/sig000001a3 , \blk00000001/sig000001a2 , \blk00000001/sig000001a1 , \blk00000001/sig000001a0 , \blk00000001/sig0000019f , 
-\blk00000001/sig0000019e , \blk00000001/sig0000019d , \blk00000001/sig0000019c , \blk00000001/sig0000019b , \blk00000001/sig0000019a }),
-    .A({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , b[39], b[38], b[37], b[36], b[35], b[34], b[33], b[32], b[31], b[30], b[29], b[28], b[27], b[26]
+\NLW_blk00000001/blk00000007_P<18>_UNCONNECTED , \NLW_blk00000001/blk00000007_P<17>_UNCONNECTED , \blk00000001/sig000001ab , \blk00000001/sig000001aa 
+, \blk00000001/sig000001a9 , \blk00000001/sig000001a8 , \blk00000001/sig000001a7 , \blk00000001/sig000001a6 , \blk00000001/sig000001a5 , 
+\blk00000001/sig000001a4 , \blk00000001/sig000001a3 , \blk00000001/sig000001a2 , \blk00000001/sig000001a1 , \blk00000001/sig000001a0 , 
+\blk00000001/sig0000019f , \blk00000001/sig0000019e , \blk00000001/sig0000019d , \blk00000001/sig0000019c , \blk00000001/sig0000019b }),
+    .A({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , b[39], b[38], b[37], b[36], b[35], b[34], b[33], b[32], b[31], b[30], b[29], b[28], b[27], b[26]
 , b[25], b[24], b[23], b[22], b[21], b[20], b[19], b[18], b[17]}),
-    .PCOUT({\blk00000001/sig00000199 , \blk00000001/sig00000198 , \blk00000001/sig00000197 , \blk00000001/sig00000196 , \blk00000001/sig00000195 , 
-\blk00000001/sig00000194 , \blk00000001/sig00000193 , \blk00000001/sig00000192 , \blk00000001/sig00000191 , \blk00000001/sig00000190 , 
-\blk00000001/sig0000018f , \blk00000001/sig0000018e , \blk00000001/sig0000018d , \blk00000001/sig0000018c , \blk00000001/sig0000018b , 
-\blk00000001/sig0000018a , \blk00000001/sig00000189 , \blk00000001/sig00000188 , \blk00000001/sig00000187 , \blk00000001/sig00000186 , 
-\blk00000001/sig00000185 , \blk00000001/sig00000184 , \blk00000001/sig00000183 , \blk00000001/sig00000182 , \blk00000001/sig00000181 , 
-\blk00000001/sig00000180 , \blk00000001/sig0000017f , \blk00000001/sig0000017e , \blk00000001/sig0000017d , \blk00000001/sig0000017c , 
-\blk00000001/sig0000017b , \blk00000001/sig0000017a , \blk00000001/sig00000179 , \blk00000001/sig00000178 , \blk00000001/sig00000177 , 
-\blk00000001/sig00000176 , \blk00000001/sig00000175 , \blk00000001/sig00000174 , \blk00000001/sig00000173 , \blk00000001/sig00000172 , 
-\blk00000001/sig00000171 , \blk00000001/sig00000170 , \blk00000001/sig0000016f , \blk00000001/sig0000016e , \blk00000001/sig0000016d , 
-\blk00000001/sig0000016c , \blk00000001/sig0000016b , \blk00000001/sig0000016a }),
-    .ACIN({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .CARRYINSEL({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 })
+    .PCOUT({\blk00000001/sig0000019a , \blk00000001/sig00000199 , \blk00000001/sig00000198 , \blk00000001/sig00000197 , \blk00000001/sig00000196 , 
+\blk00000001/sig00000195 , \blk00000001/sig00000194 , \blk00000001/sig00000193 , \blk00000001/sig00000192 , \blk00000001/sig00000191 , 
+\blk00000001/sig00000190 , \blk00000001/sig0000018f , \blk00000001/sig0000018e , \blk00000001/sig0000018d , \blk00000001/sig0000018c , 
+\blk00000001/sig0000018b , \blk00000001/sig0000018a , \blk00000001/sig00000189 , \blk00000001/sig00000188 , \blk00000001/sig00000187 , 
+\blk00000001/sig00000186 , \blk00000001/sig00000185 , \blk00000001/sig00000184 , \blk00000001/sig00000183 , \blk00000001/sig00000182 , 
+\blk00000001/sig00000181 , \blk00000001/sig00000180 , \blk00000001/sig0000017f , \blk00000001/sig0000017e , \blk00000001/sig0000017d , 
+\blk00000001/sig0000017c , \blk00000001/sig0000017b , \blk00000001/sig0000017a , \blk00000001/sig00000179 , \blk00000001/sig00000178 , 
+\blk00000001/sig00000177 , \blk00000001/sig00000176 , \blk00000001/sig00000175 , \blk00000001/sig00000174 , \blk00000001/sig00000173 , 
+\blk00000001/sig00000172 , \blk00000001/sig00000171 , \blk00000001/sig00000170 , \blk00000001/sig0000016f , \blk00000001/sig0000016e , 
+\blk00000001/sig0000016d , \blk00000001/sig0000016c , \blk00000001/sig0000016b }),
+    .ACIN({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .CARRYINSEL({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a })
   );
   DSP48E1 #(
     .ACASCREG ( 2 ),
@@ -2862,38 +3242,38 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
     .USE_SIMD ( "ONE48" ))
   \blk00000001/blk00000006  (
     .PATTERNBDETECT(\NLW_blk00000001/blk00000006_PATTERNBDETECT_UNCONNECTED ),
-    .RSTC(\blk00000001/sig00000139 ),
-    .CEB1(\blk00000001/sig00000139 ),
-    .CEAD(\blk00000001/sig00000139 ),
+    .RSTC(\blk00000001/sig0000013a ),
+    .CEB1(\blk00000001/sig0000013a ),
+    .CEAD(\blk00000001/sig0000013a ),
     .MULTSIGNOUT(\NLW_blk00000001/blk00000006_MULTSIGNOUT_UNCONNECTED ),
-    .CEC(\blk00000001/sig00000139 ),
-    .RSTM(\blk00000001/sig00000139 ),
-    .MULTSIGNIN(\blk00000001/sig00000139 ),
-    .CEB2(\blk00000001/sig000000d2 ),
-    .RSTCTRL(\blk00000001/sig00000139 ),
-    .CEP(\blk00000001/sig000000d2 ),
+    .CEC(\blk00000001/sig0000013a ),
+    .RSTM(sclr),
+    .MULTSIGNIN(\blk00000001/sig0000013a ),
+    .CEB2(ce),
+    .RSTCTRL(\blk00000001/sig0000013a ),
+    .CEP(ce),
     .CARRYCASCOUT(\NLW_blk00000001/blk00000006_CARRYCASCOUT_UNCONNECTED ),
-    .RSTA(\blk00000001/sig00000139 ),
-    .CECARRYIN(\blk00000001/sig00000139 ),
+    .RSTA(sclr),
+    .CECARRYIN(\blk00000001/sig0000013a ),
     .UNDERFLOW(\NLW_blk00000001/blk00000006_UNDERFLOW_UNCONNECTED ),
     .PATTERNDETECT(\NLW_blk00000001/blk00000006_PATTERNDETECT_UNCONNECTED ),
-    .RSTALUMODE(\blk00000001/sig00000139 ),
-    .RSTALLCARRYIN(\blk00000001/sig00000139 ),
-    .CED(\blk00000001/sig00000139 ),
-    .RSTD(\blk00000001/sig00000139 ),
-    .CEALUMODE(\blk00000001/sig000000d2 ),
-    .CEA2(\blk00000001/sig000000d2 ),
+    .RSTALUMODE(sclr),
+    .RSTALLCARRYIN(\blk00000001/sig0000013a ),
+    .CED(\blk00000001/sig0000013a ),
+    .RSTD(\blk00000001/sig0000013a ),
+    .CEALUMODE(ce),
+    .CEA2(ce),
     .CLK(clk),
-    .CEA1(\blk00000001/sig000000d2 ),
-    .RSTB(\blk00000001/sig00000139 ),
+    .CEA1(ce),
+    .RSTB(sclr),
     .OVERFLOW(\NLW_blk00000001/blk00000006_OVERFLOW_UNCONNECTED ),
-    .CECTRL(\blk00000001/sig00000139 ),
-    .CEM(\blk00000001/sig000000d2 ),
-    .CARRYIN(\blk00000001/sig00000139 ),
-    .CARRYCASCIN(\blk00000001/sig00000139 ),
-    .RSTINMODE(\blk00000001/sig00000139 ),
-    .CEINMODE(\blk00000001/sig00000139 ),
-    .RSTP(\blk00000001/sig00000139 ),
+    .CECTRL(\blk00000001/sig0000013a ),
+    .CEM(ce),
+    .CARRYIN(\blk00000001/sig0000013a ),
+    .CARRYCASCIN(\blk00000001/sig0000013a ),
+    .RSTINMODE(\blk00000001/sig0000013a ),
+    .CEINMODE(\blk00000001/sig0000013a ),
+    .RSTP(sclr),
     .ACOUT({\NLW_blk00000001/blk00000006_ACOUT<29>_UNCONNECTED , \NLW_blk00000001/blk00000006_ACOUT<28>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_ACOUT<27>_UNCONNECTED , \NLW_blk00000001/blk00000006_ACOUT<26>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_ACOUT<25>_UNCONNECTED , \NLW_blk00000001/blk00000006_ACOUT<24>_UNCONNECTED , 
@@ -2909,40 +3289,40 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
 \NLW_blk00000001/blk00000006_ACOUT<5>_UNCONNECTED , \NLW_blk00000001/blk00000006_ACOUT<4>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_ACOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000006_ACOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_ACOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000006_ACOUT<0>_UNCONNECTED }),
-    .OPMODE({\blk00000001/sig000000d2 , \blk00000001/sig00000139 , \blk00000001/sig000000d2 , \blk00000001/sig00000139 , \blk00000001/sig000000d2 , 
-\blk00000001/sig00000139 , \blk00000001/sig000000d2 }),
-    .PCIN({\blk00000001/sig000001da , \blk00000001/sig000001d9 , \blk00000001/sig000001d8 , \blk00000001/sig000001d7 , \blk00000001/sig000001d6 , 
-\blk00000001/sig000001d5 , \blk00000001/sig000001d4 , \blk00000001/sig000001d3 , \blk00000001/sig000001d2 , \blk00000001/sig000001d1 , 
-\blk00000001/sig000001d0 , \blk00000001/sig000001cf , \blk00000001/sig000001ce , \blk00000001/sig000001cd , \blk00000001/sig000001cc , 
-\blk00000001/sig000001cb , \blk00000001/sig000001ca , \blk00000001/sig000001c9 , \blk00000001/sig000001c8 , \blk00000001/sig000001c7 , 
-\blk00000001/sig000001c6 , \blk00000001/sig000001c5 , \blk00000001/sig000001c4 , \blk00000001/sig000001c3 , \blk00000001/sig000001c2 , 
-\blk00000001/sig000001c1 , \blk00000001/sig000001c0 , \blk00000001/sig000001bf , \blk00000001/sig000001be , \blk00000001/sig000001bd , 
-\blk00000001/sig000001bc , \blk00000001/sig000001bb , \blk00000001/sig000001ba , \blk00000001/sig000001b9 , \blk00000001/sig000001b8 , 
-\blk00000001/sig000001b7 , \blk00000001/sig000001b6 , \blk00000001/sig000001b5 , \blk00000001/sig000001b4 , \blk00000001/sig000001b3 , 
-\blk00000001/sig000001b2 , \blk00000001/sig000001b1 , \blk00000001/sig000001b0 , \blk00000001/sig000001af , \blk00000001/sig000001ae , 
-\blk00000001/sig000001ad , \blk00000001/sig000001ac , \blk00000001/sig000001ab }),
-    .ALUMODE({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .C({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
+    .OPMODE({\blk00000001/sig000000d4 , \blk00000001/sig0000013a , \blk00000001/sig000000d4 , \blk00000001/sig0000013a , \blk00000001/sig000000d4 , 
+\blk00000001/sig0000013a , \blk00000001/sig000000d4 }),
+    .PCIN({\blk00000001/sig000001db , \blk00000001/sig000001da , \blk00000001/sig000001d9 , \blk00000001/sig000001d8 , \blk00000001/sig000001d7 , 
+\blk00000001/sig000001d6 , \blk00000001/sig000001d5 , \blk00000001/sig000001d4 , \blk00000001/sig000001d3 , \blk00000001/sig000001d2 , 
+\blk00000001/sig000001d1 , \blk00000001/sig000001d0 , \blk00000001/sig000001cf , \blk00000001/sig000001ce , \blk00000001/sig000001cd , 
+\blk00000001/sig000001cc , \blk00000001/sig000001cb , \blk00000001/sig000001ca , \blk00000001/sig000001c9 , \blk00000001/sig000001c8 , 
+\blk00000001/sig000001c7 , \blk00000001/sig000001c6 , \blk00000001/sig000001c5 , \blk00000001/sig000001c4 , \blk00000001/sig000001c3 , 
+\blk00000001/sig000001c2 , \blk00000001/sig000001c1 , \blk00000001/sig000001c0 , \blk00000001/sig000001bf , \blk00000001/sig000001be , 
+\blk00000001/sig000001bd , \blk00000001/sig000001bc , \blk00000001/sig000001bb , \blk00000001/sig000001ba , \blk00000001/sig000001b9 , 
+\blk00000001/sig000001b8 , \blk00000001/sig000001b7 , \blk00000001/sig000001b6 , \blk00000001/sig000001b5 , \blk00000001/sig000001b4 , 
+\blk00000001/sig000001b3 , \blk00000001/sig000001b2 , \blk00000001/sig000001b1 , \blk00000001/sig000001b0 , \blk00000001/sig000001af , 
+\blk00000001/sig000001ae , \blk00000001/sig000001ad , \blk00000001/sig000001ac }),
+    .ALUMODE({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .C({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
     .CARRYOUT({\NLW_blk00000001/blk00000006_CARRYOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000006_CARRYOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_CARRYOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000006_CARRYOUT<0>_UNCONNECTED }),
-    .INMODE({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .BCIN({\blk00000001/sig000001fd , \blk00000001/sig000001fc , \blk00000001/sig000001fb , \blk00000001/sig000001fa , \blk00000001/sig000001f9 , 
-\blk00000001/sig000001f8 , \blk00000001/sig000001f7 , \blk00000001/sig000001f6 , \blk00000001/sig000001f5 , \blk00000001/sig000001f4 , 
-\blk00000001/sig000001f3 , \blk00000001/sig000001f2 , \blk00000001/sig000001f1 , \blk00000001/sig000001f0 , \blk00000001/sig000001ef , 
-\blk00000001/sig000001ee , \blk00000001/sig000001ed , \blk00000001/sig000001ec }),
-    .B({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
+    .INMODE({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .BCIN({\blk00000001/sig000001fe , \blk00000001/sig000001fd , \blk00000001/sig000001fc , \blk00000001/sig000001fb , \blk00000001/sig000001fa , 
+\blk00000001/sig000001f9 , \blk00000001/sig000001f8 , \blk00000001/sig000001f7 , \blk00000001/sig000001f6 , \blk00000001/sig000001f5 , 
+\blk00000001/sig000001f4 , \blk00000001/sig000001f3 , \blk00000001/sig000001f2 , \blk00000001/sig000001f1 , \blk00000001/sig000001f0 , 
+\blk00000001/sig000001ef , \blk00000001/sig000001ee , \blk00000001/sig000001ed }),
+    .B({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
     .BCOUT({\NLW_blk00000001/blk00000006_BCOUT<17>_UNCONNECTED , \NLW_blk00000001/blk00000006_BCOUT<16>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_BCOUT<15>_UNCONNECTED , \NLW_blk00000001/blk00000006_BCOUT<14>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_BCOUT<13>_UNCONNECTED , \NLW_blk00000001/blk00000006_BCOUT<12>_UNCONNECTED , 
@@ -2952,11 +3332,11 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
 \NLW_blk00000001/blk00000006_BCOUT<5>_UNCONNECTED , \NLW_blk00000001/blk00000006_BCOUT<4>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_BCOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000006_BCOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_BCOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000006_BCOUT<0>_UNCONNECTED }),
-    .D({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
+    .D({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
     .P({\NLW_blk00000001/blk00000006_P<47>_UNCONNECTED , \NLW_blk00000001/blk00000006_P<46>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_P<45>_UNCONNECTED , \NLW_blk00000001/blk00000006_P<44>_UNCONNECTED , \NLW_blk00000001/blk00000006_P<43>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_P<42>_UNCONNECTED , \NLW_blk00000001/blk00000006_P<41>_UNCONNECTED , \NLW_blk00000001/blk00000006_P<40>_UNCONNECTED , 
@@ -2974,26 +3354,26 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
 \NLW_blk00000001/blk00000006_P<6>_UNCONNECTED , \NLW_blk00000001/blk00000006_P<5>_UNCONNECTED , \NLW_blk00000001/blk00000006_P<4>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_P<3>_UNCONNECTED , \NLW_blk00000001/blk00000006_P<2>_UNCONNECTED , \NLW_blk00000001/blk00000006_P<1>_UNCONNECTED , 
 \NLW_blk00000001/blk00000006_P<0>_UNCONNECTED }),
-    .A({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , a[39], a[38], a[37], a[36], a[35], a[34], a[33], a[32], a[31], a[30], a[29], a[28], a[27], a[26]
+    .A({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , a[39], a[38], a[37], a[36], a[35], a[34], a[33], a[32], a[31], a[30], a[29], a[28], a[27], a[26]
 , a[25], a[24], a[23], a[22], a[21], a[20], a[19], a[18], a[17]}),
-    .PCOUT({\blk00000001/sig00000169 , \blk00000001/sig00000168 , \blk00000001/sig00000167 , \blk00000001/sig00000166 , \blk00000001/sig00000165 , 
-\blk00000001/sig00000164 , \blk00000001/sig00000163 , \blk00000001/sig00000162 , \blk00000001/sig00000161 , \blk00000001/sig00000160 , 
-\blk00000001/sig0000015f , \blk00000001/sig0000015e , \blk00000001/sig0000015d , \blk00000001/sig0000015c , \blk00000001/sig0000015b , 
-\blk00000001/sig0000015a , \blk00000001/sig00000159 , \blk00000001/sig00000158 , \blk00000001/sig00000157 , \blk00000001/sig00000156 , 
-\blk00000001/sig00000155 , \blk00000001/sig00000154 , \blk00000001/sig00000153 , \blk00000001/sig00000152 , \blk00000001/sig00000151 , 
-\blk00000001/sig00000150 , \blk00000001/sig0000014f , \blk00000001/sig0000014e , \blk00000001/sig0000014d , \blk00000001/sig0000014c , 
-\blk00000001/sig0000014b , \blk00000001/sig0000014a , \blk00000001/sig00000149 , \blk00000001/sig00000148 , \blk00000001/sig00000147 , 
-\blk00000001/sig00000146 , \blk00000001/sig00000145 , \blk00000001/sig00000144 , \blk00000001/sig00000143 , \blk00000001/sig00000142 , 
-\blk00000001/sig00000141 , \blk00000001/sig00000140 , \blk00000001/sig0000013f , \blk00000001/sig0000013e , \blk00000001/sig0000013d , 
-\blk00000001/sig0000013c , \blk00000001/sig0000013b , \blk00000001/sig0000013a }),
-    .ACIN({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .CARRYINSEL({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 })
+    .PCOUT({\blk00000001/sig0000016a , \blk00000001/sig00000169 , \blk00000001/sig00000168 , \blk00000001/sig00000167 , \blk00000001/sig00000166 , 
+\blk00000001/sig00000165 , \blk00000001/sig00000164 , \blk00000001/sig00000163 , \blk00000001/sig00000162 , \blk00000001/sig00000161 , 
+\blk00000001/sig00000160 , \blk00000001/sig0000015f , \blk00000001/sig0000015e , \blk00000001/sig0000015d , \blk00000001/sig0000015c , 
+\blk00000001/sig0000015b , \blk00000001/sig0000015a , \blk00000001/sig00000159 , \blk00000001/sig00000158 , \blk00000001/sig00000157 , 
+\blk00000001/sig00000156 , \blk00000001/sig00000155 , \blk00000001/sig00000154 , \blk00000001/sig00000153 , \blk00000001/sig00000152 , 
+\blk00000001/sig00000151 , \blk00000001/sig00000150 , \blk00000001/sig0000014f , \blk00000001/sig0000014e , \blk00000001/sig0000014d , 
+\blk00000001/sig0000014c , \blk00000001/sig0000014b , \blk00000001/sig0000014a , \blk00000001/sig00000149 , \blk00000001/sig00000148 , 
+\blk00000001/sig00000147 , \blk00000001/sig00000146 , \blk00000001/sig00000145 , \blk00000001/sig00000144 , \blk00000001/sig00000143 , 
+\blk00000001/sig00000142 , \blk00000001/sig00000141 , \blk00000001/sig00000140 , \blk00000001/sig0000013f , \blk00000001/sig0000013e , 
+\blk00000001/sig0000013d , \blk00000001/sig0000013c , \blk00000001/sig0000013b }),
+    .ACIN({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .CARRYINSEL({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a })
   );
   DSP48E1 #(
     .ACASCREG ( 2 ),
@@ -3023,78 +3403,78 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
     .USE_SIMD ( "ONE48" ))
   \blk00000001/blk00000005  (
     .PATTERNBDETECT(\NLW_blk00000001/blk00000005_PATTERNBDETECT_UNCONNECTED ),
-    .RSTC(\blk00000001/sig00000139 ),
-    .CEB1(\blk00000001/sig000000d2 ),
-    .CEAD(\blk00000001/sig000000d2 ),
+    .RSTC(\blk00000001/sig0000013a ),
+    .CEB1(ce),
+    .CEAD(ce),
     .MULTSIGNOUT(\NLW_blk00000001/blk00000005_MULTSIGNOUT_UNCONNECTED ),
-    .CEC(\blk00000001/sig00000139 ),
-    .RSTM(\blk00000001/sig00000139 ),
-    .MULTSIGNIN(\blk00000001/sig00000139 ),
-    .CEB2(\blk00000001/sig000000d2 ),
-    .RSTCTRL(\blk00000001/sig00000139 ),
-    .CEP(\blk00000001/sig000000d2 ),
+    .CEC(\blk00000001/sig0000013a ),
+    .RSTM(sclr),
+    .MULTSIGNIN(\blk00000001/sig0000013a ),
+    .CEB2(ce),
+    .RSTCTRL(\blk00000001/sig0000013a ),
+    .CEP(ce),
     .CARRYCASCOUT(\NLW_blk00000001/blk00000005_CARRYCASCOUT_UNCONNECTED ),
-    .RSTA(\blk00000001/sig00000139 ),
-    .CECARRYIN(\blk00000001/sig00000139 ),
+    .RSTA(sclr),
+    .CECARRYIN(\blk00000001/sig0000013a ),
     .UNDERFLOW(\NLW_blk00000001/blk00000005_UNDERFLOW_UNCONNECTED ),
     .PATTERNDETECT(\NLW_blk00000001/blk00000005_PATTERNDETECT_UNCONNECTED ),
-    .RSTALUMODE(\blk00000001/sig00000139 ),
-    .RSTALLCARRYIN(\blk00000001/sig00000139 ),
-    .CED(\blk00000001/sig00000139 ),
-    .RSTD(\blk00000001/sig00000139 ),
-    .CEALUMODE(\blk00000001/sig000000d2 ),
-    .CEA2(\blk00000001/sig000000d2 ),
+    .RSTALUMODE(sclr),
+    .RSTALLCARRYIN(\blk00000001/sig0000013a ),
+    .CED(\blk00000001/sig0000013a ),
+    .RSTD(sclr),
+    .CEALUMODE(ce),
+    .CEA2(ce),
     .CLK(clk),
-    .CEA1(\blk00000001/sig000000d2 ),
-    .RSTB(\blk00000001/sig00000139 ),
+    .CEA1(ce),
+    .RSTB(sclr),
     .OVERFLOW(\NLW_blk00000001/blk00000005_OVERFLOW_UNCONNECTED ),
-    .CECTRL(\blk00000001/sig00000139 ),
-    .CEM(\blk00000001/sig000000d2 ),
-    .CARRYIN(\blk00000001/sig00000139 ),
-    .CARRYCASCIN(\blk00000001/sig00000139 ),
-    .RSTINMODE(\blk00000001/sig00000139 ),
-    .CEINMODE(\blk00000001/sig00000139 ),
-    .RSTP(\blk00000001/sig00000139 ),
-    .ACOUT({\blk00000001/sig00000138 , \blk00000001/sig00000137 , \blk00000001/sig00000136 , \blk00000001/sig00000135 , \blk00000001/sig00000134 , 
-\blk00000001/sig00000133 , \blk00000001/sig00000132 , \blk00000001/sig00000131 , \blk00000001/sig00000130 , \blk00000001/sig0000012f , 
-\blk00000001/sig0000012e , \blk00000001/sig0000012d , \blk00000001/sig0000012c , \blk00000001/sig0000012b , \blk00000001/sig0000012a , 
-\blk00000001/sig00000129 , \blk00000001/sig00000128 , \blk00000001/sig00000127 , \blk00000001/sig00000126 , \blk00000001/sig00000125 , 
-\blk00000001/sig00000124 , \blk00000001/sig00000123 , \blk00000001/sig00000122 , \blk00000001/sig00000121 , \blk00000001/sig00000120 , 
-\blk00000001/sig0000011f , \blk00000001/sig0000011e , \blk00000001/sig0000011d , \blk00000001/sig0000011c , \blk00000001/sig0000011b }),
-    .OPMODE({\blk00000001/sig000000d2 , \blk00000001/sig00000139 , \blk00000001/sig000000d2 , \blk00000001/sig00000139 , \blk00000001/sig000000d2 , 
-\blk00000001/sig00000139 , \blk00000001/sig000000d2 }),
-    .PCIN({\blk00000001/sig00000199 , \blk00000001/sig00000198 , \blk00000001/sig00000197 , \blk00000001/sig00000196 , \blk00000001/sig00000195 , 
-\blk00000001/sig00000194 , \blk00000001/sig00000193 , \blk00000001/sig00000192 , \blk00000001/sig00000191 , \blk00000001/sig00000190 , 
-\blk00000001/sig0000018f , \blk00000001/sig0000018e , \blk00000001/sig0000018d , \blk00000001/sig0000018c , \blk00000001/sig0000018b , 
-\blk00000001/sig0000018a , \blk00000001/sig00000189 , \blk00000001/sig00000188 , \blk00000001/sig00000187 , \blk00000001/sig00000186 , 
-\blk00000001/sig00000185 , \blk00000001/sig00000184 , \blk00000001/sig00000183 , \blk00000001/sig00000182 , \blk00000001/sig00000181 , 
-\blk00000001/sig00000180 , \blk00000001/sig0000017f , \blk00000001/sig0000017e , \blk00000001/sig0000017d , \blk00000001/sig0000017c , 
-\blk00000001/sig0000017b , \blk00000001/sig0000017a , \blk00000001/sig00000179 , \blk00000001/sig00000178 , \blk00000001/sig00000177 , 
-\blk00000001/sig00000176 , \blk00000001/sig00000175 , \blk00000001/sig00000174 , \blk00000001/sig00000173 , \blk00000001/sig00000172 , 
-\blk00000001/sig00000171 , \blk00000001/sig00000170 , \blk00000001/sig0000016f , \blk00000001/sig0000016e , \blk00000001/sig0000016d , 
-\blk00000001/sig0000016c , \blk00000001/sig0000016b , \blk00000001/sig0000016a }),
-    .ALUMODE({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .C({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
+    .CECTRL(\blk00000001/sig0000013a ),
+    .CEM(ce),
+    .CARRYIN(\blk00000001/sig0000013a ),
+    .CARRYCASCIN(\blk00000001/sig0000013a ),
+    .RSTINMODE(\blk00000001/sig0000013a ),
+    .CEINMODE(\blk00000001/sig0000013a ),
+    .RSTP(sclr),
+    .ACOUT({\blk00000001/sig00000139 , \blk00000001/sig00000138 , \blk00000001/sig00000137 , \blk00000001/sig00000136 , \blk00000001/sig00000135 , 
+\blk00000001/sig00000134 , \blk00000001/sig00000133 , \blk00000001/sig00000132 , \blk00000001/sig00000131 , \blk00000001/sig00000130 , 
+\blk00000001/sig0000012f , \blk00000001/sig0000012e , \blk00000001/sig0000012d , \blk00000001/sig0000012c , \blk00000001/sig0000012b , 
+\blk00000001/sig0000012a , \blk00000001/sig00000129 , \blk00000001/sig00000128 , \blk00000001/sig00000127 , \blk00000001/sig00000126 , 
+\blk00000001/sig00000125 , \blk00000001/sig00000124 , \blk00000001/sig00000123 , \blk00000001/sig00000122 , \blk00000001/sig00000121 , 
+\blk00000001/sig00000120 , \blk00000001/sig0000011f , \blk00000001/sig0000011e , \blk00000001/sig0000011d , \blk00000001/sig0000011c }),
+    .OPMODE({\blk00000001/sig000000d4 , \blk00000001/sig0000013a , \blk00000001/sig000000d4 , \blk00000001/sig0000013a , \blk00000001/sig000000d4 , 
+\blk00000001/sig0000013a , \blk00000001/sig000000d4 }),
+    .PCIN({\blk00000001/sig0000019a , \blk00000001/sig00000199 , \blk00000001/sig00000198 , \blk00000001/sig00000197 , \blk00000001/sig00000196 , 
+\blk00000001/sig00000195 , \blk00000001/sig00000194 , \blk00000001/sig00000193 , \blk00000001/sig00000192 , \blk00000001/sig00000191 , 
+\blk00000001/sig00000190 , \blk00000001/sig0000018f , \blk00000001/sig0000018e , \blk00000001/sig0000018d , \blk00000001/sig0000018c , 
+\blk00000001/sig0000018b , \blk00000001/sig0000018a , \blk00000001/sig00000189 , \blk00000001/sig00000188 , \blk00000001/sig00000187 , 
+\blk00000001/sig00000186 , \blk00000001/sig00000185 , \blk00000001/sig00000184 , \blk00000001/sig00000183 , \blk00000001/sig00000182 , 
+\blk00000001/sig00000181 , \blk00000001/sig00000180 , \blk00000001/sig0000017f , \blk00000001/sig0000017e , \blk00000001/sig0000017d , 
+\blk00000001/sig0000017c , \blk00000001/sig0000017b , \blk00000001/sig0000017a , \blk00000001/sig00000179 , \blk00000001/sig00000178 , 
+\blk00000001/sig00000177 , \blk00000001/sig00000176 , \blk00000001/sig00000175 , \blk00000001/sig00000174 , \blk00000001/sig00000173 , 
+\blk00000001/sig00000172 , \blk00000001/sig00000171 , \blk00000001/sig00000170 , \blk00000001/sig0000016f , \blk00000001/sig0000016e , 
+\blk00000001/sig0000016d , \blk00000001/sig0000016c , \blk00000001/sig0000016b }),
+    .ALUMODE({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .C({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
     .CARRYOUT({\NLW_blk00000001/blk00000005_CARRYOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000005_CARRYOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000005_CARRYOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000005_CARRYOUT<0>_UNCONNECTED }),
-    .INMODE({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .BCIN({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .B({\blk00000001/sig00000139 , \blk00000001/sig0000020e , \blk00000001/sig0000020d , \blk00000001/sig0000020c , \blk00000001/sig0000020b , 
-\blk00000001/sig0000020a , \blk00000001/sig00000209 , \blk00000001/sig00000208 , \blk00000001/sig00000207 , \blk00000001/sig00000206 , 
-\blk00000001/sig00000205 , \blk00000001/sig00000204 , \blk00000001/sig00000203 , \blk00000001/sig00000202 , \blk00000001/sig00000201 , 
-\blk00000001/sig00000200 , \blk00000001/sig000001ff , \blk00000001/sig000001fe }),
+    .INMODE({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .BCIN({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .B({\blk00000001/sig0000013a , \blk00000001/sig0000020f , \blk00000001/sig0000020e , \blk00000001/sig0000020d , \blk00000001/sig0000020c , 
+\blk00000001/sig0000020b , \blk00000001/sig0000020a , \blk00000001/sig00000209 , \blk00000001/sig00000208 , \blk00000001/sig00000207 , 
+\blk00000001/sig00000206 , \blk00000001/sig00000205 , \blk00000001/sig00000204 , \blk00000001/sig00000203 , \blk00000001/sig00000202 , 
+\blk00000001/sig00000201 , \blk00000001/sig00000200 , \blk00000001/sig000001ff }),
     .BCOUT({\NLW_blk00000001/blk00000005_BCOUT<17>_UNCONNECTED , \NLW_blk00000001/blk00000005_BCOUT<16>_UNCONNECTED , 
 \NLW_blk00000001/blk00000005_BCOUT<15>_UNCONNECTED , \NLW_blk00000001/blk00000005_BCOUT<14>_UNCONNECTED , 
 \NLW_blk00000001/blk00000005_BCOUT<13>_UNCONNECTED , \NLW_blk00000001/blk00000005_BCOUT<12>_UNCONNECTED , 
@@ -3104,11 +3484,11 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
 \NLW_blk00000001/blk00000005_BCOUT<5>_UNCONNECTED , \NLW_blk00000001/blk00000005_BCOUT<4>_UNCONNECTED , 
 \NLW_blk00000001/blk00000005_BCOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000005_BCOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000005_BCOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000005_BCOUT<0>_UNCONNECTED }),
-    .D({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
+    .D({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
     .P({\NLW_blk00000001/blk00000005_P<47>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<46>_UNCONNECTED , 
 \NLW_blk00000001/blk00000005_P<45>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<44>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<43>_UNCONNECTED , 
 \NLW_blk00000001/blk00000005_P<42>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<41>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<40>_UNCONNECTED , 
@@ -3119,33 +3499,33 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
 \NLW_blk00000001/blk00000005_P<27>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<26>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<25>_UNCONNECTED , 
 \NLW_blk00000001/blk00000005_P<24>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<23>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<22>_UNCONNECTED , 
 \NLW_blk00000001/blk00000005_P<21>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<20>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<19>_UNCONNECTED , 
-\NLW_blk00000001/blk00000005_P<18>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<17>_UNCONNECTED , \blk00000001/sig0000011a , \blk00000001/sig00000119 
-, \blk00000001/sig00000118 , \blk00000001/sig00000117 , \blk00000001/sig00000116 , \blk00000001/sig00000115 , \blk00000001/sig00000114 , 
-\blk00000001/sig00000113 , \blk00000001/sig00000112 , \blk00000001/sig00000111 , \blk00000001/sig00000110 , \blk00000001/sig0000010f , 
-\blk00000001/sig0000010e , \blk00000001/sig0000010d , \blk00000001/sig0000010c , \blk00000001/sig0000010b , \blk00000001/sig0000010a }),
-    .A({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000236 , \blk00000001/sig00000235 , \blk00000001/sig00000234 , 
-\blk00000001/sig00000233 , \blk00000001/sig00000232 , \blk00000001/sig00000231 , \blk00000001/sig00000230 , \blk00000001/sig0000022f , 
-\blk00000001/sig0000022e , \blk00000001/sig0000022d , \blk00000001/sig0000022c , \blk00000001/sig0000022b , \blk00000001/sig0000022a , 
-\blk00000001/sig00000229 , \blk00000001/sig00000228 , \blk00000001/sig00000227 , \blk00000001/sig00000226 , \blk00000001/sig00000225 , 
-\blk00000001/sig00000224 , \blk00000001/sig00000223 , \blk00000001/sig00000222 , \blk00000001/sig00000221 , \blk00000001/sig00000220 }),
-    .PCOUT({\blk00000001/sig00000109 , \blk00000001/sig00000108 , \blk00000001/sig00000107 , \blk00000001/sig00000106 , \blk00000001/sig00000105 , 
-\blk00000001/sig00000104 , \blk00000001/sig00000103 , \blk00000001/sig00000102 , \blk00000001/sig00000101 , \blk00000001/sig00000100 , 
-\blk00000001/sig000000ff , \blk00000001/sig000000fe , \blk00000001/sig000000fd , \blk00000001/sig000000fc , \blk00000001/sig000000fb , 
-\blk00000001/sig000000fa , \blk00000001/sig000000f9 , \blk00000001/sig000000f8 , \blk00000001/sig000000f7 , \blk00000001/sig000000f6 , 
-\blk00000001/sig000000f5 , \blk00000001/sig000000f4 , \blk00000001/sig000000f3 , \blk00000001/sig000000f2 , \blk00000001/sig000000f1 , 
-\blk00000001/sig000000f0 , \blk00000001/sig000000ef , \blk00000001/sig000000ee , \blk00000001/sig000000ed , \blk00000001/sig000000ec , 
-\blk00000001/sig000000eb , \blk00000001/sig000000ea , \blk00000001/sig000000e9 , \blk00000001/sig000000e8 , \blk00000001/sig000000e7 , 
-\blk00000001/sig000000e6 , \blk00000001/sig000000e5 , \blk00000001/sig000000e4 , \blk00000001/sig000000e3 , \blk00000001/sig000000e2 , 
-\blk00000001/sig000000e1 , \blk00000001/sig000000e0 , \blk00000001/sig000000df , \blk00000001/sig000000de , \blk00000001/sig000000dd , 
-\blk00000001/sig000000dc , \blk00000001/sig000000db , \blk00000001/sig000000da }),
-    .ACIN({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .CARRYINSEL({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 })
+\NLW_blk00000001/blk00000005_P<18>_UNCONNECTED , \NLW_blk00000001/blk00000005_P<17>_UNCONNECTED , \blk00000001/sig0000011b , \blk00000001/sig0000011a 
+, \blk00000001/sig00000119 , \blk00000001/sig00000118 , \blk00000001/sig00000117 , \blk00000001/sig00000116 , \blk00000001/sig00000115 , 
+\blk00000001/sig00000114 , \blk00000001/sig00000113 , \blk00000001/sig00000112 , \blk00000001/sig00000111 , \blk00000001/sig00000110 , 
+\blk00000001/sig0000010f , \blk00000001/sig0000010e , \blk00000001/sig0000010d , \blk00000001/sig0000010c , \blk00000001/sig0000010b }),
+    .A({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig00000237 , \blk00000001/sig00000236 , \blk00000001/sig00000235 , 
+\blk00000001/sig00000234 , \blk00000001/sig00000233 , \blk00000001/sig00000232 , \blk00000001/sig00000231 , \blk00000001/sig00000230 , 
+\blk00000001/sig0000022f , \blk00000001/sig0000022e , \blk00000001/sig0000022d , \blk00000001/sig0000022c , \blk00000001/sig0000022b , 
+\blk00000001/sig0000022a , \blk00000001/sig00000229 , \blk00000001/sig00000228 , \blk00000001/sig00000227 , \blk00000001/sig00000226 , 
+\blk00000001/sig00000225 , \blk00000001/sig00000224 , \blk00000001/sig00000223 , \blk00000001/sig00000222 , \blk00000001/sig00000221 }),
+    .PCOUT({\blk00000001/sig0000010a , \blk00000001/sig00000109 , \blk00000001/sig00000108 , \blk00000001/sig00000107 , \blk00000001/sig00000106 , 
+\blk00000001/sig00000105 , \blk00000001/sig00000104 , \blk00000001/sig00000103 , \blk00000001/sig00000102 , \blk00000001/sig00000101 , 
+\blk00000001/sig00000100 , \blk00000001/sig000000ff , \blk00000001/sig000000fe , \blk00000001/sig000000fd , \blk00000001/sig000000fc , 
+\blk00000001/sig000000fb , \blk00000001/sig000000fa , \blk00000001/sig000000f9 , \blk00000001/sig000000f8 , \blk00000001/sig000000f7 , 
+\blk00000001/sig000000f6 , \blk00000001/sig000000f5 , \blk00000001/sig000000f4 , \blk00000001/sig000000f3 , \blk00000001/sig000000f2 , 
+\blk00000001/sig000000f1 , \blk00000001/sig000000f0 , \blk00000001/sig000000ef , \blk00000001/sig000000ee , \blk00000001/sig000000ed , 
+\blk00000001/sig000000ec , \blk00000001/sig000000eb , \blk00000001/sig000000ea , \blk00000001/sig000000e9 , \blk00000001/sig000000e8 , 
+\blk00000001/sig000000e7 , \blk00000001/sig000000e6 , \blk00000001/sig000000e5 , \blk00000001/sig000000e4 , \blk00000001/sig000000e3 , 
+\blk00000001/sig000000e2 , \blk00000001/sig000000e1 , \blk00000001/sig000000e0 , \blk00000001/sig000000df , \blk00000001/sig000000de , 
+\blk00000001/sig000000dd , \blk00000001/sig000000dc , \blk00000001/sig000000db }),
+    .ACIN({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .CARRYINSEL({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a })
   );
   DSP48E1 #(
     .ACASCREG ( 2 ),
@@ -3175,38 +3555,38 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
     .USE_SIMD ( "ONE48" ))
   \blk00000001/blk00000004  (
     .PATTERNBDETECT(\NLW_blk00000001/blk00000004_PATTERNBDETECT_UNCONNECTED ),
-    .RSTC(\blk00000001/sig00000139 ),
-    .CEB1(\blk00000001/sig000000d2 ),
-    .CEAD(\blk00000001/sig00000139 ),
+    .RSTC(\blk00000001/sig0000013a ),
+    .CEB1(ce),
+    .CEAD(\blk00000001/sig0000013a ),
     .MULTSIGNOUT(\NLW_blk00000001/blk00000004_MULTSIGNOUT_UNCONNECTED ),
-    .CEC(\blk00000001/sig00000139 ),
-    .RSTM(\blk00000001/sig00000139 ),
-    .MULTSIGNIN(\blk00000001/sig00000139 ),
-    .CEB2(\blk00000001/sig000000d2 ),
-    .RSTCTRL(\blk00000001/sig00000139 ),
-    .CEP(\blk00000001/sig000000d2 ),
+    .CEC(\blk00000001/sig0000013a ),
+    .RSTM(sclr),
+    .MULTSIGNIN(\blk00000001/sig0000013a ),
+    .CEB2(ce),
+    .RSTCTRL(\blk00000001/sig0000013a ),
+    .CEP(ce),
     .CARRYCASCOUT(\NLW_blk00000001/blk00000004_CARRYCASCOUT_UNCONNECTED ),
-    .RSTA(\blk00000001/sig00000139 ),
-    .CECARRYIN(\blk00000001/sig00000139 ),
+    .RSTA(sclr),
+    .CECARRYIN(\blk00000001/sig0000013a ),
     .UNDERFLOW(\NLW_blk00000001/blk00000004_UNDERFLOW_UNCONNECTED ),
     .PATTERNDETECT(\NLW_blk00000001/blk00000004_PATTERNDETECT_UNCONNECTED ),
-    .RSTALUMODE(\blk00000001/sig00000139 ),
-    .RSTALLCARRYIN(\blk00000001/sig00000139 ),
-    .CED(\blk00000001/sig00000139 ),
-    .RSTD(\blk00000001/sig00000139 ),
-    .CEALUMODE(\blk00000001/sig000000d2 ),
-    .CEA2(\blk00000001/sig000000d2 ),
+    .RSTALUMODE(sclr),
+    .RSTALLCARRYIN(\blk00000001/sig0000013a ),
+    .CED(\blk00000001/sig0000013a ),
+    .RSTD(\blk00000001/sig0000013a ),
+    .CEALUMODE(ce),
+    .CEA2(ce),
     .CLK(clk),
-    .CEA1(\blk00000001/sig000000d2 ),
-    .RSTB(\blk00000001/sig00000139 ),
+    .CEA1(ce),
+    .RSTB(sclr),
     .OVERFLOW(\NLW_blk00000001/blk00000004_OVERFLOW_UNCONNECTED ),
-    .CECTRL(\blk00000001/sig00000139 ),
-    .CEM(\blk00000001/sig000000d2 ),
-    .CARRYIN(\blk00000001/sig00000139 ),
-    .CARRYCASCIN(\blk00000001/sig00000139 ),
-    .RSTINMODE(\blk00000001/sig00000139 ),
-    .CEINMODE(\blk00000001/sig00000139 ),
-    .RSTP(\blk00000001/sig00000139 ),
+    .CECTRL(\blk00000001/sig0000013a ),
+    .CEM(ce),
+    .CARRYIN(\blk00000001/sig0000013a ),
+    .CARRYCASCIN(\blk00000001/sig0000013a ),
+    .RSTINMODE(\blk00000001/sig0000013a ),
+    .CEINMODE(\blk00000001/sig0000013a ),
+    .RSTP(sclr),
     .ACOUT({\NLW_blk00000001/blk00000004_ACOUT<29>_UNCONNECTED , \NLW_blk00000001/blk00000004_ACOUT<28>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_ACOUT<27>_UNCONNECTED , \NLW_blk00000001/blk00000004_ACOUT<26>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_ACOUT<25>_UNCONNECTED , \NLW_blk00000001/blk00000004_ACOUT<24>_UNCONNECTED , 
@@ -3222,40 +3602,40 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
 \NLW_blk00000001/blk00000004_ACOUT<5>_UNCONNECTED , \NLW_blk00000001/blk00000004_ACOUT<4>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_ACOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000004_ACOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_ACOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000004_ACOUT<0>_UNCONNECTED }),
-    .OPMODE({\blk00000001/sig000000d2 , \blk00000001/sig00000139 , \blk00000001/sig000000d2 , \blk00000001/sig00000139 , \blk00000001/sig000000d2 , 
-\blk00000001/sig00000139 , \blk00000001/sig000000d2 }),
-    .PCIN({\blk00000001/sig00000109 , \blk00000001/sig00000108 , \blk00000001/sig00000107 , \blk00000001/sig00000106 , \blk00000001/sig00000105 , 
-\blk00000001/sig00000104 , \blk00000001/sig00000103 , \blk00000001/sig00000102 , \blk00000001/sig00000101 , \blk00000001/sig00000100 , 
-\blk00000001/sig000000ff , \blk00000001/sig000000fe , \blk00000001/sig000000fd , \blk00000001/sig000000fc , \blk00000001/sig000000fb , 
-\blk00000001/sig000000fa , \blk00000001/sig000000f9 , \blk00000001/sig000000f8 , \blk00000001/sig000000f7 , \blk00000001/sig000000f6 , 
-\blk00000001/sig000000f5 , \blk00000001/sig000000f4 , \blk00000001/sig000000f3 , \blk00000001/sig000000f2 , \blk00000001/sig000000f1 , 
-\blk00000001/sig000000f0 , \blk00000001/sig000000ef , \blk00000001/sig000000ee , \blk00000001/sig000000ed , \blk00000001/sig000000ec , 
-\blk00000001/sig000000eb , \blk00000001/sig000000ea , \blk00000001/sig000000e9 , \blk00000001/sig000000e8 , \blk00000001/sig000000e7 , 
-\blk00000001/sig000000e6 , \blk00000001/sig000000e5 , \blk00000001/sig000000e4 , \blk00000001/sig000000e3 , \blk00000001/sig000000e2 , 
-\blk00000001/sig000000e1 , \blk00000001/sig000000e0 , \blk00000001/sig000000df , \blk00000001/sig000000de , \blk00000001/sig000000dd , 
-\blk00000001/sig000000dc , \blk00000001/sig000000db , \blk00000001/sig000000da }),
-    .ALUMODE({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .C({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
+    .OPMODE({\blk00000001/sig000000d4 , \blk00000001/sig0000013a , \blk00000001/sig000000d4 , \blk00000001/sig0000013a , \blk00000001/sig000000d4 , 
+\blk00000001/sig0000013a , \blk00000001/sig000000d4 }),
+    .PCIN({\blk00000001/sig0000010a , \blk00000001/sig00000109 , \blk00000001/sig00000108 , \blk00000001/sig00000107 , \blk00000001/sig00000106 , 
+\blk00000001/sig00000105 , \blk00000001/sig00000104 , \blk00000001/sig00000103 , \blk00000001/sig00000102 , \blk00000001/sig00000101 , 
+\blk00000001/sig00000100 , \blk00000001/sig000000ff , \blk00000001/sig000000fe , \blk00000001/sig000000fd , \blk00000001/sig000000fc , 
+\blk00000001/sig000000fb , \blk00000001/sig000000fa , \blk00000001/sig000000f9 , \blk00000001/sig000000f8 , \blk00000001/sig000000f7 , 
+\blk00000001/sig000000f6 , \blk00000001/sig000000f5 , \blk00000001/sig000000f4 , \blk00000001/sig000000f3 , \blk00000001/sig000000f2 , 
+\blk00000001/sig000000f1 , \blk00000001/sig000000f0 , \blk00000001/sig000000ef , \blk00000001/sig000000ee , \blk00000001/sig000000ed , 
+\blk00000001/sig000000ec , \blk00000001/sig000000eb , \blk00000001/sig000000ea , \blk00000001/sig000000e9 , \blk00000001/sig000000e8 , 
+\blk00000001/sig000000e7 , \blk00000001/sig000000e6 , \blk00000001/sig000000e5 , \blk00000001/sig000000e4 , \blk00000001/sig000000e3 , 
+\blk00000001/sig000000e2 , \blk00000001/sig000000e1 , \blk00000001/sig000000e0 , \blk00000001/sig000000df , \blk00000001/sig000000de , 
+\blk00000001/sig000000dd , \blk00000001/sig000000dc , \blk00000001/sig000000db }),
+    .ALUMODE({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .C({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
     .CARRYOUT({\NLW_blk00000001/blk00000004_CARRYOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000004_CARRYOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_CARRYOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000004_CARRYOUT<0>_UNCONNECTED }),
-    .INMODE({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .BCIN({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .B({\blk00000001/sig000000d9 , \blk00000001/sig000000d9 , \blk00000001/sig000000d9 , \blk00000001/sig000000d9 , \blk00000001/sig000000d9 , 
-\blk00000001/sig000000d9 , \blk00000001/sig000000d9 , \blk00000001/sig000000d9 , \blk00000001/sig000000d9 , \blk00000001/sig000000d9 , 
-\blk00000001/sig000000d9 , \blk00000001/sig000000d9 , \blk00000001/sig000000d8 , \blk00000001/sig000000d7 , \blk00000001/sig000000d6 , 
-\blk00000001/sig000000d5 , \blk00000001/sig000000d4 , \blk00000001/sig000000d3 }),
+    .INMODE({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .BCIN({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .B({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig000000da , \blk00000001/sig000000d9 , \blk00000001/sig000000d8 , 
+\blk00000001/sig000000d7 , \blk00000001/sig000000d6 , \blk00000001/sig000000d5 }),
     .BCOUT({\NLW_blk00000001/blk00000004_BCOUT<17>_UNCONNECTED , \NLW_blk00000001/blk00000004_BCOUT<16>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_BCOUT<15>_UNCONNECTED , \NLW_blk00000001/blk00000004_BCOUT<14>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_BCOUT<13>_UNCONNECTED , \NLW_blk00000001/blk00000004_BCOUT<12>_UNCONNECTED , 
@@ -3265,11 +3645,11 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
 \NLW_blk00000001/blk00000004_BCOUT<5>_UNCONNECTED , \NLW_blk00000001/blk00000004_BCOUT<4>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_BCOUT<3>_UNCONNECTED , \NLW_blk00000001/blk00000004_BCOUT<2>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_BCOUT<1>_UNCONNECTED , \NLW_blk00000001/blk00000004_BCOUT<0>_UNCONNECTED }),
-    .D({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
+    .D({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
     .P({\NLW_blk00000001/blk00000004_P<47>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<46>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_P<45>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<44>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<43>_UNCONNECTED , 
 \NLW_blk00000001/blk00000004_P<42>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<41>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<40>_UNCONNECTED , 
@@ -3279,35 +3659,35 @@ a[6], a[5], a[4], a[3], a[2], a[1], a[0]}),
 \NLW_blk00000001/blk00000004_P<30>_UNCONNECTED , \NLW_blk00000001/blk00000004_P<29>_UNCONNECTED , p[79], p[78], p[77], p[76], p[75], p[74], p[73], 
 p[72], p[71], p[70], p[69], p[68], p[67], p[66], p[65], p[64], p[63], p[62], p[61], p[60], p[59], p[58], p[57], p[56], p[55], p[54], p[53], p[52], 
 p[51]}),
-    .A({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , 
-\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 }),
-    .PCOUT({\blk00000001/sig000000a2 , \blk00000001/sig000000a3 , \blk00000001/sig000000a4 , \blk00000001/sig000000a5 , \blk00000001/sig000000a6 , 
-\blk00000001/sig000000a7 , \blk00000001/sig000000a8 , \blk00000001/sig000000a9 , \blk00000001/sig000000aa , \blk00000001/sig000000ab , 
-\blk00000001/sig000000ac , \blk00000001/sig000000ad , \blk00000001/sig000000ae , \blk00000001/sig000000af , \blk00000001/sig000000b0 , 
-\blk00000001/sig000000b1 , \blk00000001/sig000000b2 , \blk00000001/sig000000b3 , \blk00000001/sig000000b4 , \blk00000001/sig000000b5 , 
-\blk00000001/sig000000b6 , \blk00000001/sig000000b7 , \blk00000001/sig000000b8 , \blk00000001/sig000000b9 , \blk00000001/sig000000ba , 
-\blk00000001/sig000000bb , \blk00000001/sig000000bc , \blk00000001/sig000000bd , \blk00000001/sig000000be , \blk00000001/sig000000bf , 
-\blk00000001/sig000000c0 , \blk00000001/sig000000c1 , \blk00000001/sig000000c2 , \blk00000001/sig000000c3 , \blk00000001/sig000000c4 , 
-\blk00000001/sig000000c5 , \blk00000001/sig000000c6 , \blk00000001/sig000000c7 , \blk00000001/sig000000c8 , \blk00000001/sig000000c9 , 
-\blk00000001/sig000000ca , \blk00000001/sig000000cb , \blk00000001/sig000000cc , \blk00000001/sig000000cd , \blk00000001/sig000000ce , 
-\blk00000001/sig000000cf , \blk00000001/sig000000d0 , \blk00000001/sig000000d1 }),
-    .ACIN({\blk00000001/sig00000138 , \blk00000001/sig00000137 , \blk00000001/sig00000136 , \blk00000001/sig00000135 , \blk00000001/sig00000134 , 
-\blk00000001/sig00000133 , \blk00000001/sig00000132 , \blk00000001/sig00000131 , \blk00000001/sig00000130 , \blk00000001/sig0000012f , 
-\blk00000001/sig0000012e , \blk00000001/sig0000012d , \blk00000001/sig0000012c , \blk00000001/sig0000012b , \blk00000001/sig0000012a , 
-\blk00000001/sig00000129 , \blk00000001/sig00000128 , \blk00000001/sig00000127 , \blk00000001/sig00000126 , \blk00000001/sig00000125 , 
-\blk00000001/sig00000124 , \blk00000001/sig00000123 , \blk00000001/sig00000122 , \blk00000001/sig00000121 , \blk00000001/sig00000120 , 
-\blk00000001/sig0000011f , \blk00000001/sig0000011e , \blk00000001/sig0000011d , \blk00000001/sig0000011c , \blk00000001/sig0000011b }),
-    .CARRYINSEL({\blk00000001/sig00000139 , \blk00000001/sig00000139 , \blk00000001/sig00000139 })
+    .A({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , 
+\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a }),
+    .PCOUT({\blk00000001/sig000000a4 , \blk00000001/sig000000a5 , \blk00000001/sig000000a6 , \blk00000001/sig000000a7 , \blk00000001/sig000000a8 , 
+\blk00000001/sig000000a9 , \blk00000001/sig000000aa , \blk00000001/sig000000ab , \blk00000001/sig000000ac , \blk00000001/sig000000ad , 
+\blk00000001/sig000000ae , \blk00000001/sig000000af , \blk00000001/sig000000b0 , \blk00000001/sig000000b1 , \blk00000001/sig000000b2 , 
+\blk00000001/sig000000b3 , \blk00000001/sig000000b4 , \blk00000001/sig000000b5 , \blk00000001/sig000000b6 , \blk00000001/sig000000b7 , 
+\blk00000001/sig000000b8 , \blk00000001/sig000000b9 , \blk00000001/sig000000ba , \blk00000001/sig000000bb , \blk00000001/sig000000bc , 
+\blk00000001/sig000000bd , \blk00000001/sig000000be , \blk00000001/sig000000bf , \blk00000001/sig000000c0 , \blk00000001/sig000000c1 , 
+\blk00000001/sig000000c2 , \blk00000001/sig000000c3 , \blk00000001/sig000000c4 , \blk00000001/sig000000c5 , \blk00000001/sig000000c6 , 
+\blk00000001/sig000000c7 , \blk00000001/sig000000c8 , \blk00000001/sig000000c9 , \blk00000001/sig000000ca , \blk00000001/sig000000cb , 
+\blk00000001/sig000000cc , \blk00000001/sig000000cd , \blk00000001/sig000000ce , \blk00000001/sig000000cf , \blk00000001/sig000000d0 , 
+\blk00000001/sig000000d1 , \blk00000001/sig000000d2 , \blk00000001/sig000000d3 }),
+    .ACIN({\blk00000001/sig00000139 , \blk00000001/sig00000138 , \blk00000001/sig00000137 , \blk00000001/sig00000136 , \blk00000001/sig00000135 , 
+\blk00000001/sig00000134 , \blk00000001/sig00000133 , \blk00000001/sig00000132 , \blk00000001/sig00000131 , \blk00000001/sig00000130 , 
+\blk00000001/sig0000012f , \blk00000001/sig0000012e , \blk00000001/sig0000012d , \blk00000001/sig0000012c , \blk00000001/sig0000012b , 
+\blk00000001/sig0000012a , \blk00000001/sig00000129 , \blk00000001/sig00000128 , \blk00000001/sig00000127 , \blk00000001/sig00000126 , 
+\blk00000001/sig00000125 , \blk00000001/sig00000124 , \blk00000001/sig00000123 , \blk00000001/sig00000122 , \blk00000001/sig00000121 , 
+\blk00000001/sig00000120 , \blk00000001/sig0000011f , \blk00000001/sig0000011e , \blk00000001/sig0000011d , \blk00000001/sig0000011c }),
+    .CARRYINSEL({\blk00000001/sig0000013a , \blk00000001/sig0000013a , \blk00000001/sig0000013a })
   );
   GND   \blk00000001/blk00000003  (
-    .G(\blk00000001/sig00000139 )
+    .G(\blk00000001/sig0000013a )
   );
   VCC   \blk00000001/blk00000002  (
-    .P(\blk00000001/sig000000d2 )
+    .P(\blk00000001/sig000000d4 )
   );
 
 // synthesis translate_on

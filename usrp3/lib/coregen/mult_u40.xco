@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Tue Mar 24 23:42:28 2015
+# Date: Thu Apr  2 17:54:48 2015
 #
 ##############################################################
 #
@@ -40,7 +40,7 @@ SELECT Multiplier xilinx.com:ip:mult_gen:11.2
 # END Select
 # BEGIN Parameters
 CSET ccmimp=Distributed_Memory
-CSET clockenable=false
+CSET clockenable=true
 CSET component_name=mult_u40
 CSET constvalue=129
 CSET internaluser=0
@@ -56,7 +56,7 @@ CSET portbtype=Unsigned
 CSET portbwidth=40
 CSET roundpoint=0
 CSET sclrcepriority=SCLR_Overrides_CE
-CSET syncclear=false
+CSET syncclear=true
 CSET use_custom_output_width=false
 CSET userounding=false
 CSET zerodetect=false
@@ -65,4 +65,4 @@ CSET zerodetect=false
 MISC pkg_timestamp=2013-07-22T11:36:26Z
 # END Extra information
 GENERATE
-# CRC: ecd80a33
+# CRC: fa020b37

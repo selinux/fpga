@@ -120,6 +120,9 @@ module schmidl_cox
    wire n7_mag_tlast;
    wire n7_mag_tvalid;
    wire n7_mag_tready;
+   wire n7_mag_square_tlast;
+   wire n7_mag_square_tvalid;
+   wire n7_mag_square_tready;
    wire n7_phase_tlast;
    wire n7_phase_tvalid;
    wire n7_phase_tready;
@@ -135,8 +138,13 @@ module schmidl_cox
    
    assign n7_mag_strip_tdata = n7_mag_tdata[39:0];
    assign n7_phase_strip_tdata = n7_phase_tdata[79:40];
-   
-   mult_u40 ints_mult_u40 (.clk(clk), .a(n7_mag_strip_tdata), .b(n7_mag_strip_tdata), .p(n7_mag_square_tdata));
+
+   mult_u40 ints_mult_u40 (.clk(clk), .sclr(reset), .ce(n7_mag_tvalid & n7_mag_tready), .a(n7_mag_strip_tdata), .b(n7_mag_strip_tdata), .p(n7_mag_square_tdata));
+   axi_pipe #(.STAGES(7))
+   mag_square_axi_pipe (
+     .clk(clk), .reset(reset), .clear(clear),
+     .i_tlast(n7_mag_tlast), .i_tvalid(n7_mag_tvalid), .i_tready(n7_mag_tready),
+     .o_tlast(n7_mag_square_tlast), .o_tvalid(n7_mag_square_tvalid), .o_tready(n7_mag_square_tready));
    
    // magnitude of input signal conjugate multiply
    complex_to_magsq #(.WIDTH(16)) cmag2
@@ -144,11 +152,21 @@ module schmidl_cox
       .i_tdata(n12_tdata), .i_tlast(n12_tlast), .i_tvalid(n12_tvalid), .i_tready(n12_tready),
       .o_tdata(n8_tdata), .o_tlast(n8_tlast), .o_tvalid(n8_tvalid), .o_tready(n8_tready));
 
+   wire [79:0] n9_sig_energy_square_tdata;
+   wire n9_sig_energy_square_tlast;
+   wire n9_sig_energy_square_tvalid;
+   wire n9_sig_energy_square_tready;
+
+   mult_u40 ints_mult_u40_2 (.clk(clk), .sclr(reset), .ce(n9_tvalid & n9_tready), .a(n9_tdata), .b(n9_tdata), .p(n9_sig_energy_square_tdata));
+   axi_pipe #(.STAGES(7))
+   sig_energy_square_axi_pipe (
+     .clk(clk), .reset(reset), .clear(clear),
+     .i_tlast(n9_tlast), .i_tvalid(n9_tvalid), .i_tready(n9_tready),
+     .o_tlast(n9_sig_energy_square_tlast), .o_tvalid(n9_sig_energy_square_tvalid), .o_tready(n9_sig_energy_square_tready));
+
    wire [31:0] n8_shift_tdata;
    assign n8_shift_tdata = n8_tdata >> 1; //Somehow the complex multiplier shifts the result by 1, so we need to do that here, too
-   wire [79:0] signal_energy_square;
-   mult_u40 ints_mult_u40_2 (.clk(clk), .a(n9_tdata), .b(n9_tdata), .p(signal_energy_square));
-   
+
    // moving average of input signal power
    moving_sum #(.MAX_LEN_LOG2(8), .WIDTH(32)) ma_pow
      (.clk(clk), .reset(reset), .clear(clear),
@@ -159,7 +177,7 @@ module schmidl_cox
    // insert fifo to solve deadlock
    axi_fifo_short #(.WIDTH(81)) fifo1
      (.clk(clk), .reset(reset), .clear(clear),
-      .i_tdata({n9_tlast, signal_energy_square}), .i_tvalid(n9_tvalid), .i_tready(n9_tready),
+      .i_tdata({n9_sig_energy_square_tlast, n9_sig_energy_square_tdata}), .i_tvalid(n9_sig_energy_square_tvalid), .i_tready(n9_sig_energy_square_tready),
       .o_tdata({n11_tlast, n11_tdata}), .o_tvalid(n11_tvalid), .o_tready(n11_tready));
    
    wire[127:0] D_metric;
@@ -169,7 +187,7 @@ module schmidl_cox
    div_gen_v4_0 div_corr_2_pow_2(
       .aclk(clk), .aresetn(~reset),
       .s_axis_divisor_tdata(n11_tdata[79:16]), .s_axis_divisor_tlast(n11_tlast), .s_axis_divisor_tvalid(n11_tvalid), .s_axis_divisor_tready(n11_tready),
-      .s_axis_dividend_tdata(n7_mag_square_tdata[79:16]), .s_axis_dividend_tlast(n7_mag_tlast), .s_axis_dividend_tvalid(n7_mag_tvalid), .s_axis_dividend_tready(n7_mag_tready),
+      .s_axis_dividend_tdata(n7_mag_square_tdata[79:16]), .s_axis_dividend_tlast(n7_mag_square_tlast), .s_axis_dividend_tvalid(n7_mag_square_tvalid), .s_axis_dividend_tready(n7_mag_square_tready),
       .m_axis_dout_tdata(D_metric), .m_axis_dout_tlast(D_metric_tlast), .m_axis_dout_tvalid(D_metric_tvalid), .m_axis_dout_tready(D_metric_tready));
    
    plateau_detector_3000 #(.THRESHHOLD(15563)) plateau_detector_3000_inst
