@@ -64,9 +64,12 @@ module periodic_framer
    assign numsymbols_thisburst = shorten_burst ? numsymbols_short : numsymbols_max;
 
    always @(posedge clk)
-     if(reset | clear)
+     if(reset | clear) begin
+       first_symbol <= 1'b0;
+       counter <= 16'd0;
+       numsymbols <= 16'd0;
        state <= ST_WAIT_FOR_TRIG;
-     else
+     end else begin
        if(consume)
 	 case(state)
 	   ST_WAIT_FOR_TRIG :
@@ -108,6 +111,7 @@ module periodic_framer
 	     else
 	       counter <= counter + 16'd1;
 	 endcase // case (state)
+   end
 
    assign stream_o_tdata = stream_i_tdata;
    assign stream_o_tlast = (state == ST_FRAME) & (counter >= frame_len);
