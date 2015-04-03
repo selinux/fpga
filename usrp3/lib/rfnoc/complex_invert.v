@@ -113,7 +113,7 @@ module complex_invert
   divide_int16_int32
   neg_b_div_a2_plus_b2_divider (
     .aclk(clk), .aresetn(~reset),
-    .s_axis_divisor_tdata(a2_plus_b2_0_tdata), .s_axis_divisor_tlast(a2_plus_b2_0_tlast), .s_axis_divisor_tvalid(a2_plus_b2_0_tvalid), .s_axis_divisor_tready(a2_plus_b2_0_tready),
+    .s_axis_divisor_tdata(a2_plus_b2_1_tdata), .s_axis_divisor_tlast(a2_plus_b2_1_tlast), .s_axis_divisor_tvalid(a2_plus_b2_1_tvalid), .s_axis_divisor_tready(a2_plus_b2_1_tready),
     .s_axis_dividend_tdata(neg_b_tdata), .s_axis_dividend_tlast(neg_b_tlast), .s_axis_dividend_tvalid(neg_b_tvalid), .s_axis_dividend_tready(neg_b_tready),
     .m_axis_dout_tdata(neg_b_div_a2_plus_b2_tdata), .m_axis_dout_tlast(neg_b_div_a2_plus_b2_tlast), .m_axis_dout_tvalid(neg_b_div_a2_plus_b2_tvalid), .m_axis_dout_tready(neg_b_div_a2_plus_b2_tready));
 
