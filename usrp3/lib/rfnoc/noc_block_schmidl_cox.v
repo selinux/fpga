@@ -60,8 +60,6 @@ module noc_block_schmidl_cox #(
   // Convert RFNoC Shell interface into AXI stream interface
   //
   ////////////////////////////////////////////////////////////
-  localparam NUM_AXI_CONFIG_BUS = 1;
-  
   wire [31:0] m_axis_data_tdata;
   wire        m_axis_data_tlast;
   wire        m_axis_data_tvalid;
@@ -72,13 +70,8 @@ module noc_block_schmidl_cox #(
   wire        s_axis_data_tvalid;
   wire        s_axis_data_tready;
   
-  wire [31:0] m_axis_config_tdata;
-  wire        m_axis_config_tvalid;
-  wire        m_axis_config_tready;
-  
   localparam AXI_WRAPPER_BASE    = 128;
   localparam SR_NEXT_DST         = AXI_WRAPPER_BASE;
-  localparam SR_AXI_CONFIG_BASE  = AXI_WRAPPER_BASE + 1;
 
   // Set next destination in chain
   wire [15:0] next_dst;
@@ -88,10 +81,7 @@ module noc_block_schmidl_cox #(
     .clk(ce_clk), .rst(ce_rst),
     .strobe(set_stb), .addr(set_addr), .in(set_data), .out(next_dst), .changed());
 
-  axi_wrapper #(
-    .SR_AXI_CONFIG_BASE(SR_AXI_CONFIG_BASE),
-    .NUM_AXI_CONFIG_BUS(NUM_AXI_CONFIG_BUS))
-  inst_axi_wrapper (
+  axi_wrapper axi_wrapper (
     .clk(ce_clk), .reset(ce_rst),
     .clear_tx_seqnum(clear_tx_seqnum),
     .next_dst(next_dst),
@@ -102,23 +92,35 @@ module noc_block_schmidl_cox #(
     .m_axis_data_tlast(m_axis_data_tlast),
     .m_axis_data_tvalid(m_axis_data_tvalid),
     .m_axis_data_tready(m_axis_data_tready),
+    .m_axis_data_tuser(),
     .s_axis_data_tdata(s_axis_data_tdata),
     .s_axis_data_tlast(s_axis_data_tlast),
     .s_axis_data_tvalid(s_axis_data_tvalid),
     .s_axis_data_tready(s_axis_data_tready),
-    .m_axis_config_tdata(m_axis_config_tdata),
+    .s_axis_data_tuser(),
+    // Unused
+    .m_axis_config_tdata(),
     .m_axis_config_tlast(),
-    .m_axis_config_tvalid(m_axis_config_tvalid), 
-    .m_axis_config_tready(m_axis_config_tready));
+    .m_axis_config_tvalid(),
+    .m_axis_config_tready(),
+    .m_axis_pkt_len_tdata(),
+    .m_axis_pkt_len_tvalid(),
+    .m_axis_pkt_len_tready());
   
   ////////////////////////////////////////////////////////////
   //
   // User code
   //
   ////////////////////////////////////////////////////////////
-  
+  localparam [7:0] BASE = 129;
 
-  schmidl_cox #(.BASE(130)) inst_schmidl_cox (
+  schmidl_cox #(
+    .SR_FRAME_LEN(BASE),
+    .SR_GAP_LEN(BASE+1),
+    .SR_OFFSET(BASE+2),
+    .SR_NUMBER_SYMBOLS_MAX(BASE+3),
+    .SR_NUMBER_SYMBOLS_SHORT(BASE+4))
+  schmidl_cox (
     .clk(ce_clk), .reset(ce_rst), .clear(1'b0),
     .set_stb(set_stb), .set_addr(set_addr), .set_data(set_data),
     .i_tdata(m_axis_data_tdata), .i_tlast(m_axis_data_tlast), .i_tvalid(m_axis_data_tvalid), .i_tready(m_axis_data_tready),

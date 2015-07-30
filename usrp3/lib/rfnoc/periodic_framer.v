@@ -3,7 +3,11 @@
 //
 
 module periodic_framer
-  #(parameter BASE=0,
+  #(parameter SR_FRAME_LEN=0,
+    parameter SR_GAP_LEN=1,
+    parameter SR_OFFSET=2,
+    parameter SR_NUMBER_SYMBOLS_MAX=3,
+    parameter SR_NUMBER_SYMBOLS_SHORT=4,
     parameter WIDTH=32)
    (input clk, input reset, input clear,
     input set_stb, input [7:0] set_addr, input [31:0] set_data,
@@ -20,23 +24,23 @@ module periodic_framer
    wire [15:0] 	       burst_len;
    wire 	       set_numsymbols;
 
-   setting_reg #(.my_addr(BASE), .width(16)) reg_frame_len
+   setting_reg #(.my_addr(SR_FRAME_LEN), .width(16)) reg_frame_len
      (.clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(frame_len), .changed());
 
-   setting_reg #(.my_addr(BASE+1), .width(16)) reg_gap_len
+   setting_reg #(.my_addr(SR_GAP_LEN), .width(16)) reg_gap_len
      (.clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(gap_len), .changed());
 
-   setting_reg #(.my_addr(BASE+2), .width(16)) reg_offset
+   setting_reg #(.my_addr(SR_OFFSET), .width(16)) reg_offset
      (.clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(offset), .changed());
 
-   setting_reg #(.my_addr(BASE+3), .width(16)) reg_max_symbols
+   setting_reg #(.my_addr(SR_NUMBER_SYMBOLS_MAX), .width(16)) reg_max_symbols
      (.clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(numsymbols_max), .changed());
 
-   setting_reg #(.my_addr(BASE+4), .width(16)) reg_symbols_short
+   setting_reg #(.my_addr(SR_NUMBER_SYMBOLS_SHORT), .width(16)) reg_symbols_short
      (.clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(numsymbols_short), .changed(set_numsymbols));
 
