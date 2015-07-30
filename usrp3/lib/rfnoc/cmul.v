@@ -1,5 +1,5 @@
 //
-// Copyright 2014 Ettus Research LLC
+// Copyright 2015 Ettus Research
 //
 // This block exists only to wrap the Xilinx IP which has a different interface
 //   Xilinx puts Q in the high bits, I in the low bits, and inverts reset
@@ -10,7 +10,7 @@ module cmul
    input [31:0] b_tdata, input b_tlast, input b_tvalid, output b_tready,
    output [63:0] o_tdata, output o_tlast, output o_tvalid, input o_tready);
 
-   complex_multiplier_full cmult1
+   complex_multiplier complex_multiplier
      (.aclk(clk), .aresetn(~reset),
       .s_axis_a_tdata({a_tdata[15:0], a_tdata[31:16]}), .s_axis_a_tlast(a_tlast), .s_axis_a_tvalid(a_tvalid), .s_axis_a_tready(a_tready),
       .s_axis_b_tdata({b_tdata[15:0], b_tdata[31:16]}), .s_axis_b_tlast(b_tlast), .s_axis_b_tvalid(b_tvalid), .s_axis_b_tready(b_tready),
