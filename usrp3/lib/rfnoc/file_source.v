@@ -5,7 +5,10 @@
 // Will generate as fast as it can.
 
 module file_source
-  #(parameter BASE=0,
+  #(parameter SR_NEXT_DST=0,
+    parameter SR_PKT_LENGTH=1,
+    parameter SR_RATE=2,
+    parameter SR_SEND_TIME=3,
     parameter FILENAME="")
    (input clk, input reset,
     input set_stb, input [7:0] set_addr, input [31:0] set_data,
@@ -36,19 +39,19 @@ module file_source
    wire 	  changed_sid;
    wire 	  send_time;
    
-   setting_reg #(.my_addr(BASE), .width(32)) sid_reg
+   setting_reg #(.my_addr(SR_NEXT_DST), .width(32)) sid_reg
      (.clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(sid), .changed(changed_sid));
    
-   setting_reg #(.my_addr(BASE+1), .width(16)) len_reg
+   setting_reg #(.my_addr(SR_PKT_LENGTH), .width(16)) len_reg
      (.clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(len), .changed());
 		 
-   setting_reg #(.my_addr(BASE+2), .width(16)) rate_reg
+   setting_reg #(.my_addr(SR_RATE), .width(16)) rate_reg
      (.clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(rate), .changed());
 
-   setting_reg #(.my_addr(BASE+3), .width(1)) rate_send_time
+   setting_reg #(.my_addr(SR_SEND_TIME), .width(1)) rate_send_time
      (.clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(send_time), .changed());
 
@@ -102,13 +105,22 @@ module file_source
 	  endcase // case (state)
        end // else: !if(reset)
    
+   reg [63:0] time_cnt;
+   always @(posedge clk) begin
+     if (reset) begin
+       time_cnt <= 'd0;
+     end else begin
+       time_cnt <= time_cnt + 1;
+     end
+   end
+   
    
    wire [15:0] pkt_len = { len[12:0], 3'b000 } + 16'd8 + (send_time ? 16'd8 : 16'd0);
 
    // Fix endianness issues with GNU Radio generated files by reversing.  Not sure if this is correct yet.
    wire [63:0] reversed_sample = mem[index];   
    assign int_tdata = (state == HEAD) ? { 2'b00, send_time, 1'b0, seqnum, pkt_len, sid } :
-		      (state == TIME) ? 64'hDEADBEEF_01234567 :
+		      (state == TIME) ? time_cnt :
 		      { reversed_sample[55:48], reversed_sample[63:56], reversed_sample[39:32], reversed_sample[47:40],
 		       reversed_sample[23:16], reversed_sample[31:24], reversed_sample[7:0], reversed_sample[15:8] } ;
    

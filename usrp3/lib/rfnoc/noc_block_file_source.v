@@ -58,18 +58,20 @@ module noc_block_file_source #(
   // Null Sink, dump everything coming to us
   assign str_sink_tready = 1'b1;
 
-  /////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////
   //
   // User code
   //
   ////////////////////////////////////////////////////////////
-
   localparam BASE        = 128;
-  
+
   file_source #(
-    .BASE(BASE),
+    .SR_NEXT_DST(BASE),
+    .SR_PKT_LENGTH(BASE+1),
+    .SR_RATE(BASE+2),
+    .SR_SEND_TIME(BASE+3),
     .FILENAME(FILENAME))
-  inst_file_source (.clk(ce_clk), .reset(ce_rst),
+  file_source (.clk(ce_clk), .reset(ce_rst),
     .set_stb(set_stb), .set_addr(set_addr), .set_data(set_data),
     .o_tdata(str_src_tdata), .o_tlast(str_src_tlast), .o_tvalid(str_src_tvalid), .o_tready(str_src_tready));
 
