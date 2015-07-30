@@ -4,15 +4,11 @@ close all;
 data_type_int16 = 1;
 
 #12/52 carrier used + DC
-ramp = [];
-
-for i=1:256
- ramp = [ramp (i*1/300)];
-endfor
 
 short_ts_f = [0,0,0,0,0,0,0,0,1+j,0,0,0,-1-j,0,0,0,1+j,0,0,0,-1-j,0,0,0,-1-j,0,0,0,1+j,0,0,0,0,0,0,0,-1-j,0,0,0,-1-j,0,0,0,1+j,0,0,0,1+j,0,0,0,1+j,0,0,0,1+j,0,0,0,0,0,0,0];
-long_ts_f = [1 1 -1 -1 1 1 -1 1 -1 1 1 1 1 1 1 -1 -1 1 1 -1 1 -1 1 1 1 1 0 1 -1 -1 1 1 -1 1 -1 1 -1 -1 -1 -1 -1 1 1 -1 -1 1 -1 1 -1 1 1 1 1];
-ifft_data = [long_ts_f(27:end) 0 0 0 0 0 0 0 0 0 0 0 long_ts_f(1:26)];
+#long_ts_f = [1 1 -1 -1 1 1 -1 1 -1 1 1 1 1 1 1 -1 -1 1 1 -1 1 -1 1 1 1 1 0 1 -1 -1 1 1 -1 1 -1 1 -1 -1 -1 -1 -1 1 1 -1 -1 1 -1 1 -1 1 1 1 1];
+#ifft_data = [long_ts_f(27:end) 0 0 0 0 0 0 0 0 0 0 0 long_ts_f(1:26)];
+ifft_data = [0 0 0 1 1 -1 -1 1 zeros(1,64-7)];
 long_ts_t = ifft(ifft_data);
 
 #figure;
@@ -26,13 +22,15 @@ long_ts_t = ifft(ifft_data);
 short_ts_f = ifftshift(short_ts_f);
 short_ts_t = ifft(short_ts_f);
 
+for i=1:4096
+  ramp(i) = i;
+end
+
 test_data = [];
 for i=1:10
   test_data = [test_data short_ts_t(1:(64/4))];
 endfor
-size(long_ts_t(end-31:end))
-test_data = [zeros(1,128) test_data long_ts_t(end-31:end) long_ts_t long_ts_t zeros(1,4096)];
-#test_data = [zeros(1,128) test_data ramp zeros(1,1024)];
+test_data = [zeros(1,128) test_data 0*[1:32] long_ts_t long_ts_t ramp];
 
 #test_data = awgn(test_data, 60);
 
@@ -48,14 +46,14 @@ hold on;
 grid on;
 plot(imag(test_data), 'r');
 
-[D, f, corr, power, frame_start, d_f, sig_out, sig_out_corr] = schmidl_corr(test_data, 32);
+#[D, f, corr, power, frame_start, d_f, sig_out, sig_out_corr] = schmidl_corr(test_data, 32);
 
-figure
-hold on;
+#figure
+#hold on;
 #plot(abs(corr));
-plot(arg(corr), 'b');
+#plot(arg(corr), 'b');
 #plot(power, 'r');
-plot(D,'r')
+#plot(D,'r')
 
 if(data_type_int16)
   test_data = test_data .* ((2^15)-1);
