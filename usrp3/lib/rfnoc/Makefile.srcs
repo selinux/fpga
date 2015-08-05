@@ -37,6 +37,7 @@ delay_type2.v \
 delay_type3.v \
 complex_to_magsq.v \
 phase_accum.v \
+complex_invert.v \
 periodic_framer.v \
 threshold_scaled.v \
 moving_sum.v \
@@ -99,4 +100,6 @@ noc_block_fosphor.v \
 noc_block_moving_avg.v \
 ofdm_constellation_demapper.v \
 noc_block_ofdm_constellation_demapper.v \
+one_tap_equalizer.v \
+noc_block_eq.v \
 ))
