@@ -14,10 +14,7 @@ module moving_sum
    reg [15:0] 			    full_count;
    wire 			    full = full_count == len;
 
-   wire 			    do_op = i_tvalid & o_tready;
-
-   assign i_tready = o_tready;
-   assign o_tvalid = i_tvalid;
+   wire 			    do_op = i_tvalid & i_tready;
 
    wire [WIDTH-1:0] 		    fifo_out;
    
@@ -32,14 +29,17 @@ module moving_sum
      else
        if(do_op & ~full)
 	 full_count <= full_count + 1;     // FIXME careful if len changes during operation you must clear
-   
+
    always @(posedge clk)
      if(reset | clear)
        sum <= 0;
      else if(do_op)
        sum <= sum + { {MAX_LEN_LOG2{i_tdata[WIDTH-1]}}, i_tdata } - (full ? {{MAX_LEN_LOG2{fifo_out[WIDTH-1]}}, fifo_out} : 0);
 
-   assign o_tdata = sum;
-   assign o_tlast = i_tlast;
-   
+   axi_fifo_flop #(.WIDTH(WIDTH+MAX_LEN_LOG2+1)) axi_fifo_flop_output
+     (.clk(clk), .reset(reset), .clear(clear),
+      .i_tdata({i_tlast,sum}), .i_tvalid(i_tvalid), .i_tready(i_tready),
+      .o_tdata({o_tlast,o_tdata}), .o_tvalid(o_tvalid), .o_tready(o_tready),
+      .occupied(), .space());
+
 endmodule // moving_sum
