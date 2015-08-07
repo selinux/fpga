@@ -102,7 +102,7 @@ module noc_block_schmidl_cox #(
     .s_axis_data_tready(s_axis_data_tready),
     // Packet type, sequence number, and length will be automatically filled
     // Using EOB bit to indicate start of frame
-    .s_axis_data_tuser({2'd0,1'd0,sof,12'd0,16'd0,m_axis_data_tuser[89:64],next_dst,64'd0}),
+    .s_axis_data_tuser({2'd0,1'd0,sof,12'd0,16'd0,m_axis_data_tuser[79:64],next_dst,64'd0}),
     // Unused
     .m_axis_config_tdata(),
     .m_axis_config_tlast(),

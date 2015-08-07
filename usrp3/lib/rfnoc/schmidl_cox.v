@@ -24,11 +24,13 @@ module schmidl_cox #(
   localparam PRE_DIV_GAIN = 6; // Calibrated value
 
   wire [31:0] n0_tdata, n1_tdata, n2_tdata, n3_tdata, n4_tdata, n8_tdata;
-  wire [31:0] n12_tdata, n13_tdata, n14_tdata, n15_tdata, n10_tdata, n16_tdata, n17_tdata;
-  wire [15:0] n18_tdata;
+  wire [31:0] n12_tdata, n13_tdata, n14_tdata, n15_tdata, n16_tdata;
+  wire [39:0] n10_tdata, n17_tdata;
+  wire [23:0] n18_tdata;
   wire [63:0] n5_tdata;
-  wire [77:0] n6_tdata;
-  wire [31:0] n7_tdata, n11_tdata;
+  wire [75:0] n6_tdata;
+  wire [47:0] n7_tdata;
+  wire [31:0] n11_tdata;
   wire [37:0] n9_tdata;
   wire n0_tlast, n1_tlast, n2_tlast, n3_tlast, n4_tlast, n5_tlast, n6_tlast, n7_tlast, n8_tlast, n9_tlast;
   wire n10_tlast, n11_tlast, n12_tlast, n13_tlast, n14_tlast, n15_tlast, n16_tlast, n17_tlast, n18_tlast;
@@ -42,30 +44,23 @@ module schmidl_cox #(
      (.clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(threshold_q1_14), .changed());
 
-  split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0111), .FIFOSIZE(10)) split_head (
+  split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b1111), .FIFOSIZE(8)) split_head (
     .clk(clk), .reset(reset), .clear(clear),
     .i_tdata(i_tdata), .i_tlast(i_tlast), .i_tvalid(i_tvalid), .i_tready(i_tready),
     .o0_tdata(n0_tdata), .o0_tlast(n0_tlast), .o0_tvalid(n0_tvalid), .o0_tready(n0_tready),
     .o1_tdata(n1_tdata), .o1_tlast(n1_tlast), .o1_tvalid(n1_tvalid), .o1_tready(n1_tready),
     .o2_tdata(n12_tdata), .o2_tlast(n12_tlast), .o2_tvalid(n12_tvalid), .o2_tready(n12_tready),
-    .o3_tready(1'b0));
-
-  split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b011), .FIFOSIZE(10)) split_delayed (
-    .clk(clk), .reset(reset), .clear(clear),
-    .i_tdata(n3_tdata), .i_tlast(n3_tlast), .i_tvalid(n3_tvalid), .i_tready(n3_tready),
-    .o0_tdata(n2_tdata), .o0_tlast(n2_tlast), .o0_tvalid(n2_tvalid), .o0_tready(n2_tready),
-    .o1_tdata(n14_tdata), .o1_tlast(n14_tlast), .o1_tvalid(n14_tvalid), .o1_tready(n14_tready),
-    .o2_tready(1'b0), .o3_tready(1'b0));
+    .o3_tdata(n14_tdata), .o3_tlast(n14_tlast), .o3_tvalid(n14_tvalid), .o3_tready(n14_tready));
 
   delay #(.MAX_LEN_LOG2(8), .WIDTH(32)) delay_input (
     .clk(clk), .reset(reset), .clear(clear),
-    .len(16'd64),
+    .len(8'd64),
     .i_tdata(n0_tdata), .i_tlast(n0_tlast), .i_tvalid(n0_tvalid), .i_tready(n0_tready),
     .o_tdata(n3_tdata), .o_tlast(n3_tlast), .o_tvalid(n3_tvalid), .o_tready(n3_tready));
 
   conj #(.WIDTH(16)) conj (
     .clk(clk), .reset(reset), .clear(clear),
-    .i_tdata(n2_tdata), .i_tlast(n2_tlast), .i_tvalid(n2_tvalid), .i_tready(n2_tready),
+    .i_tdata(n3_tdata), .i_tlast(n3_tlast), .i_tvalid(n3_tvalid), .i_tready(n3_tready),
     .o_tdata(n4_tdata), .o_tlast(n4_tlast), .o_tvalid(n4_tvalid), .o_tready(n4_tready));
 
   cmul cmult1 (
@@ -101,18 +96,18 @@ module schmidl_cox #(
     .o_tdata(n6_round_tdata), .o_tlast(n6_round_tlast), .o_tvalid(n6_round_tvalid), .o_tready(n6_round_tready));
 
   // Magnitude of delay conjugate multiply
-  complex_to_magphase complex_to_magphase (.aclk(clk), .aresetn(~reset),
+  complex_to_magphase_int16_int24 complex_to_magphase_int16_int24 (.aclk(clk), .aresetn(~reset),
     .s_axis_cartesian_tdata({n6_round_tdata[15:0], n6_round_tdata[31:16]}), // Reverse I/Q input to match Xilinx's format
     .s_axis_cartesian_tlast(n6_round_tlast), .s_axis_cartesian_tvalid(n6_round_tvalid), .s_axis_cartesian_tready(n6_round_tready),
     .m_axis_dout_tdata(n7_tdata), .m_axis_dout_tlast(n7_tlast), .m_axis_dout_tvalid(n7_tvalid), .m_axis_dout_tready(n7_tready));
 
   // Extract magnitude from cordic
-  wire [31:0] n7_mag_tdata, n7_phase_tdata;
-  wire [15:0] n7_mag_strip_tdata = n7_mag_tdata[15:0];
-  wire [15:0] n7_phase_strip_tdata = n7_phase_tdata[31:16];
+  wire [47:0] n7_mag_tdata, n7_phase_tdata;
+  wire [15:0] n7_mag_strip_tdata = n7_mag_tdata[23:8] + (n7_mag_tdata[23] & |n7_mag_tdata[7:0]); // Divide by 256, round to zero
+  wire [23:0] n7_phase_strip_tdata = n7_phase_tdata[47:24];
   wire n7_mag_tlast, n7_mag_tvalid, n7_mag_tready;
   wire n7_phase_tlast, n7_phase_tvalid, n7_phase_tready;
-  split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0011), .FIFOSIZE(10))
+  split_stream_fifo #(.WIDTH(48), .ACTIVE_MASK(4'b0011), .FIFOSIZE(8))
   n7_split_mag_phase_fifo (
     .clk(clk), .reset(reset), .clear(clear),
     .i_tdata(n7_tdata), .i_tlast(n7_tlast), .i_tvalid(n7_tvalid), .i_tready(n7_tready),
@@ -217,9 +212,9 @@ module schmidl_cox #(
     .phase_tdata(n7_phase_strip_tdata), .phase_tvalid(n7_phase_tvalid), .phase_tready(n7_phase_tready),
     .trigger_phase_tdata(n10_tdata), .trigger_phase_tlast(n10_tlast), .trigger_phase_tvalid(n10_tvalid), .trigger_phase_tready(n10_tready));
 
-  wire [15:0] n16_trigger_tdata = n16_tdata[31:16];
-  wire [15:0] n17_phase_offset = n17_tdata[15:0];
-  split_stream_fifo #(.WIDTH(32), .ACTIVE_MASK(4'b0011), .FIFOSIZE(10)) split_trig (
+  wire [15:0] n16_trigger_tdata = n16_tdata[39:24];
+  wire [23:0] n17_phase_offset = n17_tdata[23:0];
+  split_stream_fifo #(.WIDTH(40), .ACTIVE_MASK(4'b0011), .FIFOSIZE(5)) split_trig (
     .clk(clk), .reset(reset), .clear(clear),
     .i_tdata(n10_tdata), .i_tlast(n10_tlast), .i_tvalid(n10_tvalid), .i_tready(n10_tready),
     .o0_tdata(n16_tdata), .o0_tlast(n16_tlast), .o0_tvalid(n16_tvalid), .o0_tready(n16_tready),
@@ -227,18 +222,20 @@ module schmidl_cox #(
     .o2_tready(1'b0), .o3_tready(1'b0));
 
   phase_accum #(
-    .WIDTH_ACCUM(16+$clog2(WINDOW_LEN)), // Divide by WINDOW_LEN to get per sample phase offset
-    .WIDTH_IN(16),
-    .WIDTH_OUT(16))
+    .WIDTH_ACCUM(24+$clog2(WINDOW_LEN)), // Divide by WINDOW_LEN to get per sample phase offset
+    .WIDTH_IN(24),
+    .WIDTH_OUT(24))
   phase_accum (
-    .clk(clk), .reset(reset), .clear(clear),
+    .clk(clk), .reset(reset), .clear(),
     .i_tdata(n17_phase_offset), .i_tlast(n17_tlast), .i_tvalid(n17_tvalid), .i_tready(n17_tready),
     .o_tdata(n18_tdata), .o_tlast(n18_tlast), .o_tvalid(n18_tvalid), .o_tready(n18_tready));
 
-  cordic_rotator cordic_freq_offset_correction (
+  // Flip I/Q to match Xilinx standard and divide by 2 to compensate for CORDIC gain (prevents clipping internally in Xilinx's CORDIC implementation).
+  wire [47:0] n14_scaled_tdata = {n14_tdata[15],n14_tdata[15:0],7'd0,n14_tdata[31],n14_tdata[31:16],7'd0};
+  cordic_rotate_int24_int16 cordic_freq_offset_correction (
     .aclk(clk), .aresetn(~reset),
-    .s_axis_phase_tdata(n18_tdata), .s_axis_phase_tvalid(n18_tvalid), .s_axis_phase_tready(n18_tready),
-    .s_axis_cartesian_tdata(n14_tdata), .s_axis_cartesian_tlast(n14_tlast), .s_axis_cartesian_tvalid(n14_tvalid), .s_axis_cartesian_tready(n14_tready),
+    .s_axis_phase_tdata(n18_tdata), .s_axis_phase_tlast(n18_tlast), .s_axis_phase_tvalid(n18_tvalid), .s_axis_phase_tready(n18_tready),
+    .s_axis_cartesian_tdata(n14_scaled_tdata), .s_axis_cartesian_tlast(n14_tlast), .s_axis_cartesian_tvalid(n14_tvalid), .s_axis_cartesian_tready(n14_tready),
     .m_axis_dout_tdata(n15_tdata), .m_axis_dout_tlast(n15_tlast), .m_axis_dout_tvalid(n15_tvalid), .m_axis_dout_tready(n15_tready));
 
   periodic_framer  #(

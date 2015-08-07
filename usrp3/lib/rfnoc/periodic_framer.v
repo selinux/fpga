@@ -13,7 +13,7 @@ module periodic_framer #(
   input clk, input reset, input clear,
   input set_stb, input [7:0] set_addr, input [31:0] set_data,
   input [WIDTH-1:0] stream_i_tdata, input stream_i_tlast, input stream_i_tvalid, output stream_i_tready,
-  input [31:0] trigger_tdata, input trigger_tlast, input trigger_tvalid, output trigger_tready,
+  input [15:0] trigger_tdata, input trigger_tlast, input trigger_tvalid, output trigger_tready,
   output [WIDTH-1:0] stream_o_tdata, output stream_o_tlast, output stream_o_tvalid, input stream_o_tready,
   output reg sof, output reg eof);
 

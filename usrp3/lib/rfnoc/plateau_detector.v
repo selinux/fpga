@@ -4,9 +4,7 @@
 // Designed to work with 802.11 short preamble.
 //
 // Algorithm: Wait until threshold is exceeded for a set number of samples, find plateau max, then trigger when
-//            metric falls back down to 0.875*(plateau max). The trigger should be aligned to approximately 32 samples
-//            after the end of the short preamble (downstream blocks should adjust for this offset).
-//            Finally, wait for long preamble to pass before starting search again.
+//            metric falls back down to 0.875*(plateau max).
 
 module plateau_detector
 #(
@@ -18,8 +16,8 @@ module plateau_detector
   input eof,
   input [15:0] d_metric_tdata,
   input d_metric_tvalid, output d_metric_tready,
-  input [15:0] phase_tdata, input phase_tvalid, output phase_tready,
-  output [31:0] trigger_phase_tdata, output trigger_phase_tlast, output trigger_phase_tvalid, input trigger_phase_tready
+  input [23:0] phase_tdata, input phase_tvalid, output phase_tready,
+  output [39:0] trigger_phase_tdata, output trigger_phase_tlast, output trigger_phase_tvalid, input trigger_phase_tready
 );
 
   localparam PLATEAU_LEN              = PREAMBLE_LEN - 2*WINDOW_LEN;
@@ -38,11 +36,9 @@ module plateau_detector
     .o_tdata(d_metric_sum), .o_tlast(), .o_tvalid(d_metric_avg_tvalid), .o_tready(phase_avg_tvalid & output_ready));
 
   // Phase moving average
-  localparam PHASE_DIV_FACTOR = $clog2(WINDOW_LEN)+5; // window length * 32 to get final per sample phase
-  wire [20:0] phase_sum;
-  wire [15:0] phase_avg_tdata = phase_sum[20:5];
-  //wire [15:0] phase_avg_tdata = {{(16-PHASE_DIV_FACTOR){phase_sum[20]}},phase_sum[20:PHASE_DIV_FACTOR]}; // sign extend
-  moving_sum #(.MAX_LEN_LOG2(5), .WIDTH(16)) moving_sum_phase (
+  wire [28:0] phase_sum;
+  wire [23:0] phase_avg_tdata = ~phase_sum[28:5] + 1; // Divide by 32 and negate for downstream CORDIC
+  moving_sum #(.MAX_LEN_LOG2(5), .WIDTH(24)) moving_sum_phase (
     .clk(clk), .reset(reset), .clear(),
     .len(16'd32),
     .i_tdata(phase_tdata), .i_tlast(), .i_tvalid(phase_tvalid), .i_tready(phase_tready),
@@ -51,8 +47,8 @@ module plateau_detector
   // Register outputs
   reg trigger;
   reg [15:0] trigger_offset;
-  reg [15:0] max_phase;
-  axi_fifo_flop #(.WIDTH(33)) axi_fifo_flop_output (
+  reg [23:0] max_phase;
+  axi_fifo_flop #(.WIDTH(41)) axi_fifo_flop_output (
     .clk(clk), .reset(reset), .clear(),
     .i_tdata({trigger, trigger_offset, max_phase}), .i_tvalid(d_metric_avg_tvalid & phase_avg_tvalid), .i_tready(output_ready),
     .o_tdata({trigger_phase_tlast, trigger_phase_tdata}), .o_tvalid(trigger_phase_tvalid), .o_tready(trigger_phase_tready),
