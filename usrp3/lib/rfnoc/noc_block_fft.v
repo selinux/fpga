@@ -184,11 +184,11 @@ module noc_block_fft #(
     .s_axis_data_tvalid(m_axis_data_tvalid),
     .s_axis_data_tready(m_axis_data_tready),
     .s_axis_data_tlast(m_axis_data_tlast),
-    .s_axis_data_tdata(m_axis_data_tdata),
+    .s_axis_data_tdata({m_axis_data_tdata[15:0],m_axis_data_tdata[31:16]}),
     .m_axis_data_tvalid(fft_data_o_tvalid),
     .m_axis_data_tready(fft_data_o_tready),
     .m_axis_data_tlast(fft_data_o_tlast),
-    .m_axis_data_tdata(fft_data_o_tdata),
+    .m_axis_data_tdata({fft_data_o_tdata[15:0],fft_data_o_tdata[31:16]}),
     .m_axis_data_tuser(fft_data_o_tuser), // FFT index
     .s_axis_config_tdata(m_axis_config_tdata[23:0]),
     .s_axis_config_tvalid(m_axis_config_tvalid),

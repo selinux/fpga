@@ -236,7 +236,7 @@ module schmidl_cox #(
     .aclk(clk), .aresetn(~reset),
     .s_axis_phase_tdata(n18_tdata), .s_axis_phase_tlast(n18_tlast), .s_axis_phase_tvalid(n18_tvalid), .s_axis_phase_tready(n18_tready),
     .s_axis_cartesian_tdata(n14_scaled_tdata), .s_axis_cartesian_tlast(n14_tlast), .s_axis_cartesian_tvalid(n14_tvalid), .s_axis_cartesian_tready(n14_tready),
-    .m_axis_dout_tdata(n15_tdata), .m_axis_dout_tlast(n15_tlast), .m_axis_dout_tvalid(n15_tvalid), .m_axis_dout_tready(n15_tready));
+    .m_axis_dout_tdata({n15_tdata[15:0],n15_tdata[31:16]}), .m_axis_dout_tlast(n15_tlast), .m_axis_dout_tvalid(n15_tvalid), .m_axis_dout_tready(n15_tready));
 
   periodic_framer  #(
     .SR_FRAME_LEN(SR_FRAME_LEN),
