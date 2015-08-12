@@ -44,6 +44,7 @@ peak_finder.v \
 window.v \
 counter.v \
 puncture.v \
+symbol_to_gray_bits.v \
 ram_to_fifo.v \
 const.v \
 const_sreg.v \
