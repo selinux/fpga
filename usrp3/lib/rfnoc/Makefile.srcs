@@ -97,4 +97,6 @@ fosphor/axi_logpwr.v \
 noc_block_logpwr.v \
 noc_block_fosphor.v \
 noc_block_moving_avg.v \
+ofdm_constellation_demapper.v \
+noc_block_ofdm_constellation_demapper.v \
 ))
