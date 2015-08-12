@@ -1,16 +1,16 @@
 //
-// Copyright 2014 Ettus Research LLC
+// Copyright 2015 Ettus Research
 //
 // Settings register with AXI stream output.
 
 module axi_setting_reg #(
-  parameter ADDR = 0, 
+  parameter ADDR = 0,
   parameter AWIDTH = 8,
   parameter WIDTH = 32,
   parameter DATA_AT_RESET = 0,
-  parameter VALID_AT_RESET = 0,
-  parameter REPEATS = 0,
-  parameter MSB_ALIGN = 0
+  parameter VALID_AT_RESET = 0, // Assert tvalid at reset
+  parameter REPEATS = 0,        // Continuously assert tvalid after first write
+  parameter MSB_ALIGN = 0       // Shift data to the left to be aligned with MSB
 )
 (
   input clk, input reset, 
