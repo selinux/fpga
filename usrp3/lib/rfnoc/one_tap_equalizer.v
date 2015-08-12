@@ -72,6 +72,7 @@ module one_tap_equalizer (
   // Extract data
   wire [31:0] data_tdata;
   wire data_tlast, data_tvalid, data_tready;
+  wire skip_prembl_tvalid;
 
   // Buffer incoming data
   wire [31:0] data_fifo_tdata;
@@ -128,7 +129,7 @@ module one_tap_equalizer (
     .reset(rst_i | sof),
     .clear(sof),
     .i_tdata({data_tlast, data_tdata}),
-    .i_tvalid(data_tvalid),
+    .i_tvalid(skip_prembl_tvalid),
     .i_tready(data_tready),
     .o_tdata({data_fifo_tlast, data_fifo_tdata}),
     .o_tvalid(data_fifo_tvalid),
@@ -274,6 +275,9 @@ module one_tap_equalizer (
 
   // Only process preamble once
   assign first_prembl_tvalid = (state == STATE_PREAMBLE) ? prembl_tvalid : 1'b0;
+
+  // Skip preamble for data FIFO
+  assign skip_prembl_tvalid = data_tvalid & (~first_prembl_tvalid);
 
   // Preamble FIFO feedback
   assign eq_tdata = (state == STATE_ESTIMATE) ? inv_tdata : eq_fifo_tdata;

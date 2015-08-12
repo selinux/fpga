@@ -53,6 +53,7 @@ add wave -noupdate -height 30 /noc_block_eq_tb/noc_block_eq/one_tap_equalizer_in
 add wave -noupdate -height 30 /noc_block_eq_tb/noc_block_eq/one_tap_equalizer_inst/data_tdata
 add wave -noupdate -height 30 /noc_block_eq_tb/noc_block_eq/one_tap_equalizer_inst/data_tlast
 add wave -noupdate -height 30 /noc_block_eq_tb/noc_block_eq/one_tap_equalizer_inst/data_tvalid
+add wave -noupdate /noc_block_eq_tb/noc_block_eq/one_tap_equalizer_inst/skip_prembl_tvalid
 add wave -noupdate -height 30 /noc_block_eq_tb/noc_block_eq/one_tap_equalizer_inst/data_tready
 add wave -noupdate -height 30 /noc_block_eq_tb/noc_block_eq/one_tap_equalizer_inst/data_fifo_tdata
 add wave -noupdate -height 30 /noc_block_eq_tb/noc_block_eq/one_tap_equalizer_inst/data_fifo_tlast
@@ -79,6 +80,6 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {163642560 ps}
+WaveRestoreZoom {137039568 ps} {300682128 ps}
 set StdArithNoWarnings 1
 set NumericStdNoWarnings 1

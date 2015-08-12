@@ -167,31 +167,8 @@ module noc_block_eq_tb;
 
     #70000;
 
-    `TEST_CASE_START("Receive preamble");
-    tb_cvita_data.pull_pkt(packet);
-    $display("Header: %H", packet.pop_front());
-    foreach(packet[i]) begin
-      data = packet[i];
-      $display("Received[%d]: %d, %d | %d, %d (%h)", shortint'(i),
-        shortint'(data[63:48]), shortint'(data[47:32]), shortint'(data[31:16]),
-        shortint'(data[15:0]), data);
-    end
-    `TEST_CASE_DONE(1);
-
     packet = {};
     `TEST_CASE_START("Receive data");
-    tb_cvita_data.pull_pkt(packet);
-    $display("Header: %H", packet.pop_front());
-    foreach(packet[i]) begin
-      data = packet[i];
-      $display("Received[%d]: %d, %d | %d, %d (%h)", shortint'(i),
-        shortint'(data[63:48]), shortint'(data[47:32]), shortint'(data[31:16]),
-        shortint'(data[15:0]), data);
-    end
-    `TEST_CASE_DONE(1);
-
-    packet = {};
-    `TEST_CASE_START("Receive file preamble");
     tb_cvita_data.pull_pkt(packet);
     $display("Header: %H", packet.pop_front());
     foreach(packet[i]) begin
