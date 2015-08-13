@@ -130,7 +130,8 @@ module complex_invert
     .m_axis_dout_tdata(neg_b_div_a2_plus_b2_tdata_int), .m_axis_dout_tlast(neg_b_div_a2_plus_b2_tlast), .m_axis_dout_tvalid(neg_b_div_a2_plus_b2_tvalid), .m_axis_dout_tready(neg_b_div_a2_plus_b2_tready),
     .m_axis_dout_tuser(div_by_zero_b));
 
-  wire [93:0] one_div_a_plus_bi_tdata = {a_div_a2_plus_b2_tdata,neg_b_div_a2_plus_b2_tdata};
+  // Throw away integer part as the result will always be a fraction due to a^2 + b^2 > a (or b)
+  wire [63:0] one_div_a_plus_bi_tdata = {a_div_a2_plus_b2_tdata[31:0],neg_b_div_a2_plus_b2_tdata[31:0]};
   wire        one_div_a_plus_bi_tlast;
   wire        one_div_a_plus_bi_tvalid;
   wire        one_div_a_plus_bi_tready;
@@ -144,7 +145,7 @@ module complex_invert
 
   // Truncate to a complex int16
   axi_round_and_clip_complex #(
-    .WIDTH_IN(47),
+    .WIDTH_IN(32),
     .WIDTH_OUT(16),
     .CLIP_BITS(16), // TODO: Adjust scaling here
     .FIFOSIZE())
