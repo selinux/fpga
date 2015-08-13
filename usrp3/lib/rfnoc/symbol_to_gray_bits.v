@@ -7,7 +7,8 @@
 
 module symbol_to_gray_bits #(
   parameter WIDTH_IN         = 16,
-  parameter MODULATION_ORDER = 6)  // QPSK = 2, QAM16 = 4, QAM64 = 6
+  parameter MODULATION_ORDER = 6,  // QPSK = 2, QAM16 = 4, QAM64 = 6
+  parameter REVERSE          = 0)  // 0: Q/I mapping (i.e. QPSK symbol 10 Q = 1, I = 0), 1: I/Q mapping
 (
   input clk, input reset, input clear,
   input [2*WIDTH_IN-1:0] i_tdata, input i_tlast, input i_tvalid, output i_tready,
@@ -33,9 +34,11 @@ module symbol_to_gray_bits #(
     end
   end
 
+  wire [MODULATION_ORDER-1:0] gray_bits = REVERSE ? {gray_bits_i,gray_bits_q} : {gray_bits_q,gray_bits_i};
+
   axi_fifo_flop #(.WIDTH(MODULATION_ORDER+1)) reg_gray_bits (
     .clk(clk), .reset(reset), .clear(clear),
-    .i_tdata({i_tlast,gray_bits_i,gray_bits_q}), .i_tvalid(i_tvalid), .i_tready(i_tready),
+    .i_tdata({i_tlast,gray_bits}), .i_tvalid(i_tvalid), .i_tready(i_tready),
     .o_tdata({o_tlast,o_tdata}), .o_tvalid(o_tvalid), .o_tready(o_tready),
     .space(), .occupied());
 
