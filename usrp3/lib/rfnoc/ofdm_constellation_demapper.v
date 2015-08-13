@@ -105,10 +105,10 @@ module ofdm_constellation_demapper #(
         case (modulation_order)
           // BPSK
           1 : begin
-            packed_bits[0]    <= bits_tdata[MAX_MODULATION_ORDER-1];
+            packed_bits[0]    <= bits_tdata[MAX_MODULATION_ORDER/2-1];
             packed_bits[31:1] <= packed_bits[30:0];
             if (bit_cnt > 31) begin
-              bit_cnt            <= 'd0;
+              bit_cnt            <= 'd1;
               packed_bits_tvalid <= 1'b1;
               packed_bits_tdata  <= packed_bits[31:0];
             end else begin
@@ -117,10 +117,10 @@ module ofdm_constellation_demapper #(
           end
           // QPSK
           2 : begin
-            packed_bits[1:0]  <= bits_tdata[MAX_MODULATION_ORDER-1:MAX_MODULATION_ORDER-2];
+            packed_bits[1:0]  <= {bits_tdata[MAX_MODULATION_ORDER-1],bits_tdata[MAX_MODULATION_ORDER/2-1]};
             packed_bits[31:2] <= packed_bits[29:0];
             if (bit_cnt > 31) begin
-              bit_cnt            <= 'd0;
+              bit_cnt            <= 'd2;
               packed_bits_tvalid <= 1'b1;
               packed_bits_tdata  <= packed_bits[31:0];
             end else begin
@@ -129,10 +129,10 @@ module ofdm_constellation_demapper #(
           end
           // QAM 16
           4 : begin
-            packed_bits[3:0]  <= bits_tdata[MAX_MODULATION_ORDER-1:MAX_MODULATION_ORDER-4];
+            packed_bits[3:0]  <= {bits_tdata[MAX_MODULATION_ORDER-1:MAX_MODULATION_ORDER-2],bits_tdata[MAX_MODULATION_ORDER/2-1:MAX_MODULATION_ORDER/2-2]};
             packed_bits[31:4] <= packed_bits[27:0];
             if (bit_cnt > 31) begin
-              bit_cnt            <= 'd0;
+              bit_cnt            <= 'd4;
               packed_bits_tvalid <= 1'b1;
               packed_bits_tdata  <= packed_bits[31:0];
             end else begin
