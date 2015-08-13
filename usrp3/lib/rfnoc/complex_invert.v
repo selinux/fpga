@@ -78,8 +78,9 @@ module complex_invert
     .o2_tdata(), .o2_tlast(), .o2_tvalid(), .o2_tready(1'b0),
     .o3_tdata(), .o3_tlast(), .o3_tvalid(), .o3_tready(1'b0));
 
-  wire [47:0] a_div_a2_plus_b2_tdata_int; // Q16.32, signed, 16 integer bits, 32 fraction
-  wire [46:0] a_div_a2_plus_b2_tdata = {a_div_a2_plus_b2_tdata_int[47:32], a_div_a2_plus_b2_tdata_int[30:0]};
+  wire        div_by_zero_a;
+  wire [47:0] a_div_a2_plus_b2_tdata_int; // signed bit, 15 integer bits, fraction sign bit, 31 fraction
+  wire [47:0] a_div_a2_plus_b2_tdata = div_by_zero_a ? 48'd0 : a_div_a2_plus_b2_tdata_int;
   wire        a_div_a2_plus_b2_tlast;
   wire        a_div_a2_plus_b2_tvalid;
   wire        a_div_a2_plus_b2_tready;
@@ -87,12 +88,15 @@ module complex_invert
   //     a
   // ---------
   // a^2 + b^2
+  // Warning: Divider does not sign extend fractional part into the integer part, although we throw away the integer
+  //          part so this issue does not affect our design.
   divide_int16_int32
   a_div_a2_plus_b2_divider (
     .aclk(clk), .aresetn(~reset),
     .s_axis_divisor_tdata(a2_plus_b2_0_tdata), .s_axis_divisor_tlast(a2_plus_b2_0_tlast), .s_axis_divisor_tvalid(a2_plus_b2_0_tvalid), .s_axis_divisor_tready(a2_plus_b2_0_tready),
     .s_axis_dividend_tdata(a_tdata), .s_axis_dividend_tlast(a_tlast), .s_axis_dividend_tvalid(a_tvalid), .s_axis_dividend_tready(a_tready),
-    .m_axis_dout_tdata(a_div_a2_plus_b2_tdata_int), .m_axis_dout_tlast(a_div_a2_plus_b2_tlast), .m_axis_dout_tvalid(a_div_a2_plus_b2_tvalid), .m_axis_dout_tready(a_div_a2_plus_b2_tready));
+    .m_axis_dout_tdata(a_div_a2_plus_b2_tdata_int), .m_axis_dout_tlast(a_div_a2_plus_b2_tlast), .m_axis_dout_tvalid(a_div_a2_plus_b2_tvalid), .m_axis_dout_tready(a_div_a2_plus_b2_tready),
+    .m_axis_dout_tuser(div_by_zero_a));
 
   wire [15:0] neg_b_tdata;
   wire        neg_b_tlast;
@@ -108,8 +112,9 @@ module complex_invert
     .o_tdata({neg_b_tlast,neg_b_tdata}), .o_tvalid(neg_b_tvalid), .o_tready(neg_b_tready),
     .space(), .occupied());
 
+  wire        div_by_zero_b;
   wire [47:0] neg_b_div_a2_plus_b2_tdata_int;
-  wire [46:0] neg_b_div_a2_plus_b2_tdata = {neg_b_div_a2_plus_b2_tdata_int[47:32], neg_b_div_a2_plus_b2_tdata_int[30:0]};
+  wire [47:0] neg_b_div_a2_plus_b2_tdata = div_by_zero_b ? 48'd0 : neg_b_div_a2_plus_b2_tdata_int;
   wire        neg_b_div_a2_plus_b2_tlast;
   wire        neg_b_div_a2_plus_b2_tvalid;
   wire        neg_b_div_a2_plus_b2_tready;
@@ -122,7 +127,8 @@ module complex_invert
     .aclk(clk), .aresetn(~reset),
     .s_axis_divisor_tdata(a2_plus_b2_1_tdata), .s_axis_divisor_tlast(a2_plus_b2_1_tlast), .s_axis_divisor_tvalid(a2_plus_b2_1_tvalid), .s_axis_divisor_tready(a2_plus_b2_1_tready),
     .s_axis_dividend_tdata(neg_b_tdata), .s_axis_dividend_tlast(neg_b_tlast), .s_axis_dividend_tvalid(neg_b_tvalid), .s_axis_dividend_tready(neg_b_tready),
-    .m_axis_dout_tdata(neg_b_div_a2_plus_b2_tdata_int), .m_axis_dout_tlast(neg_b_div_a2_plus_b2_tlast), .m_axis_dout_tvalid(neg_b_div_a2_plus_b2_tvalid), .m_axis_dout_tready(neg_b_div_a2_plus_b2_tready));
+    .m_axis_dout_tdata(neg_b_div_a2_plus_b2_tdata_int), .m_axis_dout_tlast(neg_b_div_a2_plus_b2_tlast), .m_axis_dout_tvalid(neg_b_div_a2_plus_b2_tvalid), .m_axis_dout_tready(neg_b_div_a2_plus_b2_tready),
+    .m_axis_dout_tuser(div_by_zero_b));
 
   wire [93:0] one_div_a_plus_bi_tdata = {a_div_a2_plus_b2_tdata,neg_b_div_a2_plus_b2_tdata};
   wire        one_div_a_plus_bi_tlast;
