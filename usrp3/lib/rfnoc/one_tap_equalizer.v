@@ -282,7 +282,7 @@ module one_tap_equalizer (
   // Preamble FIFO feedback
   assign eq_tdata = (state == STATE_ESTIMATE) ? inv_tdata : eq_fifo_tdata;
   assign eq_tlast = (state == STATE_ESTIMATE) ? inv_tlast : eq_fifo_tlast;
-  assign eq_tvalid = (state == STATE_ESTIMATE) ? inv_tvalid : eq_fifo_tvalid;
+  assign eq_tvalid = (state == STATE_ESTIMATE) ? inv_tvalid : (eq_fifo_tvalid & eq_fifo_tready);
   assign inv_tready = (state == STATE_ESTIMATE) ? eq_tready : 1'b0;
 
   assign eq_fifo_tready = (state == STATE_EQUALIZE) ?
