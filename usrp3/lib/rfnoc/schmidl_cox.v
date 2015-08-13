@@ -24,7 +24,8 @@ module schmidl_cox #(
   localparam PRE_DIV_GAIN = 6; // Calibrated value
 
   wire [31:0] n0_tdata, n1_tdata, n2_tdata, n3_tdata, n4_tdata, n8_tdata;
-  wire [31:0] n12_tdata, n13_tdata, n14_tdata, n15_tdata, n16_tdata;
+  wire [31:0] n12_tdata, n13_tdata, n14_tdata, n15_tdata;
+  wire [39:0] n16_tdata;
   wire [39:0] n10_tdata, n17_tdata;
   wire [23:0] n18_tdata;
   wire [63:0] n5_tdata;
