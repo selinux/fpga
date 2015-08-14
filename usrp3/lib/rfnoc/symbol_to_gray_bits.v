@@ -34,7 +34,7 @@ module symbol_to_gray_bits #(
     end
   end
 
-  wire [MODULATION_ORDER-1:0] gray_bits = REVERSE ? {gray_bits_i,gray_bits_q} : {gray_bits_q,gray_bits_i};
+  wire [MODULATION_ORDER-1:0] gray_bits = REVERSE ? {gray_bits_q,gray_bits_i} : {gray_bits_i,gray_bits_q};
 
   axi_fifo_flop #(.WIDTH(MODULATION_ORDER+1)) reg_gray_bits (
     .clk(clk), .reset(reset), .clear(clear),
