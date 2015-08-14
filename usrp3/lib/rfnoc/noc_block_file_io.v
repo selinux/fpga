@@ -3,10 +3,15 @@
 //
 
 module noc_block_file_io #(
-  parameter NOC_ID = 64'h0000_0000_0000_0000,
-  parameter STR_SINK_FIFOSIZE = 11,
-  parameter IN_FILENAME = "",
-  parameter OUT_FILENAME = "")
+  parameter NOC_ID                     = 64'h0000_0000_0000_0000,
+  parameter STR_SINK_FIFOSIZE          = 11,
+  parameter SRC_DEFAULT_SWAP_SAMPLES   = 2, // sc16
+  parameter SRC_DEFAULT_ENDIANNESS     = 2, // .
+  parameter SRC_FILE_LENGTH            = 65536, // Bytes
+  parameter SRC_FILENAME               = "",
+  parameter SINK_DEFAULT_SWAP_SAMPLES  = 2, // sc16
+  parameter SINK_ENDIANNESS            = 2, // .
+  parameter SINK_FILENAME              = "")
 (
   input bus_clk, input bus_rst,
   input ce_clk, input ce_rst,
@@ -61,22 +66,30 @@ module noc_block_file_io #(
   // User code
   //
   ////////////////////////////////////////////////////////////
-  localparam BASE        = 128;
+  localparam BASE = 128;
 
   file_source #(
     .SR_NEXT_DST(BASE),
     .SR_PKT_LENGTH(BASE+1),
     .SR_RATE(BASE+2),
     .SR_SEND_TIME(BASE+3),
-    .FILENAME(IN_FILENAME))
-  file_source (.clk(ce_clk), .reset(ce_rst),
+    .SR_SWAP_SAMPLES(BASE+4),
+    .SR_ENDIANNESS(BASE+5),
+    .DEFAULT_SWAP_SAMPLES(SRC_DEFAULT_SWAP_SAMPLES),
+    .DEFAULT_ENDIANNESS(SRC_DEFAULT_ENDIANNESS),
+    .FILE_LENGTH(SRC_FILE_LENGTH),
+    .FILENAME(SRC_FILENAME))
+  file_source (
+    .clk(ce_clk), .reset(ce_rst),
     .set_stb(set_stb), .set_addr(set_addr), .set_data(set_data),
     .o_tdata(str_src_tdata), .o_tlast(str_src_tlast), .o_tvalid(str_src_tvalid), .o_tready(str_src_tready));
 
   file_sink #(
-    .SR_SWAP_SAMPLES(BASE+4),
-    .SR_SWAP_RE_IM(BASE+5),
-    .FILENAME(OUT_FILENAME))
+    .SR_SWAP_SAMPLES(BASE+6),
+    .SR_ENDIANNESS(BASE+7),
+    .DEFAULT_SWAP_SAMPLES(SINK_DEFAULT_SWAP_SAMPLES),
+    .DEFAULT_ENDIANNESS(SINK_ENDIANNESS),
+    .FILENAME(SINK_FILENAME))
   file_sink (
     .clk_i(ce_clk),
     .rst_i(ce_rst),

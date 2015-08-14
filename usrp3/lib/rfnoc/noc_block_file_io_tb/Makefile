@@ -72,12 +72,12 @@ include $(BASE_DIR)/../sim/control/Makefile.srcs
 include $(BASE_DIR)/../sim/rfnoc/Makefile.srcs
 
 # Define only one toplevel module
-SIM_TOP = noc_block_eq_tb
+SIM_TOP = noc_block_file_io_tb
 # Simulation runtime in microseconds
 SIM_RUNTIME_US = 1000
 
 SIM_SRCS = \
-$(abspath noc_block_eq_tb.sv) \
+$(abspath noc_block_file_io_tb.sv) \
 $(abspath ../../control/axi_crossbar_intf.sv) \
 $(SIM_GENERAL_SRCS) \
 $(SIM_AXI_SRCS) \

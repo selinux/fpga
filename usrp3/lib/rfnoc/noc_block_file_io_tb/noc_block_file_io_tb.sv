@@ -11,12 +11,12 @@
 `include "sim_exec_report.vh"
 `include "sim_rfnoc_lib.vh"
 
-module noc_block_eq_tb;
-  `TEST_BENCH_INIT("noc_block_eq_tb", `NUM_TEST_CASES, `NS_PER_TICK);
+module noc_block_file_io_tb;
+  `TEST_BENCH_INIT("noc_block_file_io_tb", `NUM_TEST_CASES, `NS_PER_TICK);
   `RFNOC_SIM_INIT(1, 166.67, 200);
   `RFNOC_ADD_BLOCK(noc_block_eq, 0);
   `RFNOC_ADD_BLOCK(noc_block_file_io, 1);
-  defparam noc_block_file_io.OUT_FILENAME = "../../../../output.bin";
+  defparam noc_block_file_io.SINK_FILENAME = "../../../../output.bin";
 
   localparam PACKET_SIZE = 64;
 
