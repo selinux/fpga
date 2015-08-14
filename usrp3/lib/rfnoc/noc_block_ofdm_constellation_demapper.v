@@ -4,9 +4,10 @@
 
 module noc_block_ofdm_constellation_demapper #(
   parameter NUM_SUBCARRIERS        = 64,
-  // Bit mask of subcarriers to exclude, such as guard bands, pilot subcarriers, DC bin, etc. 
+  // Bit mask of subcarriers to exclude, such as guard bands, pilot subcarriers, DC bin, etc. Neg freq -> Pos freq.
   parameter EXCLUDE_SUBCARRIERS    = 64'b1111_1100_0001_0000_0000_0000_0100_0000_1000_0001_0000_0000_0000_0100_0001_1111,
   parameter MAX_MODULATION_ORDER   = 6,  // Must be a power of 4, default QAM-64
+  parameter BYTE_REVERSE           = 1,  // Reverse output bytes
   parameter NOC_ID = 64'h0FCD_0000_0000_0000,
   parameter STR_SINK_FIFOSIZE = 11)
 (
@@ -114,6 +115,7 @@ module noc_block_ofdm_constellation_demapper #(
     .NUM_SUBCARRIERS(NUM_SUBCARRIERS),
     .EXCLUDE_SUBCARRIERS(EXCLUDE_SUBCARRIERS),
     .MAX_MODULATION_ORDER(MAX_MODULATION_ORDER),
+    .BYTE_REVERSE(BYTE_REVERSE),
     .SR_MODULATION_ORDER(SR_MODULATION_ORDER),
     .SR_SCALING(SR_SCALING))
   ofdm_constellation_demapper (

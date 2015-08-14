@@ -4,9 +4,10 @@
 
 module ofdm_constellation_demapper #(
   parameter NUM_SUBCARRIERS        = 64,
-  // Bit mask of subcarriers to exclude, such as guard bands, pilot subcarriers, DC bin, etc. 
+  // Bit mask of subcarriers to exclude, such as guard bands, pilot subcarriers, DC bin, etc., Neg freq -> Pos freq
   parameter EXCLUDE_SUBCARRIERS    = 64'b1111_1100_0001_0000_0000_0000_0100_0000_1000_0001_0000_0000_0000_0100_0001_1111,
   parameter MAX_MODULATION_ORDER   = 6,  // Must be a power of 4, default QAM-64
+  parameter BYTE_REVERSE           = 0,  // Reverse output bytes
   parameter SR_MODULATION_ORDER    = 0,  // 1 = BPSK, 2 = QPSK, 4 = QAM16, 6 = QAM64
   parameter SR_SCALING             = 1)  // Normalization factor (i.e. QAM64 = sqrt(42)) in Q2.14 format
 (
@@ -174,9 +175,24 @@ module ofdm_constellation_demapper #(
     end
   end
 
+  // Reverse bytes (optional)
+  wire [31:0] packed_bits_reverse_tdata;
+  genvar i,j;
+  generate
+    if (BYTE_REVERSE) begin
+      for (j = 0; j < 4; j = j + 1) begin
+        for (i = 0; i < 8; i = i + 1) begin
+          assign packed_bits_reverse_tdata[(j+1)*8-i-1] = packed_bits_tdata[j*8+i];
+        end
+      end
+    end else begin
+      assign packed_bits_reverse_tdata = packed_bits_tdata;
+    end
+  endgenerate
+
   axi_fifo_flop #(.WIDTH(33)) axi_fifo_flop_output (
     .clk(clk), .reset(reset), .clear(clear),
-    .i_tdata({1'b0,packed_bits_tdata}), .i_tvalid(packed_bits_tvalid), .i_tready(bits_tready),
+    .i_tdata({1'b0,packed_bits_reverse_tdata}), .i_tvalid(packed_bits_tvalid), .i_tready(bits_tready),
     .o_tdata({o_tlast,o_tdata}), .o_tvalid(o_tvalid), .o_tready(o_tready),
     .space(), .occupied());
 
