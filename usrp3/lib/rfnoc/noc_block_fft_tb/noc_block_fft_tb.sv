@@ -18,14 +18,13 @@ module noc_block_fft_tb();
   // Instantiate FFT RFNoC block
   `RFNOC_ADD_BLOCK(noc_block_fft,0);
 
-  // FFT specific settings
-  localparam [15:0] FFT_SIZE = 256;
-  localparam FFT_BIN         = FFT_SIZE/8 + FFT_SIZE/2; // 1/8 sample rate freq + FFT shift
-  wire [7:0] fft_size_log2   = $clog2(FFT_SIZE);        // Set FFT size
-  wire fft_direction         = 0;                       // Set FFT direction to forward (i.e. DFT[x(n)] => X(k))
-  wire [11:0] fft_scale      = 12'b011010101010;        // Conservative scaling of 1/N
-  // Padding of the control word depends on the FFT options enabled
-  wire [20:0] fft_ctrl_word  = {fft_scale, fft_direction, fft_size_log2};
+  // FFT settings
+  localparam [31:0] FFT_SIZE         = 256;
+  localparam [31:0] FFT_SIZE_LOG2    = $clog2(FFT_SIZE);
+  localparam [31:0] FFT_DIRECTION    = 0;                       // Forward
+  localparam [31:0] FFT_SCALING      = 12'b011010101010;        // Conservative scaling of 1/N
+  localparam [31:0] FFT_SHIFT_CONFIG = 2;                       // FFT shift, output positive frequencies first
+  localparam FFT_BIN                 = FFT_SIZE/8 + FFT_SIZE/2; // 1/8 sample rate freq + FFT shift
 
   cvita_pkt_t  pkt;
   logic [63:0] header;
@@ -82,14 +81,15 @@ module noc_block_fft_tb();
     `RFNOC_CONNECT(noc_block_tb,noc_block_fft,FFT_SIZE*4);
     `RFNOC_CONNECT(noc_block_fft,noc_block_tb,FFT_SIZE*4);
 
+    tb_cvita_ack.axis.tready = 1'b1;  // Drop all response packets
+
     // Setup FFT
     header = flatten_chdr_no_ts('{pkt_type:CMD, has_time:0, eob:0, seqno:12'h0, length:8, src_sid:sid_noc_block_tb, dst_sid:sid_noc_block_fft, timestamp:64'h0});
-    tb_cvita_cmd.push_pkt({header, {SR_AXI_CONFIG_BASE, {11'd0, fft_ctrl_word}}});                                // Configure FFT core
-    tb_cvita_ack.drop_pkt();    // Don't care about response
-    tb_cvita_cmd.push_pkt({header, {24'd0, noc_block_fft.SR_FFT_SIZE_LOG2, {24'd0, fft_size_log2}}});             // Set FFT size register
-    tb_cvita_ack.drop_pkt();
-    tb_cvita_cmd.push_pkt({header, {24'd0, noc_block_fft.SR_MAGNITUDE_OUT, {30'd0, noc_block_fft.MAG_SQ_OUT}}});  // Enable magnitude out
-    tb_cvita_ack.drop_pkt();
+    tb_cvita_cmd.push_pkt({header, {noc_block_fft.SR_FFT_SIZE_LOG2, FFT_SIZE_LOG2}});                      // FFT size
+    tb_cvita_cmd.push_pkt({header, {noc_block_fft.SR_FFT_DIRECTION, FFT_DIRECTION}});                      // FFT direction
+    tb_cvita_cmd.push_pkt({header, {noc_block_fft.SR_FFT_SCALING, FFT_SCALING}});                          // FFT scaling
+    tb_cvita_cmd.push_pkt({header, {noc_block_fft.SR_FFT_SHIFT_CONFIG, FFT_SHIFT_CONFIG}});                // FFT shift configuration
+    tb_cvita_cmd.push_pkt({header, {noc_block_fft.SR_MAGNITUDE_OUT, {30'd0, noc_block_fft.MAG_SQ_OUT}}});  // Enable magnitude out
 
     repeat (10) @(posedge bus_clk);
 
