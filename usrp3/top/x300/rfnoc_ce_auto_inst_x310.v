@@ -17,7 +17,8 @@
   wire ce_clk = radio_clk;
   wire ce_rst = radio_rst;
 
-  noc_block_addsub inst_noc_block_addsub (
+  // Big FIFO for buffering at high rates
+  noc_block_fifo #(.SIZE(14)) inst_noc_block_fifo (
     .bus_clk(bus_clk), .bus_rst(bus_rst),
     .ce_clk(ce_clk), .ce_rst(ce_rst),
     .i_tdata(ce_o_tdata[0]), .i_tlast(ce_o_tlast[0]), .i_tvalid(ce_o_tvalid[0]), .i_tready(ce_o_tready[0]),
@@ -45,30 +46,28 @@
     .o_tdata(ce_i_tdata[3]), .o_tlast(ce_i_tlast[3]), .o_tvalid(ce_i_tvalid[3]), .o_tready(ce_i_tready[3]),
     .debug(ce_debug[3]));
 
-  noc_block_null_source_sink inst_noc_block_null_source_sink (
+  noc_block_eq inst_noc_block_eq (
     .bus_clk(bus_clk), .bus_rst(bus_rst),
     .ce_clk(ce_clk), .ce_rst(ce_rst),
     .i_tdata(ce_o_tdata[4]), .i_tlast(ce_o_tlast[4]), .i_tvalid(ce_o_tvalid[4]), .i_tready(ce_o_tready[4]),
     .o_tdata(ce_i_tdata[4]), .o_tlast(ce_i_tlast[4]), .o_tvalid(ce_i_tvalid[4]), .o_tready(ce_i_tready[4]),
     .debug(ce_debug[4]));
 
-  noc_block_logpwr inst_noc_block_logpwr (
+  noc_block_ofdm_constellation_demapper inst_noc_block_ofdm_constellation_demapper (
     .bus_clk(bus_clk), .bus_rst(bus_rst),
     .ce_clk(ce_clk), .ce_rst(ce_rst),
     .i_tdata(ce_o_tdata[5]), .i_tlast(ce_o_tlast[5]), .i_tvalid(ce_o_tvalid[5]), .i_tready(ce_o_tready[5]),
     .o_tdata(ce_i_tdata[5]), .o_tlast(ce_i_tlast[5]), .o_tvalid(ce_i_tvalid[5]), .o_tready(ce_i_tready[5]),
     .debug(ce_debug[5]));
 
-  noc_block_moving_avg inst0_noc_block_moving_avg (
+  noc_block_schmidl_cox inst_noc_block_schmidl_cox (
     .bus_clk(bus_clk), .bus_rst(bus_rst),
     .ce_clk(ce_clk), .ce_rst(ce_rst),
     .i_tdata(ce_o_tdata[6]), .i_tlast(ce_o_tlast[6]), .i_tvalid(ce_o_tvalid[6]), .i_tready(ce_o_tready[6]),
     .o_tdata(ce_i_tdata[6]), .o_tlast(ce_i_tlast[6]), .o_tvalid(ce_i_tvalid[6]), .o_tready(ce_i_tready[6]),
     .debug(ce_debug[6]));
 
-  noc_block_moving_avg #(
-    .NOC_ID(64'hAAD3_0000_0000_0000))
-  inst1_noc_block_moving_avg (
+  noc_block_vector_iir inst_noc_block_vector_iir (
     .bus_clk(bus_clk), .bus_rst(bus_rst),
     .ce_clk(ce_clk), .ce_rst(ce_rst),
     .i_tdata(ce_o_tdata[7]), .i_tlast(ce_o_tlast[7]), .i_tvalid(ce_o_tvalid[7]), .i_tready(ce_o_tready[7]),
@@ -93,7 +92,7 @@
   genvar n;
   generate
     for (n = 10; n < NUM_CE; n = n + 1) begin
-      noc_block_axi_fifo_loopback inst_noc_block_axi_fifo_loopback (
+      noc_block_fifo #(.SIZE(14)) inst_noc_block_fifo (
         .bus_clk(bus_clk), .bus_rst(bus_rst),
         .ce_clk(ce_clk), .ce_rst(ce_rst),
         .i_tdata(ce_o_tdata[n]), .i_tlast(ce_o_tlast[n]), .i_tvalid(ce_o_tvalid[n]), .i_tready(ce_o_tready[n]),

@@ -56,7 +56,7 @@
   genvar n;
   generate
     for (n = 5; n < NUM_CE; n = n + 1) begin
-      noc_block_axi_fifo_loopback inst_noc_block_axi_fifo_loopback (
+      noc_block_fifo inst_noc_block_fifo (
         .bus_clk(bus_clk), .bus_rst(bus_rst),
         .ce_clk(ce_clk), .ce_rst(ce_rst),
         .i_tdata(ce_o_tdata[n]), .i_tlast(ce_o_tlast[n]), .i_tvalid(ce_o_tvalid[n]), .i_tready(ce_o_tready[n]),

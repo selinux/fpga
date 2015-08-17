@@ -1,8 +1,9 @@
 //
-// Copyright 2014-2015 Ettus Research LLC
+// Copyright 2015 Ettus Research
 //
 
-module noc_block_axi_fifo_loopback #(
+module noc_block_fifo #(
+  parameter SIZE = 2,
   parameter NOC_ID = 64'hF1F0_0000_0000_0000,
   parameter STR_SINK_FIFOSIZE = 11)
 (
@@ -27,7 +28,7 @@ module noc_block_axi_fifo_loopback #(
 
   wire [63:0] str_sink_tdata, str_src_tdata;
   wire        str_sink_tlast, str_sink_tvalid, str_sink_tready, str_src_tlast, str_src_tvalid, str_src_tready;
-  
+
   wire        clear_tx_seqnum;
 
   noc_shell #(
@@ -96,7 +97,7 @@ module noc_block_axi_fifo_loopback #(
     .s_axis_data_tready(s_axis_data_tready),
     .m_axis_config_tdata(),
     .m_axis_config_tlast(),
-    .m_axis_config_tvalid(), 
+    .m_axis_config_tvalid(),
     .m_axis_config_tready());
 
   ////////////////////////////////////////////////////////////
@@ -111,8 +112,8 @@ module noc_block_axi_fifo_loopback #(
   assign cmdout_tvalid = 1'b0;
   assign ackin_tready = 1'b1;
 
-  axi_fifo #(
-    .WIDTH(33), .SIZE(2))
+  axi_fifo_cascade #(
+    .WIDTH(33), .SIZE(SIZE))
   inst_axi_fifo (
     .clk(ce_clk), .reset(ce_rst), .clear(1'b0),
     .i_tdata({m_axis_data_tlast,m_axis_data_tdata}), .i_tvalid(m_axis_data_tvalid), .i_tready(m_axis_data_tready),
