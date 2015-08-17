@@ -12,8 +12,9 @@
 module noc_block_ofdm_tb();
   `TEST_BENCH_INIT("noc_block_ofdm_tb",`NUM_TEST_CASES,`NS_PER_TICK);
   `RFNOC_SIM_INIT(5,166.67,200);
-  `RFNOC_ADD_BLOCK(noc_block_file_source,0);
-  defparam noc_block_file_source.FILENAME = "../../../../ofdm_test_vectors.dat";
+  `RFNOC_ADD_BLOCK(noc_block_file_io,0);
+  defparam noc_block_file_io.SRC_FILENAME = "../../../../ofdm_test_vectors.dat";
+  defparam noc_block_file_io.SRC_FILE_LENGTH = 2**20;
   `RFNOC_ADD_BLOCK(noc_block_schmidl_cox,1);
   `RFNOC_ADD_BLOCK(noc_block_fft,2);
   defparam noc_block_fft.EN_MAGNITUDE_OUT        = 0;
@@ -30,13 +31,13 @@ module noc_block_ofdm_tb();
   localparam [31:0] PACKET_LENGTH    = 7;
   localparam [31:0] NUM_PACKETS      = 10;
 
-  // FFT specific settings
+  // FFT settings
   localparam [15:0] FFT_SIZE  = OFDM_SYMBOL_SIZE;
-  wire [7:0] fft_size_log2    = $clog2(FFT_SIZE);        // Set FFT size
-  wire fft_direction          = 0;                       // Set FFT direction to forward (i.e. DFT[x(n)] => X(k))
-  //wire [11:0] fft_scale       = 12'b011010101010;        // Conservative scaling (1/N)
-  wire [11:0] fft_scale       = 12'b000100000101;        // Aggressive scaling, calibrated value verified via simulation
-  wire [20:0] fft_ctrl_word   = {fft_scale, fft_direction, fft_size_log2};
+  localparam [31:0] FFT_SIZE_LOG2    = $clog2(FFT_SIZE);
+  localparam [31:0] FFT_DIRECTION    = 0;                       // Forward
+  //localparam [31:0] FFT_SCALING      = 12'b011010101010;        // Conservative scaling of 1/N
+  localparam [31:0] FFT_SCALING      = 12'b000100000101;        // Aggressive scaling
+  localparam [31:0] FFT_SHIFT_CONFIG = 0;                       // FFT shift, output negative frequencies first
 
   cvita_pkt_t  pkt;
   logic [63:0] header;
@@ -73,7 +74,7 @@ module noc_block_ofdm_tb();
     repeat (10) @(posedge bus_clk);
 
     // File Source -> Schmidl Cox -> FFT -> One Tap Equalizer -> OFDM Constellation Demapper -> Test bench
-    `RFNOC_CONNECT(noc_block_file_source,noc_block_schmidl_cox,OFDM_SYMBOL_SIZE*4);
+    `RFNOC_CONNECT(noc_block_file_io,noc_block_schmidl_cox,OFDM_SYMBOL_SIZE*4);
     `RFNOC_CONNECT(noc_block_schmidl_cox,noc_block_fft,OFDM_SYMBOL_SIZE*4);
     `RFNOC_CONNECT(noc_block_fft,noc_block_eq,OFDM_SYMBOL_SIZE*4);
     `RFNOC_CONNECT(noc_block_eq,noc_block_ofdm_constellation_demapper,OFDM_SYMBOL_SIZE*4);
@@ -82,15 +83,15 @@ module noc_block_ofdm_tb();
     tb_cvita_ack.axis.tready = 1'b1;  // Drop all response packets
 
     // Setup File Source
-    header = flatten_chdr_no_ts('{pkt_type:CMD, has_time:0, eob:0, seqno:12'h0, length:8, src_sid:sid_noc_block_tb, dst_sid:sid_noc_block_file_source, timestamp:64'h0});
-    tb_cvita_cmd.push_pkt({header, {noc_block_file_source.file_source.SR_PKT_LENGTH, 32'd180}});   // Length, 180 is about the size of a typical Ethernet packet with MTU 1500
-    tb_cvita_cmd.push_pkt({header, {noc_block_file_source.file_source.SR_RATE, 32'd10}});          // Output every 10th cycle (assuming 200 MHz radio_clk & 20 MHz BW)
+    header = flatten_chdr_no_ts('{pkt_type:CMD, has_time:0, eob:0, seqno:12'h0, length:8, src_sid:sid_noc_block_tb, dst_sid:sid_noc_block_file_io, timestamp:64'h0});
+    tb_cvita_cmd.push_pkt({header, {noc_block_file_io.file_source.SR_PKT_LENGTH, 32'd180}});    // Length, 180 is about the size of a typical Ethernet packet with MTU 1500
+    tb_cvita_cmd.push_pkt({header, {noc_block_file_io.file_source.SR_RATE, 32'd10}});          // Output every 10th cycle (assuming 200 MHz radio_clk & 20 MHz BW)
 
     // Setup Schmidl Cox
     header = flatten_chdr_no_ts('{pkt_type:CMD, has_time:0, eob:0, seqno:12'h0, length:8, src_sid:sid_noc_block_tb, dst_sid:sid_noc_block_schmidl_cox, timestamp:64'h0});
     tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_FRAME_LEN, OFDM_SYMBOL_SIZE}});        // FFT Size
     tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_GAP_LEN, 32'd16}});                    // Cyclic Prefix length
-    tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_OFFSET, {32'd0-14+32+64-8}}});         // Calibrated delay to middle of symbol's cyclic prefix (pipeline delay + 2 cyclic prefixes + 1 symbol - 1/2 cyclic prefix)
+    tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_OFFSET, {32'd0+50+32+64-8}}});           // Calibrated delay to middle of symbol's cyclic prefix (pipeline delay + 2 cyclic prefixes + 1 symbol - 1/2 cyclic prefix)
     tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_NUMBER_SYMBOLS_MAX, PACKET_LENGTH}});  // Maximum number of symbols (excluding preamble)
     tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_NUMBER_SYMBOLS_SHORT, 32'd0}});        // Unused
     // Schmidl & Cox algorithm uses a metric normalized between 0.0 - 1.0.
@@ -98,14 +99,16 @@ module noc_block_ofdm_tb();
 
     // Setup FFT
     header = flatten_chdr_no_ts('{pkt_type:CMD, has_time:0, eob:0, seqno:12'h0, length:8, src_sid:sid_noc_block_tb, dst_sid:sid_noc_block_fft, timestamp:64'h0});
-    tb_cvita_cmd.push_pkt({header, {SR_AXI_CONFIG_BASE, {11'd0, fft_ctrl_word}}});                                // Configure FFT core
-    tb_cvita_cmd.push_pkt({header, {24'd0, noc_block_fft.SR_FFT_SIZE_LOG2, {24'd0, fft_size_log2}}});             // Set FFT size register
-    tb_cvita_cmd.push_pkt({header, {24'd0, noc_block_fft.SR_MAGNITUDE_OUT, {30'd0, noc_block_fft.COMPLEX_OUT}}}); // Complex FFT data out
+    tb_cvita_cmd.push_pkt({header, {noc_block_fft.SR_FFT_SIZE_LOG2, FFT_SIZE_LOG2}});                           // FFT size
+    tb_cvita_cmd.push_pkt({header, {noc_block_fft.SR_FFT_DIRECTION, FFT_DIRECTION}});                           // FFT direction
+    tb_cvita_cmd.push_pkt({header, {noc_block_fft.SR_FFT_SCALING, FFT_SCALING}});                               // FFT scaling
+    tb_cvita_cmd.push_pkt({header, {noc_block_fft.SR_FFT_SHIFT_CONFIG, FFT_SHIFT_CONFIG}});                     // FFT shift configuration
+    tb_cvita_cmd.push_pkt({header, {noc_block_fft.SR_MAGNITUDE_OUT, {30'd0, noc_block_fft.COMPLEX_OUT}}});      // Enable complex output
 
     // Setup OFDM constellation demapper for QPSK
     header = flatten_chdr_no_ts('{pkt_type:CMD, has_time:0, eob:0, seqno:12'h0, length:8, src_sid:sid_noc_block_tb, dst_sid:sid_noc_block_ofdm_constellation_demapper, timestamp:64'h0});
-    tb_cvita_cmd.push_pkt({header, {noc_block_ofdm_constellation_demapper.SR_MODULATION_ORDER, 32'd2}});          // QPSK
-    tb_cvita_cmd.push_pkt({header, {noc_block_ofdm_constellation_demapper.SR_SCALING, 32'd0 + 23170 }});          // QPSK scaling $floor((2**14)*$sqrt(2))
+    tb_cvita_cmd.push_pkt({header, {noc_block_ofdm_constellation_demapper.SR_MODULATION_ORDER, 32'd2}});        // QPSK
+    tb_cvita_cmd.push_pkt({header, {noc_block_ofdm_constellation_demapper.SR_SCALING, 32'd0 + 23170 }});        // QPSK scaling $floor((2**14)*$sqrt(2))
 
   end
 endmodule
