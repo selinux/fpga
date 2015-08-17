@@ -58,6 +58,7 @@ vector_iir.v \
 addsub.v \
 packet_resizer.v \
 axi_pipe.v \
+multiply.v \
 mult.v \
 mult_add.v \
 mult_rc.v \
