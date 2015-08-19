@@ -120,11 +120,14 @@ module noc_block_schmidl_cox #(
   localparam [7:0] BASE = 129;
 
   schmidl_cox #(
+    .WINDOW_LEN(64),
+    .PREAMBLE_LEN(160),
     .SR_FRAME_LEN(BASE+0),
     .SR_GAP_LEN(BASE+1),
     .SR_OFFSET(BASE+2),
     .SR_NUMBER_SYMBOLS_MAX(BASE+3),
-    .SR_NUMBER_SYMBOLS_SHORT(BASE+4))
+    .SR_NUMBER_SYMBOLS_SHORT(BASE+4),
+    .SR_THRESHOLD(BASE+5))
   schmidl_cox (
     .clk(ce_clk), .reset(ce_rst), .clear(1'b0),
     .set_stb(set_stb), .set_addr(set_addr), .set_data(set_data),
