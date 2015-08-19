@@ -10,7 +10,8 @@ module multiply #(
   parameter DROP_TOP_P  = 1,  // Default drops extra bit (16-bit signed x 16-bit signed => 31-bits signed)
   parameter LATENCY     = 3,  // multiplier pipeline latency, 0 - 4
   parameter EN_SATURATE = 0,  // Enable saturating output to avoid overflow (adds +1 to latency)
-  parameter EN_ROUND    = 0)  // Enable rounding dropped LSBs (adds +1 to latency, total of +2 if used with EN_SATURATE)
+  parameter EN_ROUND    = 0,  // Enable rounding dropped LSBs (adds +1 to latency, total of +2 if used with EN_SATURATE)
+  parameter SIGNED      = 1)  // Signed multiply
 (
   input clk, input reset,
   input [WIDTH_A-1:0] a_tdata, input a_tlast, input a_tvalid, output a_tready,
@@ -47,8 +48,9 @@ module multiply #(
     .enables0(en_a_reg), .enables1(en_b_reg), .enables_post(en_p_reg));
 
   // Multiply
-  wire [WIDTH_A+WIDTH_B-1:0] p_mult      = (LATENCY == 0) ? a_tdata * b_tdata : a_reg[A_LATENCY-1] * b_reg[B_LATENCY-1];
-  wire [WIDTH_A+WIDTH_B-1:0] p_int_tdata = (LATENCY == 0) ? p_mult            : p_reg[P_LATENCY-1];
+  wire [WIDTH_A+WIDTH_B-1:0] p_mult_signed   = (LATENCY == 0) ? $signed(a_tdata) * $signed(b_tdata) : $signed(a_reg[A_LATENCY-1]) * $signed(b_reg[B_LATENCY-1]);
+  wire [WIDTH_A+WIDTH_B-1:0] p_mult_unsigned = (LATENCY == 0) ? a_tdata * b_tdata : a_reg[A_LATENCY-1] * b_reg[B_LATENCY-1];
+  wire [WIDTH_A+WIDTH_B-1:0] p_int_tdata     = (LATENCY == 0) ? (SIGNED ? p_mult_signed : p_mult_unsigned) : p_reg[P_LATENCY-1];
 
   // Register pipeline
   integer i;
@@ -67,7 +69,7 @@ module multiply #(
       for (i = 0; i < A_LATENCY; i = i + 1) begin
         if (en_a_reg[i]) begin
           if (i == 0) begin
-            a_reg[i] <= a_tdata;
+            a_reg[i] <= $signed(a_tdata);
           end else begin
             a_reg[i] <= a_reg[i-1];
           end
@@ -76,7 +78,7 @@ module multiply #(
       for (i = 0; i < B_LATENCY; i = i + 1) begin
         if (en_b_reg[i]) begin
           if (i == 0) begin
-            b_reg[i] <= b_tdata;
+            b_reg[i] <= $signed(b_tdata);
           end else begin
             b_reg[i] <= b_reg[i-1];
           end
@@ -85,7 +87,7 @@ module multiply #(
       for (i = 0; i < P_LATENCY; i = i + 1) begin
         if (en_p_reg[i]) begin
           if (i == 0) begin
-            p_reg[i] <= p_mult;
+            p_reg[i] <= SIGNED ? p_mult_signed : p_mult_unsigned;
           end else begin
             p_reg[i] <= p_reg[i-1];
           end
