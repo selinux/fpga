@@ -1,5 +1,5 @@
 //
-// Copyright 2014 Ettus Research LLC
+// Copyright 2014 Ettus Research
 //
 // FIXME I don't like the way this is implemented.  Should we remove the FIFO completely?
 
@@ -7,11 +7,11 @@ module delay
   #(parameter MAX_LEN_LOG2=10,
     parameter WIDTH=16)
    (input clk, input reset, input clear,
-    input [MAX_LEN_LOG2-1:0] len,
+    input [MAX_LEN_LOG2:0] len,
     input [WIDTH-1:0] i_tdata, input i_tlast, input i_tvalid, output i_tready,
     output [WIDTH-1:0] o_tdata, output o_tlast, output o_tvalid, input o_tready);
 
-   reg [MAX_LEN_LOG2-1:0] full_count;
+   reg [MAX_LEN_LOG2:0] full_count;
    wire 		  full = full_count == len;
    
    wire 		  do_op = i_tvalid & o_tready;
