@@ -3,17 +3,18 @@
 //
 
 module periodic_framer #(
-  parameter SR_FRAME_LEN=0,
-  parameter SR_GAP_LEN=1,
-  parameter SR_OFFSET=2,
-  parameter SR_NUMBER_SYMBOLS_MAX=3,
-  parameter SR_NUMBER_SYMBOLS_SHORT=4,
-  parameter WIDTH=32)
+  parameter SR_FRAME_LEN            = 0,
+  parameter SR_GAP_LEN              = 1,
+  parameter SR_OFFSET               = 2,
+  parameter SR_NUMBER_SYMBOLS_MAX   = 3,
+  parameter SR_NUMBER_SYMBOLS_SHORT = 4,
+  // Skip a set number of gaps at the beginning. Use 1 to properly frame 802.11 long preamble.
+  parameter SKIP_GAPS               = 1,
+  parameter WIDTH                   = 32)
 (
   input clk, input reset, input clear,
   input set_stb, input [7:0] set_addr, input [31:0] set_data,
   input [WIDTH-1:0] stream_i_tdata, input stream_i_tlast, input stream_i_tvalid, output stream_i_tready,
-  input [15:0] trigger_tdata, input trigger_tlast, input trigger_tvalid, output trigger_tready,
   output [WIDTH-1:0] stream_o_tdata, output stream_o_tlast, output stream_o_tvalid, input stream_o_tready,
   output reg sof, output reg eof);
 
@@ -26,6 +27,7 @@ module periodic_framer #(
   wire        set_numsymbols;
   wire        consume;
   reg  [15:0] counter;
+  reg  [$clog2(SKIP_GAPS):0] skip_cnt;
   reg  [15:0] numsymbols;
 
   setting_reg #(.my_addr(SR_FRAME_LEN), .width(16)) reg_frame_len (
@@ -71,16 +73,23 @@ module periodic_framer #(
     if (reset | clear) begin
       eof        <= 1'b0;
       sof        <= 1'b0;
-      counter    <= 16'd0;
+      counter    <= 0;
+      skip_cnt   <= 0;
       numsymbols <= 16'd0;
       state      <= ST_WAIT_FOR_TRIG;
     end else begin
       if (consume) begin
         case(state)
           ST_WAIT_FOR_TRIG : begin
-            if (trigger_tlast) begin
+            eof       <= 1'b0;
+            skip_cnt  <= 0;
+            if (stream_i_tlast) begin
               counter <= 16'b1;
-              state   <= ST_DO_OFFSET;
+              if (offset == 0) begin
+                state   <= ST_FRAME;
+              end else begin
+                state   <= ST_DO_OFFSET;
+              end
             end
           end
 
@@ -100,13 +109,16 @@ module periodic_framer #(
               sof        <= 1'b0;
               counter    <= 1;
               numsymbols <= numsymbols + 1;
-              if (numsymbols == numsymbols_thisburst-1) begin
-                eof      <= 1'b1;
-              end
               if (numsymbols >= numsymbols_thisburst) begin
-                state <= ST_WAIT_FOR_TRIG;
+                eof      <= 1'b1;
+                state    <= ST_WAIT_FOR_TRIG;
               end else begin
-                state <= ST_GAP;
+                if (skip_cnt < SKIP_GAPS) begin
+                  skip_cnt <= skip_cnt + 1;
+                  state    <= ST_FRAME;
+                end else begin
+                  state  <= ST_GAP;
+                end
               end
             end else begin
               counter <= counter + 16'd1;
@@ -114,7 +126,6 @@ module periodic_framer #(
           end
 
           ST_GAP : begin
-            eof <= 1'b0;
             if (counter >= gap_len) begin
               state   <= ST_FRAME;
               counter <= 1;
@@ -129,10 +140,9 @@ module periodic_framer #(
 
   assign stream_o_tdata = stream_i_tdata;
   assign stream_o_tlast = (state == ST_FRAME) & (counter >= frame_len);
-  assign stream_o_tvalid = stream_i_tvalid & trigger_tvalid & (state == ST_FRAME);
+  assign stream_o_tvalid = stream_i_tvalid & (state == ST_FRAME);
 
   assign stream_i_tready = consume;
-  assign trigger_tready = consume;
-  assign consume = stream_i_tvalid & trigger_tvalid & ((state != ST_FRAME) | stream_o_tready);
+  assign consume = stream_i_tvalid & ((state != ST_FRAME) | stream_o_tready);
 
 endmodule // periodic_framer
