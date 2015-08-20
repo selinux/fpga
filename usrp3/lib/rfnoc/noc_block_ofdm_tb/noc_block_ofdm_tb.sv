@@ -28,15 +28,14 @@ module noc_block_ofdm_tb();
   defparam noc_block_ofdm_constellation_demapper.MAX_MODULATION_ORDER = 6;
 
   localparam [31:0] OFDM_SYMBOL_SIZE = 64;
-  localparam [31:0] PACKET_LENGTH    = 7;
+  localparam [31:0] PACKET_LENGTH    = 5;
   localparam [31:0] NUM_PACKETS      = 10;
 
   // FFT settings
   localparam [15:0] FFT_SIZE  = OFDM_SYMBOL_SIZE;
   localparam [31:0] FFT_SIZE_LOG2    = $clog2(FFT_SIZE);
   localparam [31:0] FFT_DIRECTION    = 0;                       // Forward
-  //localparam [31:0] FFT_SCALING      = 12'b011010101010;        // Conservative scaling of 1/N
-  localparam [31:0] FFT_SCALING      = 12'b000100000101;        // Aggressive scaling
+  localparam [31:0] FFT_SCALING      = 12'b010101010101;        // Aggressive scaling
   localparam [31:0] FFT_SHIFT_CONFIG = 0;                       // FFT shift, output negative frequencies first
 
   cvita_pkt_t  pkt;
@@ -91,11 +90,11 @@ module noc_block_ofdm_tb();
     header = flatten_chdr_no_ts('{pkt_type:CMD, has_time:0, eob:0, seqno:12'h0, length:8, src_sid:sid_noc_block_tb, dst_sid:sid_noc_block_schmidl_cox, timestamp:64'h0});
     tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_FRAME_LEN, OFDM_SYMBOL_SIZE}});        // FFT Size
     tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_GAP_LEN, 32'd16}});                    // Cyclic Prefix length
-    tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_OFFSET, {32'd0+50+32+64-8}}});           // Calibrated delay to middle of symbol's cyclic prefix (pipeline delay + 2 cyclic prefixes + 1 symbol - 1/2 cyclic prefix)
+    tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_OFFSET, {32'd160+32+64-8}}});          // Skip short preamble + skip long preamble CP + skip first long preamble symbol - 1/2 cyclic prefix
     tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_NUMBER_SYMBOLS_MAX, PACKET_LENGTH}});  // Maximum number of symbols (excluding preamble)
     tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_NUMBER_SYMBOLS_SHORT, 32'd0}});        // Unused
     // Schmidl & Cox algorithm uses a metric normalized between 0.0 - 1.0.
-    tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_THRESHOLD, 16'd0, 16'd11000}});        // Threshold (format Q1.14, Sign bit, 1 integer, 14 fractional), 14335 ~= +0.875
+    tb_cvita_cmd.push_pkt({header, {noc_block_schmidl_cox.schmidl_cox.SR_THRESHOLD, 16'd0, 16'd13000}});        // Threshold (format Q1.14, Sign bit, 1 integer, 14 fractional), 14335 ~= +0.875
 
     // Setup FFT
     header = flatten_chdr_no_ts('{pkt_type:CMD, has_time:0, eob:0, seqno:12'h0, length:8, src_sid:sid_noc_block_tb, dst_sid:sid_noc_block_fft, timestamp:64'h0});
