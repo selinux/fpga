@@ -26,9 +26,9 @@ module ofdm_peak_detector
   ** Settings registers
   ****************************************************************************/
   wire [15:0] threshold; // Q1.14 (Signed bit, 1 integer bit, 14 fractional)
-  setting_reg #(.my_addr(SR_THRESHOLD), .width(16)) sr_threshold
-     (.clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
-      .out(threshold), .changed());
+  setting_reg #(.my_addr(SR_THRESHOLD), .width(16)) sr_threshold (
+    .clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
+    .out(threshold), .changed());
 
   /****************************************************************************
   ** Delay & gate sample data
@@ -123,7 +123,7 @@ module ofdm_peak_detector
   /****************************************************************************
   ** Divide phase by window length
   ****************************************************************************/
-  localparam [WIDTH_PHASE-1:0] PHASE_DIV_FACTOR = $floor((2.0**(WIDTH_PHASE-1))*(1.0/WINDOW_LEN)+0.5);
+  localparam [WIDTH_PHASE-1:0] PHASE_DIV_FACTOR = 2.0**(WIDTH_PHASE-1)*(1.0/WINDOW_LEN)+0.5;
   reg  [WIDTH_PHASE-1:0] max_phase;
   wire [WIDTH_PHASE-1:0] phase_inc = ~max_phase + 1;
   reg phase_inc_valid;
