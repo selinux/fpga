@@ -73,9 +73,9 @@ module periodic_framer #(
     if (reset | clear) begin
       eof        <= 1'b0;
       sof        <= 1'b0;
-      counter    <= 0;
+      counter    <= 1;
       skip_cnt   <= 0;
-      numsymbols <= 16'd0;
+      numsymbols <= 16'd1;
       state      <= ST_WAIT_FOR_TRIG;
     end else begin
       if (consume) begin
@@ -97,7 +97,7 @@ module periodic_framer #(
             if (counter >= offset) begin
               sof        <= 1'b1;
               counter    <= 16'b1;
-              numsymbols <= 16'd0;
+              numsymbols <= 16'd1;
               state      <= ST_FRAME;
             end else begin
               counter <= counter + 16'd1;
