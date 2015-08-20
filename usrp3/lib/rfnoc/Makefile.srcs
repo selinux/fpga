@@ -106,4 +106,5 @@ ofdm_constellation_demapper.v \
 noc_block_ofdm_constellation_demapper.v \
 one_tap_equalizer.v \
 noc_block_eq.v \
+noc_block_moving_avg.v \
 ))

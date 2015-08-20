@@ -40,7 +40,7 @@ module noc_block_moving_avg #(
   //----------------------------------------------------------------------------
 
   // Set next destination in chain
- wire [15:0] next_dst;
+  wire [15:0] next_dst;
 
   // Readback register address
   wire rb_addr;
