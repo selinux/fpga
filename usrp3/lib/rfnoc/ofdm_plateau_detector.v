@@ -15,7 +15,7 @@
 //            4) Apply gain correction to sample data based on magnitude at max metric value
 //            5) Begin looking for another peak
 
-module plateau_detector
+module ofdm_plateau_detector
 #(
   parameter WIDTH_D       = 16,
   parameter WIDTH_PHASE   = 32,
