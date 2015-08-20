@@ -8,6 +8,7 @@ module ofdm_peak_detector
   parameter WIDTH_PHASE   = 32,
   parameter WIDTH_MAG     = 16,  // Not so useful due to fixed divider width
   parameter WIDTH_SAMPLE  = 16,  // sc16
+  parameter WINDOW_LEN    = 80,
   parameter PREAMBLE_LEN  = 160, // Short preamble length
   parameter SR_THRESHOLD  = 5)
 (
@@ -19,7 +20,6 @@ module ofdm_peak_detector
   input [2*WIDTH_SAMPLE-1:0] sample_in_tdata, input sample_in_tvalid, output sample_in_tready,
   output [2*WIDTH_SAMPLE-1:0] sample_out_tdata, output  sample_out_tlast, output  sample_out_tvalid, input sample_out_tready,
   output [WIDTH_PHASE-1:0] phase_out_tdata, output phase_out_tlast, output phase_out_tvalid, input phase_out_tready
-  output [WIDTH_MAG-1:0] magnitude_out_tdata, output magnitude_out_tlast, output magnitude_out_tvalid, input magnitude_out_tready,
 );
 
   /****************************************************************************
@@ -29,31 +29,6 @@ module ofdm_peak_detector
   setting_reg #(.my_addr(SR_THRESHOLD), .width(16)) sr_threshold
      (.clk(clk), .rst(reset), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(threshold), .changed());
-
-  /****************************************************************************
-  ** Gain control
-  ****************************************************************************/
-  wire [15:0] gain_div_out, gain_frac_div_out;
-  wire [30:0] gain_div_out_tdata = {gain_div_out,gain_frac_div_out[14:0]};
-  wire gain_div_out_tvalid, gain_div_out_tready;
-  divide_int16 divide_gain (
-    .aclk(clk), .aresetn(~reset),
-    .s_axis_divisor_tdata(16'd10000), .s_axis_divisor_tlast(1'b0), .s_axis_divisor_tvalid(1'b1), .s_axis_divisor_tready(),
-    .s_axis_dividend_tdata(magnitude_tdata), .s_axis_dividend_tlast(1'b0), .s_axis_dividend_tvalid(magnitude_tvalid), .s_axis_dividend_tready(magnitude_tready),
-    .m_axis_dout_tdata({gain_div_out, gain_frac_div_out}), .m_axis_dout_tlast(), .m_axis_dout_tvalid(gain_div_out_tvalid), .m_axis_dout_tready(gain_div_out_tready),
-    .m_axis_dout_tuser());
-
-  localparam GAIN_NUM_INTEGER_BITS = 8;
-  wire [15:0] gain_tdata;
-  wire gain_tvalid, gain_tready;
-  axi_round_and_clip #(
-    .WIDTH_IN(31),
-    .WIDTH_OUT(16),
-    .CLIP_BITS(GAIN_NUM_INTEGER_BITS))
-  round_mag (
-    .clk(clk), .reset(reset),
-    .i_tdata(gain_div_out_tdata), .i_tlast(1'b0), .i_tvalid(gain_div_out_tvalid), .i_tready(gain_div_out_tready),
-    .o_tdata(gain_tdata), .o_tlast(), .o_tvalid(gain_tvalid), .o_tready(gain_tready));
 
   /****************************************************************************
   ** Delay & gate sample data
@@ -79,8 +54,30 @@ module ofdm_peak_detector
     .occupied(), .space());
 
   /****************************************************************************
-  ** AGC
+  ** Gain control
   ****************************************************************************/
+  wire [15:0] gain_div_out, gain_frac_div_out;
+  wire [30:0] gain_div_out_tdata = {gain_div_out,gain_frac_div_out[14:0]};
+  wire gain_div_out_tvalid, gain_div_out_tready;
+  divide_int16 divide_gain (
+    .aclk(clk), .aresetn(~reset),
+    .s_axis_divisor_tdata(16'd5000), .s_axis_divisor_tlast(1'b0), .s_axis_divisor_tvalid(1'b1), .s_axis_divisor_tready(),
+    .s_axis_dividend_tdata(magnitude_in_tdata), .s_axis_dividend_tlast(1'b0), .s_axis_dividend_tvalid(magnitude_in_tvalid), .s_axis_dividend_tready(magnitude_in_tready),
+    .m_axis_dout_tdata({gain_div_out, gain_frac_div_out}), .m_axis_dout_tlast(), .m_axis_dout_tvalid(gain_div_out_tvalid), .m_axis_dout_tready(gain_div_out_tready),
+    .m_axis_dout_tuser());
+
+  localparam GAIN_NUM_INTEGER_BITS = 8;
+  wire [15:0] gain_tdata;
+  wire gain_tvalid, gain_tready;
+  axi_round_and_clip #(
+    .WIDTH_IN(31),
+    .WIDTH_OUT(16),
+    .CLIP_BITS(GAIN_NUM_INTEGER_BITS))
+  round_mag (
+    .clk(clk), .reset(reset),
+    .i_tdata(gain_div_out_tdata), .i_tlast(1'b0), .i_tvalid(gain_div_out_tvalid), .i_tready(gain_div_out_tready),
+    .o_tdata(gain_tdata), .o_tlast(), .o_tvalid(gain_tvalid), .o_tready(gain_tready));
+
   reg  [15:0] max_gain;
   wire [2*WIDTH_SAMPLE-1:0] sample_agc_tdata;
   wire sample_agc_tlast, sample_agc_tvalid, sample_agc_tready;
@@ -88,7 +85,7 @@ module ofdm_peak_detector
     .WIDTH_A(WIDTH_SAMPLE),
     .WIDTH_B(WIDTH_SAMPLE),
     .WIDTH_P(WIDTH_SAMPLE),
-    .DROP_TOP_P(GAIN_NUM_INTEGER_BITS+1),
+    .DROP_TOP_P(GAIN_NUM_INTEGER_BITS),
     .LATENCY(2),
     .EN_SATURATE(1),
     .EN_ROUND(1))
@@ -102,7 +99,7 @@ module ofdm_peak_detector
     .WIDTH_A(WIDTH_SAMPLE),
     .WIDTH_B(WIDTH_SAMPLE),
     .WIDTH_P(WIDTH_SAMPLE),
-    .DROP_TOP_P(GAIN_NUM_INTEGER_BITS+1),
+    .DROP_TOP_P(GAIN_NUM_INTEGER_BITS),
     .LATENCY(2),
     .EN_SATURATE(1),
     .EN_ROUND(1))
@@ -122,8 +119,27 @@ module ofdm_peak_detector
     .o1_tdata(), .o1_tlast(phase_out_tlast), .o1_tvalid(phase_out_tvalid), .o1_tready(phase_out_tready),
     .o2_tdata(), .o2_tlast(), .o2_tvalid(), .o2_tready(),
     .o3_tdata(), .o3_tlast(), .o3_tvalid(), .o3_tready());
-  reg [WIDTH_PHASE-1:0] phase_inc;
-  assign phase_out_tdata = phase_inc;
+
+  /****************************************************************************
+  ** Divide phase by window length
+  ****************************************************************************/
+  localparam [WIDTH_PHASE-1:0] PHASE_DIV_FACTOR = $floor((2.0**(WIDTH_PHASE-1))*(1.0/WINDOW_LEN)+0.5);
+  reg  [WIDTH_PHASE-1:0] max_phase;
+  wire [WIDTH_PHASE-1:0] phase_inc = ~max_phase + 1;
+  reg phase_inc_valid;
+  multiply #(
+    .WIDTH_A(WIDTH_PHASE),
+    .WIDTH_B(WIDTH_PHASE),
+    .WIDTH_P(WIDTH_PHASE),
+    .DROP_TOP_P(1),
+    .LATENCY(2),
+    .EN_SATURATE(1),
+    .EN_ROUND(1))
+  divide_window_len (
+    .clk(clk), .reset(reset),
+    .a_tdata(phase_inc), .a_tlast(1'b0), .a_tvalid(1'b1), .a_tready(),
+    .b_tdata(PHASE_DIV_FACTOR), .b_tlast(1'b0), .b_tvalid(1'b1), .b_tready(),
+    .p_tdata(phase_out_tdata), .p_tlast(), .p_tvalid(), .p_tready(1'b1));
 
   /****************************************************************************
   ** Algorithm State Machine
@@ -135,7 +151,6 @@ module ofdm_peak_detector
 
   reg  [$clog2(SAMPLE_DELAY)-1:0] peak_offset, trigger_cnt;
 
-  reg  [WIDTH_PHASE-1:0] max_phase;
   reg  [WIDTH_D-1:0] max_d_metric;
   wire [WIDTH_D-1:0] max_d_metric_87_5 = max_d_metric - max_d_metric[WIDTH_D-1:3]; // 87.5%
 
@@ -148,16 +163,15 @@ module ofdm_peak_detector
 
   always @(posedge clk) begin
     if (reset) begin
-      trigger_cnt   <= 0;
-      peak_offset   <= 0;
-      max_d_metric  <= 'd0;
-      max_phase     <= 'd0;
-      max_gain      <= 'd0;
-      trigger       <= 1'b0;
-      phase_inc     <= 'd0;
-      state         <= S_WAIT_EXCEED_THRESH;
+      trigger_cnt     <= 0;
+      peak_offset     <= 0;
+      max_d_metric    <= 'd0;
+      max_phase       <= 'd0;
+      max_gain        <= 'd0;
+      trigger         <= 1'b0;
+      phase_inc_valid <= 1'b0;
+      state           <= S_WAIT_EXCEED_THRESH;
     end else begin
-      phase_inc     <= ~max_phase + 1;
       case(state)
         // Wait for threshold to be exceeded
         S_WAIT_EXCEED_THRESH : begin
@@ -183,7 +197,8 @@ module ofdm_peak_detector
               peak_offset   <= peak_offset + 1;
             end
             if (d_metric_tdata < max_d_metric_87_5) begin
-              state         <= S_ALIGN_OUTPUT;
+              phase_inc_valid <= 1'b1;
+              state           <= S_ALIGN_OUTPUT;
             // Should never happen, but if it does go back to idle 
             end else if (peak_offset > PREAMBLE_LEN) begin
               state         <= S_WAIT_EXCEED_THRESH;
@@ -193,7 +208,8 @@ module ofdm_peak_detector
 
         S_ALIGN_OUTPUT : begin
           if (consume) begin
-            trigger_cnt  <= trigger_cnt + 1;
+            phase_inc_valid <= 1'b0;
+            trigger_cnt     <= trigger_cnt + 1;
             // Extra -3 to account for off by one for trigger_cnt, peak_offset, etc
             if (trigger_cnt > SAMPLE_DELAY-PREAMBLE_LEN-peak_offset-4) begin
               trigger    <= 1'b1;
