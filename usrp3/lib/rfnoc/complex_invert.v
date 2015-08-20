@@ -147,7 +147,7 @@ module complex_invert
   axi_round_and_clip_complex #(
     .WIDTH_IN(32),
     .WIDTH_OUT(16),
-    .CLIP_BITS(12), // Calibrated value
+    .CLIP_BITS(10), // Calibrated value
     .FIFOSIZE())
   inst_axi_round_and_clip_complex (
     .clk(clk), .reset(reset),
