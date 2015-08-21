@@ -67,7 +67,9 @@
     .o_tdata(ce_i_tdata[6]), .o_tlast(ce_i_tlast[6]), .o_tvalid(ce_i_tvalid[6]), .o_tready(ce_i_tready[6]),
     .debug(ce_debug[6]));
 
-  noc_block_vector_iir inst_noc_block_vector_iir (
+  noc_block_moving_avg #(
+    .NOC_ID(64'hAAD3_0000_0000_0000))
+  inst1_noc_block_moving_avg (
     .bus_clk(bus_clk), .bus_rst(bus_rst),
     .ce_clk(ce_clk), .ce_rst(ce_rst),
     .i_tdata(ce_o_tdata[7]), .i_tlast(ce_o_tlast[7]), .i_tvalid(ce_o_tvalid[7]), .i_tready(ce_o_tready[7]),
@@ -88,15 +90,10 @@
     .o_tdata(ce_i_tdata[9]), .o_tlast(ce_i_tlast[9]), .o_tvalid(ce_i_tvalid[9]), .o_tready(ce_i_tready[9]),
     .debug(ce_debug[9]));
 
-  // Fill remaining crossbar ports with loopback FIFOs
-  genvar n;
-  generate
-    for (n = 10; n < NUM_CE; n = n + 1) begin
-      noc_block_fifo #(.SIZE(14)) inst_noc_block_fifo (
-        .bus_clk(bus_clk), .bus_rst(bus_rst),
-        .ce_clk(ce_clk), .ce_rst(ce_rst),
-        .i_tdata(ce_o_tdata[n]), .i_tlast(ce_o_tlast[n]), .i_tvalid(ce_o_tvalid[n]), .i_tready(ce_o_tready[n]),
-        .o_tdata(ce_i_tdata[n]), .o_tlast(ce_i_tlast[n]), .o_tvalid(ce_i_tvalid[n]), .o_tready(ce_i_tready[n]),
-        .debug(ce_debug[n]));
-    end
-  endgenerate
+  noc_block_moving_avg inst0_noc_block_moving_avg (
+    .bus_clk(bus_clk), .bus_rst(bus_rst),
+    .ce_clk(ce_clk), .ce_rst(ce_rst),
+    .i_tdata(ce_o_tdata[10]), .i_tlast(ce_o_tlast[10]), .i_tvalid(ce_o_tvalid[10]), .i_tready(ce_o_tready[10]),
+    .o_tdata(ce_i_tdata[10]), .o_tlast(ce_i_tlast[10]), .o_tvalid(ce_i_tvalid[10]), .o_tready(ce_i_tready[10]),
+    .debug(ce_debug[10]));
+
