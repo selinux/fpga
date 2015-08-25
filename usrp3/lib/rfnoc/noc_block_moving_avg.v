@@ -30,7 +30,6 @@ module noc_block_moving_avg #(
 
   // Settings registers addresses
   localparam SR_NEXT_DST   = 128;
-  localparam SR_AXI_CONFIG = 129;
   localparam SR_SUM_LEN    = 192;
   localparam SR_DIVISOR    = 193;
   localparam SR_READBACK   = 255;
@@ -173,10 +172,10 @@ module noc_block_moving_avg #(
     .o_tlast(o_tlast),
     .o_tvalid(o_tvalid),
     .o_tready(o_tready),
-    // Computer Engine Clock Domain
+    // Computation Engine Clock Domain
     .clk(ce_clk),
     .reset(ce_rst),
-    // Control Sink
+    // Settings Bus
     .set_data(set_data),
     .set_addr(set_addr),
     .set_stb(set_stb),
@@ -204,9 +203,7 @@ module noc_block_moving_avg #(
     .debug(debug));
 
   // AXI Wrapper - Convert RFNoC Shell interface into AXI stream interface
-  axi_wrapper #(
-    .SR_AXI_CONFIG_BASE(SR_AXI_CONFIG))
-  axi_wrapper_inst (
+  axi_wrapper axi_wrapper_inst (
     .clk(ce_clk),
     .reset(ce_rst),
     // RFNoC Shell
