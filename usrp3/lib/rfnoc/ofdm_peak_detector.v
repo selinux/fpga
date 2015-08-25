@@ -8,8 +8,8 @@ module ofdm_peak_detector
   parameter WIDTH_PHASE   = 32,
   parameter WIDTH_MAG     = 16,  // Not so useful due to fixed divider width
   parameter WIDTH_SAMPLE  = 16,  // sc16
-  parameter WINDOW_LEN    = 80,
   parameter PREAMBLE_LEN  = 160, // Short preamble length
+  parameter AGC_REF_LEVEL = 16'd5000,
   parameter SR_THRESHOLD  = 5)
 (
   input clk, input reset,
@@ -61,7 +61,7 @@ module ofdm_peak_detector
   wire gain_div_out_tvalid, gain_div_out_tready;
   divide_int16 divide_gain (
     .aclk(clk), .aresetn(~reset),
-    .s_axis_divisor_tdata(16'd5000), .s_axis_divisor_tlast(1'b0), .s_axis_divisor_tvalid(1'b1), .s_axis_divisor_tready(),
+    .s_axis_divisor_tdata(AGC_REF_LEVEL), .s_axis_divisor_tlast(1'b0), .s_axis_divisor_tvalid(1'b1), .s_axis_divisor_tready(),
     .s_axis_dividend_tdata(magnitude_in_tdata), .s_axis_dividend_tlast(1'b0), .s_axis_dividend_tvalid(magnitude_in_tvalid), .s_axis_dividend_tready(magnitude_in_tready),
     .m_axis_dout_tdata({gain_div_out, gain_frac_div_out}), .m_axis_dout_tlast(), .m_axis_dout_tvalid(gain_div_out_tvalid), .m_axis_dout_tready(gain_div_out_tready),
     .m_axis_dout_tuser());
@@ -123,7 +123,7 @@ module ofdm_peak_detector
   /****************************************************************************
   ** Divide phase by window length
   ****************************************************************************/
-  localparam [WIDTH_PHASE-1:0] PHASE_DIV_FACTOR = 2.0**(WIDTH_PHASE-1)*(1.0/WINDOW_LEN)+0.5;
+  localparam [WIDTH_PHASE-1:0] PHASE_DIV_FACTOR = 2.0**(WIDTH_PHASE-1)*(1.0/(PREAMBLE_LEN/2.0))+0.5;
   reg  [WIDTH_PHASE-1:0] max_phase;
   wire [WIDTH_PHASE-1:0] phase_inc = ~max_phase + 1;
   reg phase_inc_valid;
@@ -181,7 +181,10 @@ module ofdm_peak_detector
           if (consume) begin
             trigger     <= 1'b0;
             if (threshold_exceeded) begin
-              state     <= S_TRIGGER;
+              max_d_metric <= d_metric_tdata;
+              max_phase    <= phase_in_tdata;
+              max_gain     <= gain_tdata;
+              state        <= S_TRIGGER;
             end
           end
         end
@@ -191,7 +194,7 @@ module ofdm_peak_detector
             if (d_metric_tdata > max_d_metric) begin
               max_d_metric  <= d_metric_tdata;
               max_phase     <= phase_in_tdata;
-              max_gain      <= (gain_tdata == 0) ? 1'd1 : gain_tdata;
+              max_gain      <= gain_tdata;
               peak_offset   <= 0;
             end else begin
               peak_offset   <= peak_offset + 1;
@@ -210,8 +213,7 @@ module ofdm_peak_detector
           if (consume) begin
             phase_inc_valid <= 1'b0;
             trigger_cnt     <= trigger_cnt + 1;
-            // Extra -3 to account for off by one for trigger_cnt, peak_offset, etc
-            if (trigger_cnt > SAMPLE_DELAY-PREAMBLE_LEN-peak_offset-4) begin
+            if (trigger_cnt > SAMPLE_DELAY-PREAMBLE_LEN-peak_offset-1) begin
               trigger    <= 1'b1;
               state      <= S_WAIT_EXCEED_THRESH;
             end
