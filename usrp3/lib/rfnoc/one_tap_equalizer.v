@@ -205,7 +205,7 @@ module one_tap_equalizer (
   axi_round_and_clip_complex #(
     .WIDTH_IN(32),
     .WIDTH_OUT(16),
-    .CLIP_BITS(7), // Calibrated value
+    .CLIP_BITS(6), // Calibrated value
     .FIFOSIZE(0))
   axi_round_and_clip_complex_inst (
     .clk(clk_i),
