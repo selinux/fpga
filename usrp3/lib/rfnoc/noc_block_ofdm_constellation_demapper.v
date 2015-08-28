@@ -60,17 +60,24 @@ module noc_block_ofdm_constellation_demapper #(
   // Convert RFNoC Shell interface into AXI stream interface
   //
   ////////////////////////////////////////////////////////////
-  wire [31:0] m_axis_data_tdata;
-  wire        m_axis_data_tlast;
-  wire        m_axis_data_tvalid;
-  wire        m_axis_data_tready;
+  wire [31:0]  m_axis_data_tdata;
+  wire         m_axis_data_tlast;
+  wire         m_axis_data_tvalid;
+  wire         m_axis_data_tready;
+  wire [127:0] m_axis_data_tuser;
 
-  wire [31:0] s_axis_data_tdata;
-  wire        s_axis_data_tlast;
-  wire        s_axis_data_tvalid;
-  wire        s_axis_data_tready;
+  wire [31:0]  s_axis_data_tdata;
+  wire         s_axis_data_tlast;
+  wire         s_axis_data_tvalid;
+  wire         s_axis_data_tready;
+  wire [127:0] s_axis_data_tuser;
 
   localparam SR_NEXT_DST         = 128;
+  localparam SR_MODULATION_ORDER = 129;
+  localparam SR_SCALING          = 130;
+  localparam SR_OUTPUT_SYMBOLS   = 131;
+  localparam SR_PKT_LEN          = 132;
+  localparam SR_SET_EOB          = 133;
 
   // Set next destination in chain
   wire [15:0] next_dst;
@@ -80,8 +87,47 @@ module noc_block_ofdm_constellation_demapper #(
     .clk(ce_clk), .rst(ce_rst),
     .strobe(set_stb), .addr(set_addr), .in(set_data), .out(next_dst), .changed());
 
+  wire [15:0] pkt_len;
+  setting_reg #(
+    .my_addr(SR_PKT_LEN), .width(16), .at_reset(16'd256))
+  setting_reg_pkt_len (
+    .clk(ce_clk), .rst(ce_rst),
+    .strobe(set_stb), .addr(set_addr), .in(set_data), .out(pkt_len), .changed());
+
+  wire set_eob;
+  setting_reg #(
+    .my_addr(SR_SET_EOB), .width(1), .at_reset(1'b1))
+  setting_reg_set_eob (
+    .clk(ce_clk), .rst(ce_rst),
+    .strobe(set_stb), .addr(set_addr), .in(set_data), .out(set_eob), .changed());
+
+  // Register src sid
+  reg [15:0] src_sid;
+  reg src_sid_hold;
+  always @(posedge ce_clk) begin
+    if (ce_rst) begin
+      src_sid       <= 16'd0;
+      src_sid_hold  <= 1'b0;
+    end else begin
+      if (m_axis_data_tvalid & ~src_sid_hold) begin
+        src_sid       <= m_axis_data_tuser[79:64];
+        src_sid_hold  <= 1'b1;
+      end
+    end
+  end
+
+  // Setup header
+  assign s_axis_data_tuser = {
+    3'b000,     // Data Packet type, no time
+    set_eob,   // EOB
+    12'd0,     // Sequence number, don't care handled by AXI wrapper
+    pkt_len+8, // Packet length
+    src_sid,   // SRC SID
+    next_dst,  // DST SID
+    64'd0};    // VITA time
+
   axi_wrapper #(
-    .SIMPLE_MODE(1),
+    .SIMPLE_MODE(0),
     .RESIZE_OUTPUT_PACKET(1))
   inst_axi_wrapper (
     .clk(ce_clk), .reset(ce_rst),
@@ -94,12 +140,12 @@ module noc_block_ofdm_constellation_demapper #(
     .m_axis_data_tlast(m_axis_data_tlast),
     .m_axis_data_tvalid(m_axis_data_tvalid),
     .m_axis_data_tready(m_axis_data_tready),
-    .m_axis_data_tuser(),
+    .m_axis_data_tuser(m_axis_data_tuser),
     .s_axis_data_tdata(s_axis_data_tdata),
-    .s_axis_data_tlast(1'b0), // Not needed when SIMPLE_MODE=1 & RESIZE_OUTPUT_PACKET=1, output packet length will match input packet length
+    .s_axis_data_tlast(s_axis_data_tlast), // Not used when RESIZE_OUTPUT_PACKET=1 as tlast is handled internally
     .s_axis_data_tvalid(s_axis_data_tvalid),
     .s_axis_data_tready(s_axis_data_tready),
-    .s_axis_data_tuser(),
+    .s_axis_data_tuser(s_axis_data_tuser),
     .m_axis_config_tdata(),
     .m_axis_config_tlast(),
     .m_axis_config_tvalid(),
@@ -108,16 +154,14 @@ module noc_block_ofdm_constellation_demapper #(
     .m_axis_pkt_len_tvalid(),
     .m_axis_pkt_len_tready());
 
-  localparam SR_MODULATION_ORDER = 129;
-  localparam SR_SCALING          = 130;
-
   ofdm_constellation_demapper #(
     .NUM_SUBCARRIERS(NUM_SUBCARRIERS),
     .EXCLUDE_SUBCARRIERS(EXCLUDE_SUBCARRIERS),
     .MAX_MODULATION_ORDER(MAX_MODULATION_ORDER),
     .BYTE_REVERSE(BYTE_REVERSE),
     .SR_MODULATION_ORDER(SR_MODULATION_ORDER),
-    .SR_SCALING(SR_SCALING))
+    .SR_SCALING(SR_SCALING),
+    .SR_OUTPUT_SYMBOLS(SR_OUTPUT_SYMBOLS))
   ofdm_constellation_demapper (
     .clk(ce_clk), .reset(ce_rst), .clear(),
     .set_stb(set_stb), .set_addr(set_addr), .set_data(set_data),
