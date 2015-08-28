@@ -3,7 +3,7 @@
 //
 // Normalizes signal level. Expects complex input.
 
-module feed_forward_agc
+module agc_feed_forward
 #(
   parameter WIDTH_SAMPLE     = 16,
   parameter WIDTH_MAG        = 16, // Not useful at the moment due to fixed divider width
