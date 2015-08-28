@@ -10,7 +10,8 @@ module schmidl_cox #(
   parameter SR_OFFSET=2,
   parameter SR_NUMBER_SYMBOLS_MAX=3,
   parameter SR_NUMBER_SYMBOLS_SHORT=4,
-  parameter SR_THRESHOLD=5)
+  parameter SR_THRESHOLD=5,
+  parameter SR_AGC_REF_LEVEL=6)
 (
   input clk, input reset, input clear,
   input set_stb, input [7:0] set_addr, input [31:0] set_data,
@@ -55,7 +56,7 @@ module schmidl_cox #(
 
   delay #(.MAX_LEN_LOG2(8), .WIDTH(32)) delay_input (
     .clk(clk), .reset(reset), .clear(clear),
-    .len(80),
+    .len(WINDOW_LEN),
     .i_tdata(n0_tdata), .i_tlast(n0_tlast), .i_tvalid(n0_tvalid), .i_tready(n0_tready),
     .o_tdata(n2_tdata), .o_tlast(n2_tlast), .o_tvalid(n2_tvalid), .o_tready(n2_tready));
 
@@ -74,12 +75,12 @@ module schmidl_cox #(
   wire [39:0] i_ms, q_ms;
   moving_sum #(.MAX_LEN_LOG2(8), .WIDTH(32)) moving_sum_corr_i (
     .clk(clk), .reset(reset), .clear(clear),
-    .len(80),
+    .len(WINDOW_LEN),
     .i_tdata(n5_tdata[63:32]), .i_tlast(n5_tlast), .i_tvalid(n5_tvalid), .i_tready(n5_tready),
     .o_tdata(i_ms), .o_tlast(n6_tlast), .o_tvalid(n6_tvalid), .o_tready(n6_tready));
   moving_sum #(.MAX_LEN_LOG2(8), .WIDTH(32)) moving_sum_corr_q (
     .clk(clk), .reset(reset), .clear(clear),
-    .len(80),
+    .len(WINDOW_LEN),
     .i_tdata(n5_tdata[31:0]), .i_tlast(n5_tlast), .i_tvalid(n5_tvalid), .i_tready(),
     .o_tdata(q_ms), .o_tlast(), .o_tvalid(), .o_tready(n6_tready));
 
@@ -151,7 +152,7 @@ module schmidl_cox #(
   // moving average of magnitude squared
   moving_sum #(.MAX_LEN_LOG2(8), .WIDTH(32)) moving_sum_energy (
     .clk(clk), .reset(reset), .clear(clear),
-    .len(160),
+    .len(2*WINDOW_LEN),
     .i_tdata(n8_tdata), .i_tlast(n8_tlast), .i_tvalid(n8_tvalid), .i_tready(n8_tready),
     .o_tdata(n9_tdata), .o_tlast(n9_tlast), .o_tvalid(n9_tvalid), .o_tready(n9_tready));
 
@@ -189,15 +190,15 @@ module schmidl_cox #(
     .i_tdata(d_metric), .i_tlast(d_metric_tlast), .i_tvalid(d_metric_tvalid), .i_tready(d_metric_tready),
     .o_tdata(d_metric_q1_14_tdata), .o_tlast(d_metric_q1_14_tlast), .o_tvalid(d_metric_q1_14_tvalid), .o_tready(d_metric_q1_14_tready));
 
-  ofdm_peak_detector #(
+  ofdm_plateau_detector #(
     .WIDTH_D(16),
     .WIDTH_PHASE(32),
     .WIDTH_MAG(16),
     .WIDTH_SAMPLE(16),
     .PREAMBLE_LEN(160),
-    .WINDOW_LEN(80),
-    .SR_THRESHOLD(SR_THRESHOLD))
-  ofdm_peak_detector (
+    .SR_THRESHOLD(SR_THRESHOLD),
+    .SR_AGC_REF_LEVEL(SR_AGC_REF_LEVEL))
+  ofdm_plateau_detector (
     .clk(clk), .reset(reset),
     .set_stb(set_stb), .set_addr(set_addr), .set_data(set_data),
     .d_metric_tdata(d_metric_q1_14_tdata), .d_metric_tvalid(d_metric_q1_14_tvalid), .d_metric_tready(d_metric_q1_14_tready),

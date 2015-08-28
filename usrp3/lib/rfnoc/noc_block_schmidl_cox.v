@@ -127,7 +127,8 @@ module noc_block_schmidl_cox #(
     .SR_OFFSET(BASE+2),
     .SR_NUMBER_SYMBOLS_MAX(BASE+3),
     .SR_NUMBER_SYMBOLS_SHORT(BASE+4),
-    .SR_THRESHOLD(BASE+5))
+    .SR_THRESHOLD(BASE+5),
+    .SR_AGC_REF_LEVEL(BASE+6))
   schmidl_cox (
     .clk(ce_clk), .reset(ce_rst), .clear(1'b0),
     .set_stb(set_stb), .set_addr(set_addr), .set_data(set_data),
