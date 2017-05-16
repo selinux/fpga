@@ -78,6 +78,7 @@ module b200_core
     localparam SR_CORE_READBACK  = 8'd32;
     localparam SR_CORE_GPSDO_ST  = 8'd40;
     localparam SR_CORE_SYNC      = 8'd48;
+    localparam SR_CORE_LORA_TEST = 8'd52;
     localparam COMPAT_MAJOR      = 16'h000E;
     localparam COMPAT_MINOR      = 16'h0000;
 
@@ -224,6 +225,10 @@ module b200_core
      (.clk(bus_clk), .rst(bus_rst), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out({time_sync,pps_select}), .changed());
 
+    setting_reg #(.my_addr(SR_CORE_LORA_TEST), .awidth(8), .width(3)) sr_sync
+     (.clk(bus_clk), .rst(bus_rst), .strobe(set_stb), .addr(set_addr), .in(set_data),
+      .out({time_sync,pps_select}), .changed());
+   
     synchronizer time_sync_synchronizer
      (.clk(radio_clk), .rst(radio_rst), .in(time_sync), .out(time_sync_r));
 
