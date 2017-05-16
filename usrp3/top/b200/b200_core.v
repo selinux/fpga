@@ -55,7 +55,7 @@ module b200_core
     ////////////////////////////////////////////////////////////////////
     output [7:0]  sen, output sclk, output mosi, input miso,
     input [31:0]  rb_misc,
-    output [31:0] misc_outs,
+    output [31:0] misc_outs, output [31:0] lora_deadend,
     ////////////////////////////////////////////////////////////////////
     // debug UART
     ////////////////////////////////////////////////////////////////////
@@ -109,6 +109,8 @@ module b200_core
 
     // PPS mux
     wire [1:0] pps_select;
+    wire [1:0]  pps_select1;
+   
     wire pps =  (pps_select == 2'b00)? gpsdo_pps_del[1] :
                 (pps_select == 2'b01)? ext_pps_del[1] :
                 (pps_select == 2'b10)? int_pps_del[1] :
@@ -225,9 +227,9 @@ module b200_core
      (.clk(bus_clk), .rst(bus_rst), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out({time_sync,pps_select}), .changed());
 
-    setting_reg #(.my_addr(SR_CORE_LORA_TEST), .awidth(8), .width(3)) sr_sync
+    setting_reg #(.my_addr(SR_CORE_LORA_TEST), .awidth(8), .width(3)) sr_lora
      (.clk(bus_clk), .rst(bus_rst), .strobe(set_stb), .addr(set_addr), .in(set_data),
-      .out({time_sync,pps_select}), .changed());
+      .out({lora_deadend}), .changed());
    
     synchronizer time_sync_synchronizer
      (.clk(radio_clk), .rst(radio_rst), .in(time_sync), .out(time_sync_r));
@@ -241,7 +243,8 @@ module b200_core
 
     always @*
      case(rb_addr)
-       2'd0 : rb_data <= { 32'hACE0BA5E, COMPAT_MAJOR, COMPAT_MINOR };
+//       2'd0 : rb_data <= { 32'hACE0BA5E, COMPAT_MAJOR, COMPAT_MINOR };
+       2'd0 : rb_data <= { 32'h0, lora_deadend };
        2'd1 : rb_data <= { 32'b0, spi_readback };
        2'd2 : rb_data <= { 16'b0, radio_st, gpsdo_st, rb_misc };
        2'd3 : rb_data <= { 30'h0, lock_state_r };
