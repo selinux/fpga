@@ -2,6 +2,16 @@
 // Copyright 2013-14 Ettus Research LLC
 //
 
+module lora_detect (
+                      input radio_clk,
+                      input bus_clk,
+                      input rx_i,
+                      input rx_q,
+                      input vita_time,
+                      output lora_trigger_out
+      );
+endmodule // lora_detect
+
 
 /***********************************************************
  * B200 Core Guts
@@ -78,7 +88,7 @@ module b200_core
     localparam SR_CORE_READBACK  = 8'd32;
     localparam SR_CORE_GPSDO_ST  = 8'd40;
     localparam SR_CORE_SYNC      = 8'd48;
-    localparam SR_CORE_LORA_TEST = 8'd52;
+    localparam SR_CORE_LORA_TEST = 8'd52;  //TODO change address to a free one
     localparam COMPAT_MAJOR      = 16'h000E;
     localparam COMPAT_MINOR      = 16'h0000;
 
@@ -91,6 +101,18 @@ module b200_core
       else
         {lock_state_r, lock_state} <= {lock_state, lock_signals};
 
+    /*******************************************************************
+     * LoRa detection algo
+     ******************************************************************/
+
+    lora_detect lora0 (
+                      .radio_clk(radio_clk),
+                      .bus_clk(bus_clk),
+                      .rx_i(rx0[31:20]),
+                      .rx_q(rx0[15:4]),
+                      .vita_time(vita_time_lora),
+                      .lora_trigger_out()
+                       );
 
     /*******************************************************************
      * PPS Timing stuff
@@ -323,6 +345,7 @@ module b200_core
       .rx_tdata(r0_rx_tdata), .rx_tlast(r0_rx_tlast),  .rx_tvalid(r0_rx_tvalid), .rx_tready(r0_rx_tready),
       .ctrl_tdata(r0_ctrl_tdata), .ctrl_tlast(r0_ctrl_tlast),  .ctrl_tvalid(r0_ctrl_tvalid), .ctrl_tready(r0_ctrl_tready),
       .resp_tdata(r0_resp_tdata), .resp_tlast(r0_resp_tlast),  .resp_tvalid(r0_resp_tvalid), .resp_tready(r0_resp_tready),
+      .vita_time_lora(vita_time_lora),
       .debug(radio0_debug)
    );
 

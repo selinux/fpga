@@ -70,6 +70,7 @@ b200.v \
 b200_core.v \
 b200_io.v \
 b200.ucf \
+lora_detect.vhd \
 timing.ucf \
 S6CLK2PIN.v \
 $(B200_COREGEN_SRCS)

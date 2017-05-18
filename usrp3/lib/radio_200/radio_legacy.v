@@ -28,6 +28,8 @@ module radio_legacy
    input [63:0]  ctrl_tdata, input ctrl_tlast, input ctrl_tvalid, output ctrl_tready,
    output [63:0] resp_tdata, output resp_tlast, output resp_tvalid, input resp_tready,
 
+   output [63:0] vita_time_lora,
+
    output reg [63:0] vita_time_b,
 
    output [63:0] debug
@@ -182,6 +184,7 @@ generate
       // Enter user settings registers here
       // ----------------------------------
 
+		assign vita_time_lora = vita_time;
       /*
       //Example code for 32-bit settings registers and 64-bit readback registers
 
