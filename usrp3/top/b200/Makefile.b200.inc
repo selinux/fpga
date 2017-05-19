@@ -14,7 +14,7 @@ CUSTOM_SRCS =
 CUSTOM_DEFS =
 
 include ../Makefile.common
-include ../../lib/lora_detect/Makefile.srcs
+include ../../lib/custom/Makefile.srcs
 include ../../lib/gpif2/Makefile.srcs
 include ../../lib/fifo/Makefile.srcs
 include ../../lib/fifo_200/Makefile.srcs
@@ -87,7 +87,7 @@ $(TIMING_SRCS) $(OPENCORES_SRCS) \
 $(VRT_SRCS) $(COREGEN_SRCS) \
 $(GPIF2_SRCS) $(PACKET_PROC_SRCS) $(PACKET_PROC_200_SRCS) \
 $(WISHBONE_SRCS) \
-$(LORA_DETECT_SRCS) \
+$(LORA_SRCS) \
 $(TIMING_SRCS) \
 $(DSP_SRCS) \
 $(VITA_SRCS) $(VITA_200_SRCS) \

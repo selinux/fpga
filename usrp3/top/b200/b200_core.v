@@ -2,15 +2,15 @@
 // Copyright 2013-14 Ettus Research LLC
 //
 
-// module lora_detect (
-//                       input radio_clk,
-//                       input bus_clk,
-//                       input rx_i,
-//                       input rx_q,
-//                       input vita_time,
-//                       output lora_trigger_out
-//       );
-// endmodule // lora_detect
+//module lora_detect (
+//                      input radio_clk,
+//                      input bus_clk,
+//                      input rx_i,
+//                      input rx_q,
+//                      input vita_time,
+//                      output lora_trigger_out
+//      );
+//endmodule // lora_detect
 
 
 /***********************************************************

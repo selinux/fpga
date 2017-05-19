@@ -1,0 +1,10 @@
+#
+# 
+#
+
+##################################################
+# LoRa detection library
+##################################################
+LORA_SRCS = $(abspath $(addprefix $(BASE_DIR)/../lib/custom/, \
+./lora_detect.vhd \
+))
