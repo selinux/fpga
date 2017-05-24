@@ -184,7 +184,7 @@ generate
       // Enter user settings registers here
       // ----------------------------------
 
-		assign vita_time_lora = vita_time;
+		//assign vita_time_lora = vita_time;
       /*
       //Example code for 32-bit settings registers and 64-bit readback registers
 
@@ -233,7 +233,8 @@ endgenerate
     axi_fifo_2clk #(.WIDTH(64), .SIZE(0)) vita_time_fifo
      (.reset(radio_rst),
       .i_aclk(radio_clk), .i_tvalid(1'b1), .i_tready(), .i_tdata(vita_time),
-      .o_aclk(bus_clk), .o_tvalid(vita_time_b_valid), .o_tready(1'b1), .o_tdata(vita_time_b_int));
+//      .o_aclk(bus_clk), .o_tvalid(vita_time_b_valid), .o_tready(1'b1), .o_tdata(vita_time_b_int));
+      .o_aclk(bus_clk), .o_tvalid(vita_time_b_valid), .o_tready(1'b1), .o_tdata(vita_time_lora));   
 
    always @(posedge bus_clk)
      if (vita_time_b_valid)
