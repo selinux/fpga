@@ -101,18 +101,6 @@ module b200_core
       else
         {lock_state_r, lock_state} <= {lock_state, lock_signals};
 
-    /*******************************************************************
-     * LoRa detection algo
-     ******************************************************************/
-
-    lora_detect lora0 (
-                      .radio_clk(radio_clk),
-                      .bus_clk(bus_clk),
-                      .rx_i(rx0[31:20]),
-                      .rx_q(rx0[15:4]),
-                      .vita_time(vita_time_lora),
-                      .lora_trigger_out()
-                       );
 
     /*******************************************************************
      * PPS Timing stuff
@@ -263,16 +251,38 @@ module b200_core
       .sen(sen), .sclk(sclk), .mosi(mosi), .miso(miso),
       .debug());
 
+    /*******************************************************************
+     * LoRa detection algo
+     ******************************************************************/
+
+    (* dont_touch = "true" *) wire [63:0] vita_time_lora_int;
+    (* dont_touch = "true" *) wire lora_trigger_int;
+   
+    (* dont_touch = "true" *) lora_detect lora0 (
+                      .radio_clk(radio_clk),
+                      .bus_clk(bus_clk),
+                      .rst(bus_rst),
+                      .strobe(set_stb),
+                      .rx_i(rx0[31:16]),
+                      .rx_q(rx0[15:0]),
+                      .addr(set_addr),
+                      .data(set_data),
+                      .vita_time(vita_time_lora_int),
+                      .lora_trigger_out(lora_trigger_int)
+                       );
+
+   
     always @*
      case(rb_addr)
 //       2'd0 : rb_data <= { 32'hACE0BA5E, COMPAT_MAJOR, COMPAT_MINOR };
-       2'd0 : rb_data <= { 32'h0, lora_deadend };
+       2'd0 : rb_data <= { lora_trigger_int, lora_deadend }; // TODO remove 
        2'd1 : rb_data <= { 32'b0, spi_readback };
        2'd2 : rb_data <= { 16'b0, radio_st, gpsdo_st, rb_misc };
        2'd3 : rb_data <= { 30'h0, lock_state_r };
        default : rb_data <= 64'd0;
      endcase // case (rb_addr)
 
+   
     /*******************************************************************
      * RX Data mux Routing logic
      ******************************************************************/
@@ -345,7 +355,7 @@ module b200_core
       .rx_tdata(r0_rx_tdata), .rx_tlast(r0_rx_tlast),  .rx_tvalid(r0_rx_tvalid), .rx_tready(r0_rx_tready),
       .ctrl_tdata(r0_ctrl_tdata), .ctrl_tlast(r0_ctrl_tlast),  .ctrl_tvalid(r0_ctrl_tvalid), .ctrl_tready(r0_ctrl_tready),
       .resp_tdata(r0_resp_tdata), .resp_tlast(r0_resp_tlast),  .resp_tvalid(r0_resp_tvalid), .resp_tready(r0_resp_tready),
-      .vita_time_lora(vita_time_lora),
+      .vita_time_lora(vita_time_lora_int),
       .debug(radio0_debug)
    );
 
@@ -447,5 +457,43 @@ module b200_core
       .rx_i(debug_rxd),
       .baud_o()
    );
+   //
+   // Debug
+   //
+// -----\/----- EXCLUDED -----\/-----
+   wire [35:0] CONTROL0;
+   reg [15:0]  rx0_i_debug;
+   reg [15:0]  rx0_q_debug;
+   reg [31:0]  vita_time_debug;
+   reg         lora_trigger_debug;
 
+   // TODO choose a bether clock
+   always @(posedge bus_clk) begin
+      rx0_i_debug <= rx0[31:16];
+      rx0_q_debug <= rx0[15:0];
+      vita_time_debug <= vita_time_lora_int[31:0];
+      lora_trigger_debug <= lora_trigger_int;
+      
+   end
+
+   chipscope_icon chipscope_icon_i0
+     (
+      .CONTROL0(CONTROL0) // INOUT BUS [35:0]
+      );
+
+   chipscope_ila_128 chipscope_ila_i0
+     (
+      .CONTROL(CONTROL0), // INOUT BUS [35:0]
+      .CLK(bus_clk), // IN
+      .TRIG0(
+	     {
+          rx0_1_debug,
+          //rx0_q_debug,
+          vita_time_lora_debug,
+          lora_trigger_debug
+	      }
+	     )
+
+      );
+  //  -----/\----- EXCLUDED -----/\----- */
 endmodule // b200_core
