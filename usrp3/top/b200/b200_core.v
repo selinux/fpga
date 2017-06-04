@@ -256,29 +256,31 @@ module b200_core
      ******************************************************************/
 
     (* dont_touch = "true" *) wire [63:0] vita_time_lora_int;
-    (* dont_touch = "true" *) wire [63:0] lora_readback_int;
+    (* dont_touch = "true" *) wire [63:0] lora_time_measured_int;
 
     (* dont_touch = "true" *) lora_detect lora0 (
                       .radio_clk(radio_clk),
                       .bus_clk(bus_clk),
                       .rst(bus_rst),
-                      .strobe(set_stb),
                       .rx_i(rx0[31:16]),
                       .rx_q(rx0[15:0]),
+                      .vita_time(vita_time_lora_int),
+                      .trigger_i(debug_rxd),
                       .addr(set_addr),
                       .data(set_data),
-                      .vita_time(vita_time_lora_int),
-                      .lora_time_measured_o(lora_readback_int)
+                      .strobe(set_stb),
+                      .lora_time_measured_o(lora_time_measured_int)
                        );
 
 
     always @*
      case(rb_addr)
-       2'd0 : rb_data <= { 32'hACE0BA5E, COMPAT_MAJOR, COMPAT_MINOR };
+       // 2'd0 : rb_data <= { 32'hACE0BA5E, COMPAT_MAJOR, COMPAT_MINOR };
+       2'd0 : rb_data <= { lora_time_measured_int };
        2'd1 : rb_data <= { 32'b0, spi_readback };
        2'd2 : rb_data <= { 16'b0, radio_st, gpsdo_st, rb_misc };
        2'd3 : rb_data <= { 30'h0, lock_state_r };
-       2'd4 : rb_data <= { lora_trigger_out, lora_deadend }; // TODO remove 
+
        default : rb_data <= 64'd0;
      endcase // case (rb_addr)
 
@@ -460,7 +462,7 @@ module b200_core
    //
    // Debug
    //
-// -----\/----- EXCLUDED -----\/-----
+/* -----\/----- EXCLUDED -----\/-----
    wire [35:0] CONTROL0;
    reg [15:0]  rx0_i_debug;
    reg [15:0]  rx0_q_debug;
@@ -473,7 +475,6 @@ module b200_core
       rx0_q_debug <= rx0[15:0];
       vita_time_debug <= vita_time_lora_int[31:0];
       lora_trigger_debug <= lora_trigger_int;
-      
    end
 
    chipscope_icon chipscope_icon_i0

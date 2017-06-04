@@ -29,8 +29,8 @@ end entity ext_event_trigger;
 
 architecture external_event_trigger_behav of ext_event_trigger is
 
-  signal r0_i : std_logic := 0;         -- first state
-  signal r1_i : std_logic := 0;         -- second state
+  signal r0_i : std_logic := '0';         -- first state
+  signal r1_i : std_logic := '0';         -- second state
 
 begin  -- architecture external_event_trigger_beav
 
@@ -38,7 +38,7 @@ begin  -- architecture external_event_trigger_beav
   -- type   : sequential
   -- inputs : clk, rst, trigger_i
   -- outputs: 
-  state0 : process (clk, rst) is
+  process (clk, rst) is
   begin  -- process sec_edge
     if rst = '0' then                   -- asynchronous reset (active low)
       r0_i <= '0';
@@ -51,7 +51,7 @@ begin  -- architecture external_event_trigger_beav
   -- type   : sequential
   -- inputs : clk, rst, r0_i
   -- outputs: 
-  state1 : process (clk, rst) is
+  process (clk, rst) is
   begin  -- process sec_edge
     if rst = '0' then                   -- asynchronous reset (active low)
       r1_i <= '0';
@@ -61,6 +61,6 @@ begin  -- architecture external_event_trigger_beav
   end process sec_edge;
 
   -- rising edge detected
-  trigger_o <= '1' when r0_i and not r1_i else '0';
+  trigger_o <= '1' when (r0_i = '1' and r1_i = '0') else '0';
 
 end architecture external_event_trigger_behav;
