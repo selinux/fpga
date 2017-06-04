@@ -120,7 +120,7 @@ module b200_core
     // PPS mux
     wire [1:0] pps_select;
     wire [1:0]  pps_select1;
-   
+
     wire pps =  (pps_select == 2'b00)? gpsdo_pps_del[1] :
                 (pps_select == 2'b01)? ext_pps_del[1] :
                 (pps_select == 2'b10)? int_pps_del[1] :
@@ -198,7 +198,7 @@ module b200_core
     wire [7:0] gpsdo_st;
     wire [7:0] radio_st;
 
-    wire [1:0] rb_addr;
+    wire [2:0] rb_addr;
     reg [63:0] rb_data;
 
     wire [63:0] l0i_ctrl_tdata; wire l0i_ctrl_tlast, l0i_ctrl_tvalid, l0i_ctrl_tready;
@@ -237,10 +237,10 @@ module b200_core
      (.clk(bus_clk), .rst(bus_rst), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out({time_sync,pps_select}), .changed());
 
-    setting_reg #(.my_addr(SR_CORE_LORA_TEST), .awidth(8), .width(3)) sr_lora
-     (.clk(bus_clk), .rst(bus_rst), .strobe(set_stb), .addr(set_addr), .in(set_data),
-      .out({lora_deadend}), .changed());
-   
+    // setting_reg #(.my_addr(SR_CORE_LORA_TEST), .awidth(8), .width(3)) sr_lora
+    //  (.clk(bus_clk), .rst(bus_rst), .strobe(set_stb), .addr(set_addr), .in(set_data),
+    //   .out({lora_deadend}), .changed());
+
     synchronizer time_sync_synchronizer
      (.clk(radio_clk), .rst(radio_rst), .in(time_sync), .out(time_sync_r));
 
@@ -256,8 +256,8 @@ module b200_core
      ******************************************************************/
 
     (* dont_touch = "true" *) wire [63:0] vita_time_lora_int;
-    (* dont_touch = "true" *) wire lora_trigger_int;
-   
+    (* dont_touch = "true" *) wire [63:0] lora_readback_int;
+
     (* dont_touch = "true" *) lora_detect lora0 (
                       .radio_clk(radio_clk),
                       .bus_clk(bus_clk),
@@ -268,17 +268,17 @@ module b200_core
                       .addr(set_addr),
                       .data(set_data),
                       .vita_time(vita_time_lora_int),
-                      .lora_trigger_out(lora_trigger_int)
+                      .lora_time_measured_o(lora_readback_int)
                        );
 
-   
+
     always @*
      case(rb_addr)
-//       2'd0 : rb_data <= { 32'hACE0BA5E, COMPAT_MAJOR, COMPAT_MINOR };
-       2'd0 : rb_data <= { lora_trigger_int, lora_deadend }; // TODO remove 
+       2'd0 : rb_data <= { 32'hACE0BA5E, COMPAT_MAJOR, COMPAT_MINOR };
        2'd1 : rb_data <= { 32'b0, spi_readback };
        2'd2 : rb_data <= { 16'b0, radio_st, gpsdo_st, rb_misc };
        2'd3 : rb_data <= { 30'h0, lock_state_r };
+       2'd4 : rb_data <= { lora_trigger_out, lora_deadend }; // TODO remove 
        default : rb_data <= 64'd0;
      endcase // case (rb_addr)
 

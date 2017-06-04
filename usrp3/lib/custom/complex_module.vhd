@@ -79,6 +79,6 @@ begin  -- architecture complex_module_a
 
 
     result_o <= result_int(31 downto 0);
-    
+
 end architecture complex_module_a;
 

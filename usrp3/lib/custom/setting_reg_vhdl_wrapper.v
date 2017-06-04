@@ -15,13 +15,13 @@ module setting_reg_vhdl_wrapper
     parameter width = 32,
     parameter at_reset=0)
     (input clk, input rst, input strobe, input wire [awidth-1:0] addr,
-     input wire [31:0] data_in, output reg [width-1:0] data_out, output reg changed);
+     input wire [31:0] data_in, output wire [width-1:0] data_out, output wire changed);
 
-   setting_reg #(.my_addr(SR_CORE_READBACK), .awidth(8), .width(2)) sr_wrapped_register
+   localparam SR_CORE_TEST = 8'd52;  //TODO change address to a free one
+
+   
+   setting_reg #(.my_addr(SR_CORE_TEST), .awidth(8), .width(2)) sr_wrapped_register
      (.clk(clk), .rst(rst), .strobe(strobe), .addr(addr), .in(data_in),
       .out(data_out), .changed(changed));
-   
 
-   
-   
 endmodule // setting_reg_vhdl_wrapper

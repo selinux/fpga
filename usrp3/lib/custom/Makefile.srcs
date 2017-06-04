@@ -7,7 +7,6 @@
 ##################################################
 LORA_SRCS = $(abspath $(addprefix $(BASE_DIR)/../lib/custom/, \
 ./lora_detect.vhd \
-./dsp_add48_48.vhd \
-./dsp_mult18_48.vhd \
-./complex_module.vhd \
+./external_event.vhd \
+./setting_reg_vhdl_wrapper.v \
 ))
