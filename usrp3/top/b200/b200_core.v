@@ -88,7 +88,7 @@ module b200_core
     localparam SR_CORE_READBACK  = 8'd32;
     localparam SR_CORE_GPSDO_ST  = 8'd40;
     localparam SR_CORE_SYNC      = 8'd48;
-    localparam SR_CORE_LORA_TEST = 8'd52;  //TODO change address to a free one
+    localparam SR_LORA_TRIG      = 8'd56;
     localparam COMPAT_MAJOR      = 16'h000E;
     localparam COMPAT_MINOR      = 16'h0000;
 
@@ -225,7 +225,7 @@ module b200_core
      (.clk(bus_clk), .rst(bus_rst), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(misc_outs), .changed());
 
-    setting_reg #(.my_addr(SR_CORE_READBACK), .awidth(8), .width(2)) sr_rdback
+    setting_reg #(.my_addr(SR_CORE_READBACK), .awidth(8), .width(3)) sr_rdback
      (.clk(bus_clk), .rst(bus_rst), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out(rb_addr), .changed());
 
@@ -275,16 +275,19 @@ module b200_core
 
     always @*
      case(rb_addr)
-       // 2'd0 : rb_data <= { 32'hACE0BA5E, COMPAT_MAJOR, COMPAT_MINOR };
-       2'd0 : rb_data <= { lora_time_measured_int };
+       2'd0 : rb_data <= { 32'hACE0BA5E, COMPAT_MAJOR, COMPAT_MINOR };
        2'd1 : rb_data <= { 32'b0, spi_readback };
        2'd2 : rb_data <= { 16'b0, radio_st, gpsdo_st, rb_misc };
        2'd3 : rb_data <= { 30'h0, lock_state_r };
+       2'd4 : rb_data <= { 64'hBEEF }; // readback debug
+       2'd5 : rb_data <= { 64'hBEEF }; // readback debug
+       2'd6 : rb_data <= { 64'hBEEF }; // readback debug
+       2'd7 : rb_data <= { lora_time_measured_int };
 
        default : rb_data <= 64'd0;
      endcase // case (rb_addr)
 
-   
+
     /*******************************************************************
      * RX Data mux Routing logic
      ******************************************************************/
@@ -462,7 +465,7 @@ module b200_core
    //
    // Debug
    //
-/* -----\/----- EXCLUDED -----\/-----
+// -----\/----- EXCLUDED -----\/-----
    wire [35:0] CONTROL0;
    reg [15:0]  rx0_i_debug;
    reg [15:0]  rx0_q_debug;
@@ -474,7 +477,7 @@ module b200_core
       rx0_i_debug <= rx0[31:16];
       rx0_q_debug <= rx0[15:0];
       vita_time_debug <= vita_time_lora_int[31:0];
-      lora_trigger_debug <= lora_trigger_int;
+      lora_trigger_debug <= debug_rxd;
    end
 
    chipscope_icon chipscope_icon_i0
