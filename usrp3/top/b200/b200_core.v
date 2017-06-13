@@ -279,11 +279,9 @@ module b200_core
        2'd1 : rb_data <= { 32'b0, spi_readback };
        2'd2 : rb_data <= { 16'b0, radio_st, gpsdo_st, rb_misc };
        2'd3 : rb_data <= { 30'h0, lock_state_r };
-       2'd4 : rb_data <= { 64'hBEEF }; // readback debug
+       2'd4 : rb_data <= { lora_time_measured_int };
        2'd5 : rb_data <= { 64'hBEEF }; // readback debug
        2'd6 : rb_data <= { 64'hBEEF }; // readback debug
-       2'd7 : rb_data <= { lora_time_measured_int };
-
        default : rb_data <= 64'd0;
      endcase // case (rb_addr)
 
@@ -465,7 +463,7 @@ module b200_core
    //
    // Debug
    //
-// -----\/----- EXCLUDED -----\/-----
+/* -----\/----- EXCLUDED -----\/-----
    wire [35:0] CONTROL0;
    reg [15:0]  rx0_i_debug;
    reg [15:0]  rx0_q_debug;
