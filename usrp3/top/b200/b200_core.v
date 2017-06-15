@@ -237,10 +237,6 @@ module b200_core
      (.clk(bus_clk), .rst(bus_rst), .strobe(set_stb), .addr(set_addr), .in(set_data),
       .out({time_sync,pps_select}), .changed());
 
-    // setting_reg #(.my_addr(SR_CORE_LORA_TEST), .awidth(8), .width(3)) sr_lora
-    //  (.clk(bus_clk), .rst(bus_rst), .strobe(set_stb), .addr(set_addr), .in(set_data),
-    //   .out({lora_deadend}), .changed());
-
     synchronizer time_sync_synchronizer
      (.clk(radio_clk), .rst(radio_rst), .in(time_sync), .out(time_sync_r));
 
@@ -257,6 +253,7 @@ module b200_core
 
     (* dont_touch = "true" *) wire [63:0] vita_time_lora_int;
     (* dont_touch = "true" *) wire [63:0] lora_time_measured_int;
+    (* dont_touch = "true" *) wire [63:0] lora_debug_int;
 
     (* dont_touch = "true" *) lora_detect lora0 (
                       .radio_clk(radio_clk),
@@ -269,6 +266,7 @@ module b200_core
                       .addr(set_addr),
                       .data(set_data),
                       .strobe(set_stb),
+                      .chipscope_o(lora_debug_int),
                       .lora_time_measured_o(lora_time_measured_int)
                        );
 
@@ -384,8 +382,8 @@ module b200_core
    ) radio_1 (
       .radio_clk(radio_clk), .radio_rst(radio_rst),
       .rx(rx1), .tx(tx1), .pps(pps), .time_sync(time_sync_r),
-      .fe_gpio_in(32'h00000000), .fe_gpio_out(fe1_gpio_out32), .fe_gpio_ddr(/* Always assumed to be outputs */),  
-      .fp_gpio_in(32'h00000000), .fp_gpio_out(), .fp_gpio_ddr(),  
+      .fe_gpio_in(32'h00000000), .fe_gpio_out(fe1_gpio_out32), .fe_gpio_ddr(/* Always assumed to be outputs */),
+      .fp_gpio_in(32'h00000000), .fp_gpio_out(), .fp_gpio_ddr(),
       .bus_clk(bus_clk), .bus_rst(bus_rst),
       .tx_tdata(r1_tx_tdata), .tx_tlast(r1_tx_tlast), .tx_tvalid(r1_tx_tvalid), .tx_tready(r1_tx_tready),
       .rx_tdata(r1_rx_tdata), .rx_tlast(r1_rx_tlast),  .rx_tvalid(r1_rx_tvalid), .rx_tready(r1_rx_tready),
@@ -463,7 +461,7 @@ module b200_core
    //
    // Debug
    //
-/* -----\/----- EXCLUDED -----\/-----
+// -----\/----- EXCLUDED -----\/-----
    wire [35:0] CONTROL0;
    reg [15:0]  rx0_i_debug;
    reg [15:0]  rx0_q_debug;
@@ -471,12 +469,12 @@ module b200_core
    reg         lora_trigger_debug;
 
    // TODO choose a bether clock
-   always @(posedge bus_clk) begin
-      rx0_i_debug <= rx0[31:16];
-      rx0_q_debug <= rx0[15:0];
-      vita_time_debug <= vita_time_lora_int[31:0];
-      lora_trigger_debug <= debug_rxd;
-   end
+//   always @(posedge bus_clk) begin
+//      rx0_i_debug <= rx0[31:16];
+//      rx0_q_debug <= rx0[15:0];
+//      vita_time_debug <= vita_time_lora_int[31:0];
+//      lora_trigger_debug <= debug_rxd;
+//   end
 
    chipscope_icon chipscope_icon_i0
      (
@@ -489,12 +487,11 @@ module b200_core
       .CLK(bus_clk), // IN
       .TRIG0(
 	     {
-          rx0_1_debug,
-          //rx0_q_debug,
-          vita_time_lora_debug,
-          lora_trigger_debug
-	      }
-	     )
+         lora_time_measured_int[31:0],
+         vita_time_lora_int[31:0],
+         lora_debug_int
+	     }
+	    )
 
       );
   //  -----/\----- EXCLUDED -----/\----- */
