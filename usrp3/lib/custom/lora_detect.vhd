@@ -1,17 +1,23 @@
 -------------------------------------------------------------------------------
--- 
--- Company      : HESSO - hepia - ITI
---
--- Project Name : Travail de bachelor 
---
--- Author       : Sebastien Chassot (sebastien.chassot@etu.hesge.ch)
---
--- Create Date  : 17 may 2017
---
--- Explication  : This module detect a LoRa packet in a stream of data from an
---                ADC and timestamp it.
---
---
+-- Title      : LoRa core
+-- Project    : Travail de bachelor
+-------------------------------------------------------------------------------
+-- File       : lora_detect.vhd
+-- Author     :   <seba@t440p>
+-- Company    : HESSO - hepia - ITI
+-- Created    : 2017-06-18
+-- Last update: 2017-06-18
+-- Platform   :
+-- Standard   : VHDL'93/02
+-------------------------------------------------------------------------------
+-- Description: This module detect a LoRa packet in a stream of data from an
+--              ADC and timestamp it.
+-------------------------------------------------------------------------------
+-- Copyright (c) 2017 
+-------------------------------------------------------------------------------
+-- Revisions  :
+-- Date        Version  Author  Description
+-- 2017-05-17  1.0      seba	Created
 -------------------------------------------------------------------------------
 
 
@@ -53,12 +59,12 @@ architecture lora_detect_behav of lora_detect is
   ------------------------------------
   -- Components
   ------------------------------------
-  component ext_event_trigger is
+  component gen_event_trigger is
     port (
       clk       : in std_logic;
       rst       : in std_logic;
       trigger_i : in std_logic);
-  end component ext_event_trigger;
+  end component gen_event_trigger;
 
   component setting_reg_vhdl_wrapper is
     port (
@@ -70,33 +76,18 @@ architecture lora_detect_behav of lora_detect is
       data_out : out std_logic_vector(31 downto 0));
   end component setting_reg_vhdl_wrapper;
 
-  -- component chipscope_icon is
-  --   port (
-  --     control0 : inout std_logic_vector(35 downto 0));  -- INOUT BUS
-  -- end component chipscope_icon;
-
-  -- component chipscope_ila_128 is
-  --   port (
-  --     control : inout std_logic_vector(35 downto 0);
-  --     clk     : in    std_logic;                        -- clock in
-  --     trig0   : in    std_logic_vector(127 downto 0));  -- ports in
-  -- end component chipscope_ila_128;
-
 
   -------------------------------------------------------
   -- signals
   -------------------------------------------------------
-  signal sr0_value_int     : std_logic_vector(31 downto 0); -- setting register value
-  signal sr0_value_nxt_int : std_logic_vector(31 downto 0); -- setting register value
+  signal sr0_value_int          : std_logic_vector(31 downto 0);  -- setting register value
+  signal sr0_value_nxt_int      : std_logic_vector(31 downto 0);  -- setting register value
 
-  signal save_time_int    : std_logic := '0';  -- enable measure
-  signal soft_trigger_int : std_logic := '0';  -- lora detected
-  signal ext_trigger_int  : std_logic := '0';  -- trigger rising edge
-  signal lora_trigger_int : std_logic := '0';  -- trigger rising edge
+  signal save_time_int          : std_logic := '0';  -- enable measure
+  signal gen_soft_trigger_int   : std_logic;         -- lora detected
+  signal gen_uart_trigger_int   : std_logic;         -- trigger rising edge
+  signal gen_lora_trigger_int   : std_logic := '0';  -- trigger rising edge
 
-  -- chipscope signals
-  -- signal control0 : std_logic_vector(35 downto 0);  -- chipscope control
-  -- signal debug_int : std_logic_vector(31 downto 0) := (others => '0');  -- chipscope
 
 begin  -- architecture lora_detect_behav
 
@@ -116,17 +107,37 @@ begin  -- architecture lora_detect_behav
   -- Enable register vita time
   -- combinational
   --------------------------------
-  save_time_int <= lora_trigger_int or soft_trigger_int or ext_trigger_int;
+  save_time_int <= gen_lora_trigger_int or gen_soft_trigger_int or gen_uart_trigger_int;
 
   -----------------------------------
-  -- instance "ext_event_trigger_1"
+  -- instance "gen_event_trigger_1"
   -----------------------------------
-  ext_event_trigger_1 : entity work.ext_event_trigger
+  gen_uart_trigger_1 : entity work.gen_event_trigger
     port map (
       clk       => bus_clk,
       rst       => rst,
       trigger_i => trigger_i,
-      trigger_o => ext_trigger_int);
+      trigger_o => gen_uart_trigger_int);
+
+  -----------------------------------
+  -- instance "gen_soft_trigger_1"
+  -----------------------------------
+  gen_soft_trigger_1 : entity work.gen_event_trigger
+    port map (
+      clk       => bus_clk,
+      rst       => rst,
+      trigger_i => sr0_value_int(0),
+      trigger_o => gen_soft_trigger_int);
+
+  -----------------------------------
+  -- instance "gen_lora_trigger_1"
+  -----------------------------------
+  -- gen_lora_trigger_1 : entity work.gen_event_trigger
+  --   port map (
+  --     clk       => bus_clk,
+  --     rst       => rst,
+  --     trigger_i => lora_i,
+  --     trigger_o => gen_lora_trigger_int);
 
   ----------------------------------------
   -- purpose: one cycle only trigger
@@ -134,16 +145,16 @@ begin  -- architecture lora_detect_behav
   -- inputs : bus_clk, rst, sr0_value_int
   -- outputs: one pulse when register ==0x1
   ----------------------------------------
-  software_trig : process (bus_clk, rst) is
-  begin  -- process measure
-    if rst = '1' then                   -- asynchronous reset (active low)
-      --sr0_value_int <= (others => '0');
-    elsif rising_edge(bus_clk) then     -- rising clock edge
-      sr0_value_nxt_int <= sr0_value_int;
-    end if;
-  end process software_trig;
+  -- software_trig : process (bus_clk, rst) is
+  -- begin  -- process measure
+  --   if rst = '1' then                   -- asynchronous reset (active low)
+  --   --sr0_value_int <= (others => '0');
+  --   elsif rising_edge(bus_clk) then     -- rising clock edge
+  --     sr0_value_nxt_int <= sr0_value_int;
+  --   end if;
+  -- end process software_trig;
 
-  soft_trigger_int <= '1' when sr0_value_nxt_int(0) = '0' and sr0_value_int(0) = '1' else '0';
+  -- gen_soft_trigger_int <= '1' when sr0_value_nxt_int(0) = '0' and sr0_value_int(0) = '1' else '0';
 
 ----------------------------------------
 -- purpose: timestamp register
@@ -153,7 +164,7 @@ begin  -- architecture lora_detect_behav
 ----------------------------------------
   measure : process (bus_clk, rst) is
   begin  -- process measure
-    if rst = '1' then                   -- asynchronous reset (active low)
+    if rst = '0' then                   -- asynchronous reset (active low)
       lora_time_measured_o <= (others => '0');
     elsif rising_edge(bus_clk) then     -- rising clock edge
       if save_time_int = '1' then
@@ -165,18 +176,6 @@ begin  -- architecture lora_detect_behav
 --------------------------------------
 -- Debug with chipscope
 --------------------------------------
-  chipscope_o <= (rx_q & rx_i & "0000" & ext_trigger_int & trigger_i & soft_trigger_int & lora_trigger_int & sr0_value_int(15 downto 0) & addr);
-
--- lora_time_measured_o <= debug_measure_int;
-
--- chipscope_icon_1 : entity work.chipscope_icon
---   port map (
---     control0 => control0);
-
--- chipscope_ila_128_1 : entity work.chipscope_ila_128
---   port map (
---     control => control0,
---     clk     => bus_clk,
---     trig0   => ext_trigger_int);
+  chipscope_o <= ( rx_q & rx_i & "000000000" & strobe & rst & save_time_int & gen_lora_trigger_int & gen_soft_trigger_int & gen_uart_trigger_int & trigger_i & sr0_value_int(7 downto 0) & addr);
 
 end architecture lora_detect_behav;

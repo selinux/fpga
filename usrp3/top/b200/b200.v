@@ -26,9 +26,9 @@ module b200 (
    // By default these provide an FX3 UART console output. Under compile time control they can alternatively
    // provide 2 (1.8V) GPIO pins which are logically bits [9:8] of the fp_gpio bus.
    // Used as a UART RXD is an input and TXD an output electrically.
-  // input 	 FPGA_RXD0, // These pins goto 3 pin 0.1" header on B2x0 and
+   input 	 FPGA_RXD0, // These pins goto 3 pin 0.1" header on B2x0 and
   // output 	 FPGA_TXD0, // carry FX3 UART.
-   inout 	 FPGA_RXD0, // These pins goto 3 pin 0.1" header J400 on B2x0 and
+  // inout 	 FPGA_RXD0, // These pins goto 3 pin 0.1" header J400 on B2x0 and
    inout 	 FPGA_TXD0, // carry FX3 UART.
 
    // Catalina Controls

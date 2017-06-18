@@ -28,7 +28,7 @@ module radio_legacy
    input [63:0]  ctrl_tdata, input ctrl_tlast, input ctrl_tvalid, output ctrl_tready,
    output [63:0] resp_tdata, output resp_tlast, output resp_tvalid, input resp_tready,
 
-   output [63:0] vita_time_lora,
+   //output [63:0] vita_time_lora,
 
    output reg [63:0] vita_time_b,
 
@@ -233,8 +233,8 @@ endgenerate
     axi_fifo_2clk #(.WIDTH(64), .SIZE(0)) vita_time_fifo
      (.reset(radio_rst),
       .i_aclk(radio_clk), .i_tvalid(1'b1), .i_tready(), .i_tdata(vita_time),
-//      .o_aclk(bus_clk), .o_tvalid(vita_time_b_valid), .o_tready(1'b1), .o_tdata(vita_time_b_int));
-      .o_aclk(bus_clk), .o_tvalid(vita_time_b_valid), .o_tready(1'b1), .o_tdata(vita_time_lora));   
+      .o_aclk(bus_clk), .o_tvalid(vita_time_b_valid), .o_tready(1'b1), .o_tdata(vita_time_b_int));
+//      .o_aclk(bus_clk), .o_tvalid(vita_time_b_valid), .o_tready(1'b1), .o_tdata(vita_time_lora));   
 
    always @(posedge bus_clk)
      if (vita_time_b_valid)

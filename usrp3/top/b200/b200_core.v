@@ -2,17 +2,6 @@
 // Copyright 2013-14 Ettus Research LLC
 //
 
-//module lora_detect (
-//                      input radio_clk,
-//                      input bus_clk,
-//                      input rx_i,
-//                      input rx_q,
-//                      input vita_time,
-//                      output lora_trigger_out
-//      );
-//endmodule // lora_detect
-
-
 /***********************************************************
  * B200 Core Guts
  **********************************************************/
@@ -356,7 +345,7 @@ module b200_core
       .rx_tdata(r0_rx_tdata), .rx_tlast(r0_rx_tlast),  .rx_tvalid(r0_rx_tvalid), .rx_tready(r0_rx_tready),
       .ctrl_tdata(r0_ctrl_tdata), .ctrl_tlast(r0_ctrl_tlast),  .ctrl_tvalid(r0_ctrl_tvalid), .ctrl_tready(r0_ctrl_tready),
       .resp_tdata(r0_resp_tdata), .resp_tlast(r0_resp_tlast),  .resp_tvalid(r0_resp_tvalid), .resp_tready(r0_resp_tready),
-      .vita_time_lora(vita_time_lora_int),
+      .vita_time_b(vita_time_lora_int),
       .debug(radio0_debug)
    );
 
@@ -487,6 +476,7 @@ module b200_core
       .CLK(bus_clk), // IN
       .TRIG0(
 	     {
+        // lora_time_measured_int[31:0],
          lora_time_measured_int[31:0],
          vita_time_lora_int[31:0],
          lora_debug_int
