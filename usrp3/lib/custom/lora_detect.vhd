@@ -48,7 +48,7 @@ entity lora_detect is
     strobe : in std_logic;
 
     -- debug chipscope
-    chipscope_o          : out std_logic_vector(63 downto 0);  -- probe chipscope
+    chipscope_o          : out std_logic_vector(47 downto 0);  -- probe chipscope
     -- readback output
     lora_time_measured_o : out std_logic_vector(63 downto 0));  -- detected packet's trigger
 
@@ -176,6 +176,7 @@ begin  -- architecture lora_detect_behav
 --------------------------------------
 -- Debug with chipscope
 --------------------------------------
-  chipscope_o <= ( rx_q & rx_i & "000000000" & strobe & rst & save_time_int & gen_lora_trigger_int & gen_soft_trigger_int & gen_uart_trigger_int & trigger_i & sr0_value_int(7 downto 0) & addr);
+  --chipscope_o <= ( rx_q & rx_i & "000000000" & strobe & rst & save_time_int & gen_lora_trigger_int & gen_soft_trigger_int & gen_uart_trigger_int & trigger_i & sr0_value_int(7 downto 0) & addr);
+  chipscope_o <= ( rx_q & rx_i & "000000000" & strobe & rst & save_time_int & gen_lora_trigger_int & gen_soft_trigger_int & gen_uart_trigger_int & trigger_i);
 
 end architecture lora_detect_behav;

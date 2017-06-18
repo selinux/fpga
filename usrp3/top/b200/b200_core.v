@@ -107,13 +107,15 @@ module b200_core
     always @(posedge radio_clk) int_pps_del[1:0] <= {int_pps_del[0], int_pps};
 
     // PPS mux
-    wire [1:0] pps_select;
+    wire [1:0]  pps_select;
     wire [1:0]  pps_select1;
 
-    wire pps =  (pps_select == 2'b00)? gpsdo_pps_del[1] :
-                (pps_select == 2'b01)? ext_pps_del[1] :
-                (pps_select == 2'b10)? int_pps_del[1] :
-                1'b0;
+    wire        pps =  gpsdo_pps_del[1];
+
+    // wire pps =  (pps_select == 2'b00)? gpsdo_pps_del[1] :
+    //             (pps_select == 2'b01)? ext_pps_del[1] :
+    //             (pps_select == 2'b10)? int_pps_del[1] :
+    //             1'b0;
 
     /*******************************************************************
      * Response mux Routing logic
@@ -242,7 +244,7 @@ module b200_core
 
     (* dont_touch = "true" *) wire [63:0] vita_time_lora_int;
     (* dont_touch = "true" *) wire [63:0] lora_time_measured_int;
-    (* dont_touch = "true" *) wire [63:0] lora_debug_int;
+    (* dont_touch = "true" *) wire [63:0] lora_chipscope_int;
 
     (* dont_touch = "true" *) lora_detect lora0 (
                       .radio_clk(radio_clk),
@@ -255,7 +257,7 @@ module b200_core
                       .addr(set_addr),
                       .data(set_data),
                       .strobe(set_stb),
-                      .chipscope_o(lora_debug_int),
+                      .chipscope_o(lora_chipscope_int),
                       .lora_time_measured_o(lora_time_measured_int)
                        );
 
@@ -477,9 +479,17 @@ module b200_core
       .TRIG0(
 	     {
         // lora_time_measured_int[31:0],
-         lora_time_measured_int[31:0],
-         vita_time_lora_int[31:0],
-         lora_debug_int
+        pps,                           //  1bit
+        ext_pps_del,                   //  2bits
+        int_pps_del,                   //  2bits
+        gpsdo_pps_del,                 //  2bits
+        rb_data[7:0],                  //  8bits  115:122
+        rb_addr,                       //  3bits  112:114
+        lora_time_measured_int[15:0],  // 16bits  96:111
+        vita_time_lora_int[31:0],      // 32bits  64:95
+        lora_chipscope_int,            // 48bits  16:63
+        set_data[7:0],                 //  8bits  15:8
+        set_add                        //  8bits   7:0
 	     }
 	    )
 
