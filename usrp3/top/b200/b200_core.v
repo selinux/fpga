@@ -111,7 +111,6 @@ module b200_core
     wire [1:0]  pps_select1;
 
     wire        pps =  gpsdo_pps_del[1];
-
     // wire pps =  (pps_select == 2'b00)? gpsdo_pps_del[1] :
     //             (pps_select == 2'b01)? ext_pps_del[1] :
     //             (pps_select == 2'b10)? int_pps_del[1] :
@@ -244,7 +243,8 @@ module b200_core
 
     (* dont_touch = "true" *) wire [63:0] vita_time_lora_int;
     (* dont_touch = "true" *) wire [63:0] lora_time_measured_int;
-    (* dont_touch = "true" *) wire [63:0] lora_chipscope_int;
+    (* dont_touch = "true" *) wire [7:0]  lora_chipscope0_int;
+    (* dont_touch = "true" *) wire [31:0] lora_chipscope1_int;
 
     (* dont_touch = "true" *) lora_detect lora0 (
                       .radio_clk(radio_clk),
@@ -257,7 +257,8 @@ module b200_core
                       .addr(set_addr),
                       .data(set_data),
                       .strobe(set_stb),
-                      .chipscope_o(lora_chipscope_int),
+                      .chipscope0_o(lora_chipscope0_int),
+                      .chipscope1_o(lora_chipscope1_int),
                       .lora_time_measured_o(lora_time_measured_int)
                        );
 
@@ -478,21 +479,39 @@ module b200_core
       .CLK(bus_clk), // IN
       .TRIG0(
 	     {
-        // lora_time_measured_int[31:0],
+        rb_data[7:0],                  //  8bits  115:122
+        rb_addr,                       //  3bits  112:114
+        set_data[7:0],                 //  8bits  15:8
+        set_addr,                      //  8bits   7:0
+        lora_chipscope_bus_int            //  8bits
+	     })
+      );
+
+		   chipscope_icon chipscope_icon_i1
+     (
+      .CONTROL0(CONTROL0) // INOUT BUS [35:0]
+      );
+
+   chipscope_ila_128 chipscope_ila_i1
+     (
+      .CONTROL(CONTROL0), // INOUT BUS [35:0]
+      .CLK(radio_clk), // IN
+      .TRIG0(
+	     {
+        lora_chipscope1_int,           // rx_i,rx_q
+        lora_time_measured_int[23:0],  // 24bits  96:111
+        vita_time_lora_int[23:0],      // 24bits  64:95
+        rb_data[7:0],                  //  8bits  115:122
+        rb_addr,                       //  3bits  112:114
+        set_data[7:0],                 //  8bits  15:8
+        set_addr,                      //  8bits   7:0
+        pps,                           //  1bit
         pps,                           //  1bit
         ext_pps_del,                   //  2bits
         int_pps_del,                   //  2bits
         gpsdo_pps_del,                 //  2bits
-        rb_data[7:0],                  //  8bits  115:122
-        rb_addr,                       //  3bits  112:114
-        lora_time_measured_int[15:0],  // 16bits  96:111
-        vita_time_lora_int[31:0],      // 32bits  64:95
-        lora_chipscope_int,            // 48bits  16:63
-        set_data[7:0],                 //  8bits  15:8
-        set_add                        //  8bits   7:0
-	     }
-	    )
-
+        lora_chipscope0_int            //  8bits
+	     })
       );
   //  -----/\----- EXCLUDED -----/\----- */
 endmodule // b200_core

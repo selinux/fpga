@@ -6,7 +6,7 @@
 -- Author     :   <seba@t440p>
 -- Company    : HESSO - hepia - ITI
 -- Created    : 2017-06-18
--- Last update: 2017-06-18
+-- Last update: 2017-06-20
 -- Platform   :
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -17,7 +17,7 @@
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date        Version  Author  Description
--- 2017-05-17  1.0      seba	Created
+-- 2017-05-17  1.0      seba  Created
 -------------------------------------------------------------------------------
 
 
@@ -48,7 +48,8 @@ entity lora_detect is
     strobe : in std_logic;
 
     -- debug chipscope
-    chipscope_o          : out std_logic_vector(47 downto 0);  -- probe chipscope
+    chipscope_bus_o     : out std_logic_vector(5 downto 0);  -- probe chipscope
+    chipscope_radio_o   : out std_logic_vector(33 downto 0);  -- probe chipscope
     -- readback output
     lora_time_measured_o : out std_logic_vector(63 downto 0));  -- detected packet's trigger
 
@@ -80,13 +81,13 @@ architecture lora_detect_behav of lora_detect is
   -------------------------------------------------------
   -- signals
   -------------------------------------------------------
-  signal sr0_value_int          : std_logic_vector(31 downto 0);  -- setting register value
-  signal sr0_value_nxt_int      : std_logic_vector(31 downto 0);  -- setting register value
+  signal sr0_value_int     : std_logic_vector(31 downto 0);  -- setting register value
+  signal sr0_value_nxt_int : std_logic_vector(31 downto 0);  -- setting register value
 
-  signal save_time_int          : std_logic := '0';  -- enable measure
-  signal gen_soft_trigger_int   : std_logic;         -- lora detected
-  signal gen_uart_trigger_int   : std_logic;         -- trigger rising edge
-  signal gen_lora_trigger_int   : std_logic := '0';  -- trigger rising edge
+  signal save_time_int        : std_logic := '0';  -- enable measure
+  signal gen_soft_trigger_int : std_logic;         -- lora detected
+  signal gen_uart_trigger_int : std_logic;         -- trigger rising edge
+  signal gen_lora_trigger_int : std_logic := '0';  -- trigger rising edge
 
 
 begin  -- architecture lora_detect_behav
@@ -114,7 +115,7 @@ begin  -- architecture lora_detect_behav
   -----------------------------------
   gen_uart_trigger_1 : entity work.gen_event_trigger
     port map (
-      clk       => bus_clk,
+      clk       => radio_clk,
       rst       => rst,
       trigger_i => trigger_i,
       trigger_o => gen_uart_trigger_int);
@@ -162,11 +163,11 @@ begin  -- architecture lora_detect_behav
 -- inputs : bus_clk, rst, en_measure_int
 -- outputs: measured_time
 ----------------------------------------
-  measure : process (bus_clk, rst) is
+  measure : process (radio_clk, rst) is
   begin  -- process measure
     if rst = '0' then                   -- asynchronous reset (active low)
       lora_time_measured_o <= (others => '0');
-    elsif rising_edge(bus_clk) then     -- rising clock edge
+    elsif rising_edge(radio_clk) then   -- rising clock edge
       if save_time_int = '1' then
         lora_time_measured_o <= vita_time;
       end if;
@@ -177,6 +178,14 @@ begin  -- architecture lora_detect_behav
 -- Debug with chipscope
 --------------------------------------
   --chipscope_o <= ( rx_q & rx_i & "000000000" & strobe & rst & save_time_int & gen_lora_trigger_int & gen_soft_trigger_int & gen_uart_trigger_int & trigger_i & sr0_value_int(7 downto 0) & addr);
-  chipscope_o <= ( rx_q & rx_i & "000000000" & strobe & rst & save_time_int & gen_lora_trigger_int & gen_soft_trigger_int & gen_uart_trigger_int & trigger_i);
+  chipscope_bus_o <= ('0' & strobe & rst & save_time_int & gen_lora_trigger_int & gen_soft_trigger_int);
+  chipscope_radio_o <= (rx_q & rx_i & gen_uart_trigger_int & trigger_i);
 
+-- 4 pps avant et aprs mux            (4bits)
+-- strobe, rst, soft_trig, save, uart  (4bits)
+-- rx i/q                             (32bits)
+-- rb_data et set_data[7:0]           (16bits)
+-- set_addr et rb_addr                (16bits)
+-- vita[31:0] et vita_reg[31:0]       (64bits)
+-- 
 end architecture lora_detect_behav;
