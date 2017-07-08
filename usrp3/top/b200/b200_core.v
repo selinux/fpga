@@ -16,15 +16,15 @@ module b200_core
     parameter DEMUX_SID_MASK = 8'hf0,
     parameter EXTRA_BUFF_SIZE = 0,
     parameter RADIO_FIFO_SIZE = 12,
-    parameter SAMPLE_FIFO_SIZE = 11
-
+    parameter SAMPLE_FIFO_SIZE = 11,
+    parameter CHIPSCOPE = 0
 )
 (
     ////////////////////////////////////////////////////////////////////
     // bus interfaces
     ////////////////////////////////////////////////////////////////////
-    input 	  bus_clk,
-    input 	  bus_rst,
+    input         bus_clk,
+    input         bus_rst,
 
     input [63:0]  tx_tdata, input tx_tlast, input tx_tvalid, output tx_tready,
     output [63:0] rx_tdata, output rx_tlast, output rx_tvalid, input rx_tready,
@@ -34,20 +34,25 @@ module b200_core
     ////////////////////////////////////////////////////////////////////
     // radio interfaces
     ////////////////////////////////////////////////////////////////////
-    input 	  radio_clk,
-    input 	  radio_rst,
+    input         radio_clk,
+    input         radio_rst,
 
     input [31:0]  rx0, input [31:0] rx1,
     output [31:0] tx0, output [31:0] tx1,
-    output [7:0] fe0_gpio_out, output [7:0] fe1_gpio_out,
-    input [9:0] fp_gpio_in, output [9:0] fp_gpio_out, output [9:0] fp_gpio_ddr,
-    input 	  pps_int, input pps_ext,
+    output [7:0]  fe0_gpio_out, output [7:0] fe1_gpio_out,
+    input [9:0]   fp_gpio_in, output [9:0] fp_gpio_out, output [9:0] fp_gpio_ddr,
+    input         pps_int, input pps_ext,
 
     ////////////////////////////////////////////////////////////////////
     // gpsdo uart
     ////////////////////////////////////////////////////////////////////
-    input 	  rxd,
-    output 	  txd,
+    input         rxd,
+    output        txd,
+
+    ////////////////////////////////////////////////////////////////////
+    // LED output
+    ////////////////////////////////////////////////////////////////////
+    output        led_lora,
 
     ////////////////////////////////////////////////////////////////////
     // core interfaces
@@ -58,13 +63,13 @@ module b200_core
     ////////////////////////////////////////////////////////////////////
     // debug UART
     ////////////////////////////////////////////////////////////////////
-    output debug_txd, input debug_rxd,
-    input debug_scl, input debug_sda,
+    output        debug_txd, input debug_rxd,
+    input         debug_scl, input debug_sda,
 
     ////////////////////////////////////////////////////////////////////
     // fe lock signals
     ////////////////////////////////////////////////////////////////////
-    input [1:0] lock_signals,
+    input [1:0]   lock_signals,
 
     ////////////////////////////////////////////////////////////////////
     // debug signals
@@ -243,8 +248,9 @@ module b200_core
 
     (* dont_touch = "true" *) wire [63:0] vita_time_lora_int;
     (* dont_touch = "true" *) wire [63:0] lora_time_measured_int;
-    (* dont_touch = "true" *) wire [7:0]  lora_chipscope0_int;
-    (* dont_touch = "true" *) wire [31:0] lora_chipscope1_int;
+    (* dont_touch = "true" *) wire [103:0] lora_chipscope_b_int;
+    (* dont_touch = "true" *) wire [34:0] lora_chipscope_r_int;
+    // (* dont_touch = "true" *) wire lora_trig_int;
 
     (* dont_touch = "true" *) lora_detect lora0 (
                       .radio_clk(radio_clk),
@@ -257,8 +263,9 @@ module b200_core
                       .addr(set_addr),
                       .data(set_data),
                       .strobe(set_stb),
-                      .chipscope0_o(lora_chipscope0_int),
-                      .chipscope1_o(lora_chipscope1_int),
+                      //.lora_trig_o(lora_trig_int),
+                      .lora_trig_o(debug_txd),
+                      .chipscope_bus_o(lora_chipscope_b_int),
                       .lora_time_measured_o(lora_time_measured_int)
                        );
 
@@ -336,19 +343,21 @@ module b200_core
       .NEW_HB_INTERP(1),
       .NEW_HB_DECIM(1),
       .SOURCE_FLOW_CONTROL(0),
-      .USER_SETTINGS(0),
-      .DEVICE("SPARTAN6")
+      .USER_SETTINGS(1),
+      .DEVICE("SPARTAN6"),
+      .CHIPSCOPE(0)
    ) radio_0 (
       .radio_clk(radio_clk), .radio_rst(radio_rst),
-      .rx(rx0), .tx(tx0), .pps(pps), .time_sync(time_sync_r),
-      .fe_gpio_in(32'h00000000), .fe_gpio_out(fe0_gpio_out32), .fe_gpio_ddr(/* Always assumed to be outputs */),  
-      .fp_gpio_in(fp_gpio_in), .fp_gpio_out(fp_gpio_out), .fp_gpio_ddr(fp_gpio_ddr),  
+      .rx(rx0), .tx(tx0), .lora_trig_i(lora_trig_int), .pps(pps), .time_sync(time_sync_r),
+      .fe_gpio_in(32'h00000000), .fe_gpio_out(fe0_gpio_out32), .fe_gpio_ddr(/* Always assumed to be outputs */),
+      .fp_gpio_in(fp_gpio_in), .fp_gpio_out(fp_gpio_out), .fp_gpio_ddr(fp_gpio_ddr),
       .bus_clk(bus_clk), .bus_rst(bus_rst),
       .tx_tdata(r0_tx_tdata), .tx_tlast(r0_tx_tlast), .tx_tvalid(r0_tx_tvalid), .tx_tready(r0_tx_tready),
       .rx_tdata(r0_rx_tdata), .rx_tlast(r0_rx_tlast),  .rx_tvalid(r0_rx_tvalid), .rx_tready(r0_rx_tready),
       .ctrl_tdata(r0_ctrl_tdata), .ctrl_tlast(r0_ctrl_tlast),  .ctrl_tvalid(r0_ctrl_tvalid), .ctrl_tready(r0_ctrl_tready),
       .resp_tdata(r0_resp_tdata), .resp_tlast(r0_resp_tlast),  .resp_tvalid(r0_resp_tvalid), .resp_tready(r0_resp_tready),
-      .vita_time_b(vita_time_lora_int),
+      .vita_time_lora(vita_time_lora_int),
+      .vita_time_b(),
       .debug(radio0_debug)
    );
 
@@ -370,7 +379,8 @@ module b200_core
       .NEW_HB_DECIM(1),
       .SOURCE_FLOW_CONTROL(0),
       .USER_SETTINGS(0),
-      .DEVICE("SPARTAN6")
+      .DEVICE("SPARTAN6"),
+      .CHIPSCOPE(0)
    ) radio_1 (
       .radio_clk(radio_clk), .radio_rst(radio_rst),
       .rx(rx1), .tx(tx1), .pps(pps), .time_sync(time_sync_r),
@@ -446,7 +456,8 @@ module b200_core
       .dat_o(),
       .rx_int_o(),
       .tx_int_o(),
-      .tx_o(debug_txd),
+      //.tx_o(debug_txd),
+      .tx_o(),
       .rx_i(debug_rxd),
       .baud_o()
    );
@@ -454,64 +465,31 @@ module b200_core
    // Debug
    //
 // -----\/----- EXCLUDED -----\/-----
-   wire [35:0] CONTROL0;
-   reg [15:0]  rx0_i_debug;
-   reg [15:0]  rx0_q_debug;
-   reg [31:0]  vita_time_debug;
-   reg         lora_trigger_debug;
+   if (CHIPSCOPE == 1) begin
+       wire [35:0] CONTROL0;
+       wire [35:0] CONTROL1;
+       reg [15:0]  rx0_i_debug;
+       reg [15:0]  rx0_q_debug;
+       reg [31:0]  vita_time_debug;
+       reg         lora_trigger_debug;
 
-   // TODO choose a bether clock
-//   always @(posedge bus_clk) begin
-//      rx0_i_debug <= rx0[31:16];
-//      rx0_q_debug <= rx0[15:0];
-//      vita_time_debug <= vita_time_lora_int[31:0];
-//      lora_trigger_debug <= debug_rxd;
-//   end
+       chipscope_icon chipscope_icon_b0
+         (
+          .CONTROL0(CONTROL0) // INOUT BUS [35:0]
+          );
 
-   chipscope_icon chipscope_icon_i0
-     (
-      .CONTROL0(CONTROL0) // INOUT BUS [35:0]
-      );
-
-   chipscope_ila_128 chipscope_ila_i0
-     (
-      .CONTROL(CONTROL0), // INOUT BUS [35:0]
-      .CLK(bus_clk), // IN
-      .TRIG0(
-	     {
-        rb_data[7:0],                  //  8bits  115:122
-        rb_addr,                       //  3bits  112:114
-        set_data[7:0],                 //  8bits  15:8
-        set_addr,                      //  8bits   7:0
-        lora_chipscope_bus_int            //  8bits
-	     })
-      );
-
-		   chipscope_icon chipscope_icon_i1
-     (
-      .CONTROL0(CONTROL0) // INOUT BUS [35:0]
-      );
-
-   chipscope_ila_128 chipscope_ila_i1
-     (
-      .CONTROL(CONTROL0), // INOUT BUS [35:0]
-      .CLK(radio_clk), // IN
-      .TRIG0(
-	     {
-        lora_chipscope1_int,           // rx_i,rx_q
-        lora_time_measured_int[23:0],  // 24bits  96:111
-        vita_time_lora_int[23:0],      // 24bits  64:95
-        rb_data[7:0],                  //  8bits  115:122
-        rb_addr,                       //  3bits  112:114
-        set_data[7:0],                 //  8bits  15:8
-        set_addr,                      //  8bits   7:0
-        pps,                           //  1bit
-        pps,                           //  1bit
-        ext_pps_del,                   //  2bits
-        int_pps_del,                   //  2bits
-        gpsdo_pps_del,                 //  2bits
-        lora_chipscope0_int            //  8bits
-	     })
-      );
+       chipscope_ila_128 chipscope_ila_b0
+         (
+          .CONTROL(CONTROL0), // INOUT BUS [35:0]
+          .CLK(radio_clk), // IN
+          .TRIG0(
+    	     {
+            vita_time_lora_int,      // 24bits  64:95
+            lora_time_measured_int  // 244bits  96:111
+            //lora_trig_int,
+            //uhd/fpga-src/usrp3/top/b200lora_chipscope_b_int         //  1bit
+    	     })
+          );
+   end
   //  -----/\----- EXCLUDED -----/\----- */
 endmodule // b200_core

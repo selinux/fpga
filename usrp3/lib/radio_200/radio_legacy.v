@@ -15,7 +15,8 @@ module radio_legacy
     parameter NEW_HB_DECIM = 0,
     parameter SOURCE_FLOW_CONTROL = 0,
     parameter USER_SETTINGS = 0,
-    parameter DEVICE = "SPARTAN6"
+    parameter DEVICE = "SPARTAN6",
+    parameter CHIPSCOPE = 0
   )
   (input radio_clk, input radio_rst,
    input [31:0] rx, output reg [31:0] tx,
@@ -23,12 +24,13 @@ module radio_legacy
    input [9:0] fp_gpio_in, output [9:0] fp_gpio_out, output [9:0] fp_gpio_ddr,
    input pps, input time_sync,
    input bus_clk, input bus_rst,
+   input lora_trig_i,
    input [63:0]  tx_tdata, input tx_tlast, input tx_tvalid, output tx_tready,
    output [63:0] rx_tdata, output rx_tlast, output rx_tvalid, input rx_tready,
    input [63:0]  ctrl_tdata, input ctrl_tlast, input ctrl_tvalid, output ctrl_tready,
    output [63:0] resp_tdata, output resp_tlast, output resp_tvalid, input resp_tready,
 
-   //output [63:0] vita_time_lora,
+   output [63:0] vita_time_lora,
 
    output reg [63:0] vita_time_b,
 
@@ -163,7 +165,7 @@ module radio_legacy
       .ready(1'b1), .readback(rb_data),
       .debug(debug_radio_ctrl_proc));
 
-   reg [63:0]     rb_data_user;
+   (* dont_touch = "true" *) reg [63:0]     rb_data_user;
 generate
    if (USER_SETTINGS == 1) begin
       wire           set_stb_user;
@@ -184,18 +186,19 @@ generate
       // Enter user settings registers here
       // ----------------------------------
 
-		//assign vita_time_lora = vita_time;
-      /*
       //Example code for 32-bit settings registers and 64-bit readback registers
 
-      wire [31:0] user_reg_0_value, user_reg_1_value;
+      wire [31:0]    user_reg_0_value;
+      wire [31:0]    user_reg_1_value;
+      wire [7:0]  force_user_reg_0, force_user_reg_1;
+      wire        force_user_stb_reg_0, force_user_stb_reg_1;
 
       setting_reg #(.my_addr(8'd0), .awidth(8), .width(32)) user_reg_0
-        (.clk(radio_clk), .rst(radio_rst), .strobe(set_stb_user), .addr(set_addr_user), .in(set_data_user),
+        (.clk(radio_clk), .rst(radio_rst), .strobe(lora_trig_i), .addr(set_addr_user), .in(vita_time[31:0]),
          .out(user_reg_0_value), .changed());
 
       setting_reg #(.my_addr(8'd1), .awidth(8), .width(32)) user_reg_1
-        (.clk(radio_clk), .rst(radio_rst), .strobe(set_stb_user), .addr(set_addr_user), .in(set_data_user),
+        (.clk(radio_clk), .rst(radio_rst), .strobe(lora_trig_i), .addr(set_addr_user), .in(vita_time[63:32]),
          .out(user_reg_1_value), .changed());
 
       always @* begin
@@ -204,7 +207,6 @@ generate
             default : rb_data_user <= 64'd0;
          endcase
       end
-      */
 
    end else begin    //for USER_SETTINGS == 1
       always @* rb_data_user <= 64'd0;
@@ -234,11 +236,13 @@ endgenerate
      (.reset(radio_rst),
       .i_aclk(radio_clk), .i_tvalid(1'b1), .i_tready(), .i_tdata(vita_time),
       .o_aclk(bus_clk), .o_tvalid(vita_time_b_valid), .o_tready(1'b1), .o_tdata(vita_time_b_int));
-//      .o_aclk(bus_clk), .o_tvalid(vita_time_b_valid), .o_tready(1'b1), .o_tdata(vita_time_lora));   
+//      .o_aclk(bus_clk), .o_tvalid(vita_time_b_valid), .o_tready(1'b1), .o_tdata(vita_time_lora));
 
    always @(posedge bus_clk)
      if (vita_time_b_valid)
        vita_time_b <= vita_time_b_int;
+
+	 assign vita_time_lora = vita_time;
 
    // Set this register to loop TX data directly to RX data.
    setting_reg #(.my_addr(SR_LOOPBACK), .awidth(8), .width(1)) sr_loopback
@@ -483,5 +487,29 @@ endgenerate
     * Debug only logic below here.
     ******************************************************************/
  assign debug = 0;
+
+     if (CHIPSCOPE == 1) begin
+       wire [35:0] CONTROL0;
+
+       chipscope_icon chipscope_icon_b0
+         (
+          .CONTROL0(CONTROL0) // INOUT BUS [35:0]
+          );
+
+       chipscope_ila_128 chipscope_ila_b0
+         (
+          .CONTROL(CONTROL0), // INOUT BUS [35:0]
+          .CLK(radio_clk), // IN
+          .TRIG0(
+    	     {
+            vita_time,
+            user_reg_0_value,
+            //user_reg_1_value,
+            lora_trig_i
+    	     })
+          );
+
+   end
+
 
 endmodule // radio_legacy
