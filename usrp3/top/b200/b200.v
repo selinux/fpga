@@ -8,120 +8,121 @@
  **********************************************************/
 module b200 (
    // SPI Interfaces
-   output 	 cat_ce,
-   input 	 cat_miso,
-   output 	 cat_mosi,
-   output 	 cat_sclk,
+   output        cat_ce,
+   input         cat_miso,
+   output        cat_mosi,
+   output        cat_sclk,
 
-   input 	 fx3_ce,
-   output 	 fx3_miso,
-   input 	 fx3_mosi,
-   input 	 fx3_sclk,
+   input         fx3_ce,
+   output        fx3_miso,
+   input         fx3_mosi,
+   input         fx3_sclk,
 
-   output 	 pll_ce,
-   output 	 pll_mosi,
-   output 	 pll_sclk,
+   output        pll_ce,
+   output        pll_mosi,
+   output        pll_sclk,
+
 
    // UART
    // By default these provide an FX3 UART console output. Under compile time control they can alternatively
    // provide 2 (1.8V) GPIO pins which are logically bits [9:8] of the fp_gpio bus.
    // Used as a UART RXD is an input and TXD an output electrically.
-   input 	 FPGA_RXD0, // These pins goto 3 pin 0.1" header on B2x0 and
-  // output 	 FPGA_TXD0, // carry FX3 UART.
-  // inout 	 FPGA_RXD0, // These pins goto 3 pin 0.1" header J400 on B2x0 and
-   inout 	 FPGA_TXD0, // carry FX3 UART.
+   // input 	 FPGA_RXD0, // These pins goto 3 pin 0.1" header on B2x0 and
+   // output 	 FPGA_TXD0, // carry FX3 UART.
+   inout         FPGA_RXD0, // These pins goto 3 pin 0.1" header J400 on B2x0 and
+   output        FPGA_TXD0, // carry FX3 UART.
 
    // Catalina Controls
-   output 	 codec_enable,
-   output 	 codec_en_agc,
-   output 	 codec_reset,
-   output 	 codec_sync,
-   output 	 codec_txrx,
+   output        codec_enable,
+   output        codec_en_agc,
+   output        codec_reset,
+   output        codec_sync,
+   output        codec_txrx,
    output [3:0]  codec_ctrl_in, // These should be outputs
-   input [7:0] 	 codec_ctrl_out, // MUST BE INPUT
+   input [7:0]   codec_ctrl_out, // MUST BE INPUT
 
    // Catalina Data
-   input 	 codec_data_clk_p, // Clock from CAT (RX)
-   output 	 codec_fb_clk_p, // Clock to CAT (TX)
+   input         codec_data_clk_p, // Clock from CAT (RX)
+   output        codec_fb_clk_p, // Clock to CAT (TX)
    input [11:0]  rx_codec_d,
    output [11:0] tx_codec_d,
-   input 	 rx_frame_p,
-   output 	 tx_frame_p,
+   input         rx_frame_p,
+   output        tx_frame_p,
 
-   input 	 cat_clkout_fpga,
+   input         cat_clkout_fpga,
 
    //always on 40MHz clock
-   input 	 codec_main_clk_p,
-   input 	 codec_main_clk_n,
+   input         codec_main_clk_p,
+   input         codec_main_clk_n,
 
    // Debug Bus
    output [31:0] debug,
    output [1:0]  debug_clk,
 
    // GPIF, FX3 Slave FIFO
-   output 	 IFCLK, // pclk
-   input 	 FX3_EXTINT,
-   output 	 GPIF_CTL0, // n_slcs
-   output 	 GPIF_CTL1, // n_slwr
-   output 	 GPIF_CTL2, // n_sloe
-   output 	 GPIF_CTL3, // n_slrd
-   output 	 GPIF_CTL7, // n_pktend
-   input 	 GPIF_CTL4, // slfifo_flags[0]
-   input 	 GPIF_CTL5, // slfifo_flags[1]
-   input 	 GPIF_CTL6, // Serial settings bus from FX3. SDA
-   input 	 GPIF_CTL8, // Serial settings bus from FX3. SCL
-   output 	 GPIF_CTL11, // slfifo_addr[1]
-   output 	 GPIF_CTL12, // slfifo_addr[0]
+   output        IFCLK, // pclk
+   input         FX3_EXTINT,
+   output        GPIF_CTL0, // n_slcs
+   output        GPIF_CTL1, // n_slwr
+   output        GPIF_CTL2, // n_sloe
+   output        GPIF_CTL3, // n_slrd
+   output        GPIF_CTL7, // n_pktend
+   input         GPIF_CTL4, // slfifo_flags[0]
+   input         GPIF_CTL5, // slfifo_flags[1]
+   input         GPIF_CTL6, // Serial settings bus from FX3. SDA
+   input         GPIF_CTL8, // Serial settings bus from FX3. SCL
+   output        GPIF_CTL11, // slfifo_addr[1]
+   output        GPIF_CTL12, // slfifo_addr[0]
    inout [31:0]  GPIF_D,
-   input 	 GPIF_CTL9, // global_reset
+   input         GPIF_CTL9, // global_reset
 
    // GPS
-   input 	 gps_lock,
-   output 	 gps_rxd,
-   input 	 gps_txd, // FPGA has pullup for unpopulated GPS
-   input 	 gps_txd_nmea, // FPGA has pullup for unpopulated GPS
+   input         gps_lock,
+   output        gps_rxd,
+   input         gps_txd, // FPGA has pullup for unpopulated GPS
+   input         gps_txd_nmea, // FPGA has pullup for unpopulated GPS
 
    // LEDS
-   output 	 LED_RX1,
-   output 	 LED_RX2,
-   output 	 LED_TXRX1_RX,
-   output 	 LED_TXRX1_TX,
-   output 	 LED_TXRX2_RX,
-   output 	 LED_TXRX2_TX,
+   output        LED_RX1,
+   output        LED_RX2,
+   output        LED_TXRX1_RX,
+   output        LED_TXRX1_TX,
+   output        LED_TXRX2_RX,
+   output        LED_TXRX2_TX,
 
    // GPIO Header J504  - 10 pin 0.1" 3.3V.
    // Only present on Rev6 and later boards...these pins unused on Rev5 and earlier.
    // NOTE: These pins are allocated from complimentry pairs and could potentially be used
    // as differential style I/O.
   `ifdef TARGET_B210
-   inout [7:0] 	 fp_gpio,
+   inout [7:0]   fp_gpio,
   `endif
    // Misc Hardware Control
-   output 	 ref_sel,
-   input 	 pll_lock,
-   input 	 FPGA_CFG_CS, // Driven by FX3 gpio.
-   input 	 AUX_PWR_ON, // Driven by FX3 gpio.
+   output        ref_sel,
+   input         pll_lock,
+   input         FPGA_CFG_CS, // Driven by FX3 gpio.
+   input         AUX_PWR_ON, // Driven by FX3 gpio.
 
    // PPS
-   input 	 PPS_IN_EXT,
-   input 	 PPS_IN_INT,
+   input         PPS_IN_EXT,
+   input         PPS_IN_INT,
 
    // RF Hardware Control
-   output 	 SFDX1_RX,
-   output 	 SFDX1_TX,
-   output 	 SFDX2_RX,
-   output 	 SFDX2_TX,
-   output 	 SRX1_RX,
-   output 	 SRX1_TX,
-   output 	 SRX2_RX,
-   output 	 SRX2_TX,
-   output 	 tx_bandsel_a,
-   output 	 tx_bandsel_b,
-   output 	 tx_enable1,
-   output 	 tx_enable2,
-   output 	 rx_bandsel_a,
-   output 	 rx_bandsel_b,
-   output 	 rx_bandsel_c
+   output        SFDX1_RX,
+   output        SFDX1_TX,
+   output        SFDX2_RX,
+   output        SFDX2_TX,
+   output        SRX1_RX,
+   output        SRX1_TX,
+   output        SRX2_RX,
+   output        SRX2_TX,
+   output        tx_bandsel_a,
+   output        tx_bandsel_b,
+   output        tx_enable1,
+   output        tx_enable2,
+   output        rx_bandsel_a,
+   output        rx_bandsel_b,
+   output        rx_bandsel_c
    );
 
     wire reset_global = GPIF_CTL9;
@@ -299,40 +300,40 @@ module b200 (
       .rb_misc({31'b0, pll_lock}), .misc_outs(misc_outs),
 
       .debug_scl(GPIF_CTL8), .debug_sda(GPIF_CTL6),
-`ifdef DEBUG_UART
+//`ifdef DEBUG_UART
       .debug_txd(FPGA_TXD0), .debug_rxd(FPGA_RXD0),
-`else
-      .debug_txd(), .debug_rxd(1'b0),
-`endif
+//`else
+//      .debug_txd(), .debug_rxd(1'b0),
+//`endif
 
       .lock_signals(codec_ctrl_out[7:6]),
       .debug()
    );
 
-`ifdef TARGET_B210
-   `ifdef DEBUG_UART
-      gpio_atr_io #(.WIDTH(8)) gpio_atr_io_inst (   // B210 with UART
-         .clk(radio_clk), .gpio_pins(fp_gpio),
-         .gpio_ddr(fp_gpio_ddr[7:0]), .gpio_out(fp_gpio_out[7:0]), .gpio_in(fp_gpio_in[7:0])
-      );
-      assign fp_gpio_in[9:8] = 2'b00;
-   `else
-      gpio_atr_io #(.WIDTH(10)) gpio_atr_io_inst (  // B210 no UART
-         .clk(radio_clk), .gpio_pins({FPGA_RXD0, FPGA_TXD0, fp_gpio}),
-         .gpio_ddr(fp_gpio_ddr), .gpio_out(fp_gpio_out), .gpio_in(fp_gpio_in)
-      );
-   `endif
-`else
-   `ifdef DEBUG_UART
-      assign fp_gpio_in = 10'h000;                  // B200 with UART
-   `else
-      gpio_atr_io #(.WIDTH(2)) gpio_atr_io_inst (   // B200 no UART
-         .clk(radio_clk), .gpio_pins({FPGA_RXD0, FPGA_TXD0}),
-         .gpio_ddr(fp_gpio_ddr[9:8]), .gpio_out(fp_gpio_out[9:8]), .gpio_in(fp_gpio_in[9:8])
-      );
-      assign fp_gpio_in[7:0] = 8'h00;
-   `endif
-`endif
+// `ifdef TARGET_B210
+//    `ifdef DEBUG_UART
+//       gpio_atr_io #(.WIDTH(8)) gpio_atr_io_inst (   // B210 with UART
+//          .clk(radio_clk), .gpio_pins(fp_gpio),
+//          .gpio_ddr(fp_gpio_ddr[7:0]), .gpio_out(fp_gpio_out[7:0]), .gpio_in(fp_gpio_in[7:0])
+//       );
+//       assign fp_gpio_in[9:8] = 2'b00;
+//    `else
+//       gpio_atr_io #(.WIDTH(10)) gpio_atr_io_inst (  // B210 no UART
+//          .clk(radio_clk), .gpio_pins({FPGA_RXD0, FPGA_TXD0, fp_gpio}),
+//          .gpio_ddr(fp_gpio_ddr), .gpio_out(fp_gpio_out), .gpio_in(fp_gpio_in)
+//       );
+//    `endif
+// `else
+//    `ifdef DEBUG_UART
+//       assign fp_gpio_in = 10'h000;                  // B200 with UART
+//    `else
+//       gpio_atr_io #(.WIDTH(2)) gpio_atr_io_inst (   // B200 no UART
+//          .clk(radio_clk), .gpio_pins({FPGA_RXD0, FPGA_TXD0}),
+//          .gpio_ddr(fp_gpio_ddr[9:8]), .gpio_out(fp_gpio_out[9:8]), .gpio_in(fp_gpio_in[9:8])
+//       );
+//       assign fp_gpio_in[7:0] = 8'h00;
+//    `endif
+// `endif
 
     ///////////////////////////////////////////////////////////////////////
     // GPIF2

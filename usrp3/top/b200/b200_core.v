@@ -17,7 +17,7 @@ module b200_core
     parameter EXTRA_BUFF_SIZE = 0,
     parameter RADIO_FIFO_SIZE = 12,
     parameter SAMPLE_FIFO_SIZE = 11,
-    parameter CHIPSCOPE = 0
+    parameter CHIPSCOPE = 1
 )
 (
     ////////////////////////////////////////////////////////////////////
@@ -248,9 +248,8 @@ module b200_core
 
     (* dont_touch = "true" *) wire [63:0] vita_time_lora_int;
     (* dont_touch = "true" *) wire [63:0] lora_time_measured_int;
-    (* dont_touch = "true" *) wire [103:0] lora_chipscope_b_int;
+    (* dont_touch = "true" *) wire [71:0] lora_chipscope_b_int;
     (* dont_touch = "true" *) wire [34:0] lora_chipscope_r_int;
-    // (* dont_touch = "true" *) wire lora_trig_int;
 
     (* dont_touch = "true" *) lora_detect lora0 (
                       .radio_clk(radio_clk),
@@ -268,7 +267,6 @@ module b200_core
                       .chipscope_bus_o(lora_chipscope_b_int),
                       .lora_time_measured_o(lora_time_measured_int)
                        );
-
 
     always @*
      case(rb_addr)
@@ -484,10 +482,8 @@ module b200_core
           .CLK(radio_clk), // IN
           .TRIG0(
     	     {
-            vita_time_lora_int,      // 24bits  64:95
-            lora_time_measured_int  // 244bits  96:111
-            //lora_trig_int,
-            //uhd/fpga-src/usrp3/top/b200lora_chipscope_b_int         //  1bit
+            debug_txd,
+            lora_chipscope_b_int         //
     	     })
           );
    end
