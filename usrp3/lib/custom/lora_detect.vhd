@@ -6,7 +6,7 @@
 -- Author     :   <seba@t440p>
 -- Company    : HESSO - hepia - ITI
 -- Created    : 2017-06-18
--- Last update: 2017-07-13
+-- Last update: 2017-08-15
 -- Platform   :
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ entity lora_detect is
 
   generic (
     PULSE_LEN   : integer             := 1000000;
-    DISABLE_LEN : integer             := 5000000;
+    DISABLE_LEN : integer             := 50000000;
     COMP_VAL0   : signed(31 downto 0) := To_signed(9000000, 32);  -- comparator value 0
     COMP_VAL1   : signed(31 downto 0) := To_signed(9000000, 32);  -- comparator value 1
     COMP_VAL2   : signed(31 downto 0) := To_signed(16000000, 32);  -- comparator value 2
@@ -193,22 +193,26 @@ begin  -- architecture lora_detect_behav
 
         -- count down
         trigger_disabled_counter <= trigger_disabled_counter - 1;
-        lora_trig_int <= '1';
+        --lora_trig_int <= '1';
 
         -- pulse out for PULSE_LEN
-        -- if trigger_disabled_counter > trigger_disabled_counter - PULSE_LEN then
-        --   lora_trig_int <= '1';
-        -- else
-        --   lora_trig_int <= '0';
-        -- end if;
+        if trigger_disabled_counter > to_unsigned(DISABLE_LEN - PULSE_LEN, 32) then
+          lora_trig_int <= '1';
+        else
+          lora_trig_int <= '0';
+        end if;
+
       else
         lora_trig_int <='0';
+
       end if;
 
     end if;
   end process trig;
 
   lora_trig_o <= lora_trig_int;
+
+
 --------------------------------------
 -- Debug with chipscope
 --------------------------------------
